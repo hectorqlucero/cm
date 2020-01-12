@@ -1,10 +1,6 @@
-# ls
+# CM
 
-A Leiningen template for Lucero Systems web applications.
-
-## Usage
-
-Lein new ls your-project-name
+Ciclistas Mexicali
 
 ## License
 
