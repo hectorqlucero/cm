@@ -1,0 +1,37 @@
+body {
+    font-family:verdana,helvetica,arial,sans-serif;
+    padding:10px;
+    font-size:10px;
+    margin:0;
+}
+h2 {
+    font-size:18px;
+    font-weight:bold;
+    margin:0;
+    margin-bottom:15px;
+}
+.demo-info{
+	padding:0 0 12px 0;
+}
+.demo-tip{
+	display:none;
+}
+.label-top{
+    display: block;
+    height: 22px;
+    line-height: 22px;
+    vertical-align: middle;
+}
+#loader {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(192,192,192, 0.5);
+  background-image: url("/images/loadercm.gif");
+  background-repeat: no-repeat;
+  background-position: center;
+}
