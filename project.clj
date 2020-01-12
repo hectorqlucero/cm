@@ -17,7 +17,7 @@
                  [date-clj "1.0.1"]
                  [org.clojure/java.jdbc "0.7.11"]
                  [org.clojure/data.codec "0.1.1"]
-                 [mysql/mysql-connector-java "8.0.18"]
+                 [mysql/mysql-connector-java "8.0.19"]
                  [ring/ring-devel "1.8.0" :exclusions [commons-codec ring/ring-codec]]
                  [ring/ring-core "1.8.0" :exclusions [ring/ring-codec commons-logging commons-codec]]
                  [ring/ring-anti-forgery "1.3.0"]

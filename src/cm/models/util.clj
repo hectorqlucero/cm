@@ -794,7 +794,11 @@
 
 (defn build-button [options]
   [:div {:style "text-align:center;padding:5px 0"}
-   [:a options]])
+   (if (list? options)
+     (do
+       (for [option options]
+         [:a option]))
+     [:a options])])
 
 (defn build-radio-buttons [label options]
   "Builds radio button fields options has list of build-field options"
@@ -805,7 +809,7 @@
 
 (defn build-form [title token fields buttons & options]
   [:div.easyui-panel {:style "width:100%;
-                              max-width:400px;
+                              max-width:600px;
                               padding:30px 60px;"
                       :title title
                       :data-options "style:{margin:'0 auto'}"}

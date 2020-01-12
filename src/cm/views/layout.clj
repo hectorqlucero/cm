@@ -65,7 +65,7 @@
             :id "center-container"
             :title "<--- Clic para abrir el menu"
             :style "padding;5px;background:#eee"}
-      [:div#content content]]
+      [:div#content {:style "padding:5px;margin-bottom:5px;"} content]]
      (app-js)
      js]))
 

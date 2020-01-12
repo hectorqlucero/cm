@@ -1,6 +1,10 @@
 (ns cm.views.routes.rodadas
   (:require [hiccup.page :refer [include-css
-                                 include-js]]))
+                                 include-js]]
+            [cm.models.util :refer [build-form
+                                    build-field
+                                    build-radio-buttons
+                                    build-button]]))
 
 (defn rodadas-view []
   (list
@@ -35,113 +39,68 @@
     (include-js "fullcalendar/locale-all.js")
     (include-js "/scripts/routes/rodadas_scripts.js")))
 
-(defn asistir-view [title rodadas_id token])
-
-; (defn asistir-view [title rodadas_id token]
-;   [:div.container.col-8
-;    token
-;    [:div#p.easyui-panel {:title title
-;                          :style "width:80%;height:auto;padding:10px;background:#EFEFEF"}
-;     [:form.fm {:enctype "multipart/form-data"
-;                :method  "post"
-;                :style   "width:100%;background-color:#EFEFEF;"}
-;      [:input {:type  "hidden"
-;               :id    "rodadas_id"
-;               :name  "rodadas_id"
-;               :value (str rodadas_id)}]
-;      (build-field
-;       "Nombre:"
-;       {:id           "user"
-;        :name         "user"
-;        :class        "form-control easyui-textbox"
-;        :data-options "required:true,width:'100%'"})
-;      (build-field
-;       "Comentarios:"
-;       {:id           "comentarios"
-;        :name         "comentarios"
-;        :class        "form-control easyui-textbox"
-;        :multiline    "true"
-;        :data-options "required:true,width:'100%'"
-;        :style        "height:120px;"})
-;      (build-field
-;       "Email:"
-;       {:id           "email"
-;        :name         "email"
-;        :class        "form-control easyui-validatebox"
-;        :validType    "email"
-;        :data-options "required:true,width:'100%'"})
-
-;      (build-radio-buttons
-;       "Asistire?"
-;       (list
-;        {:id           "asistir"
-;         :name         "asistir"
-;         :class        "form-control easyui-radiobutton"
-;         :value        "T"
-;         :label        "Si"
-;         :data-options "checked:true"}
-;        {:id           "asistir"
-;         :name         "asistir"
-;         :class        "form-control easyui-radiobutton"
-;         :label        "No"
-;         :value        "F"
-;         :data-options "checked:false"}))
-
-;      (build-button
-;       (list
-;        {:label "Postear"
-;         :id "submitbtn"
-;         :class "easyui-linkbutton c6"
-;         :style "margin-right:5px;margin-bottom:5px;"
-;         :data-options "iconCls:'icon-ok'"
-;         :href "javascript:void(0)"
-;         :onclick "saveData()"}
-;        {:label "Regresar"
-;         :id "regresar"
-;         :class "easyui-linkbutton"
-;         :style "margin-bottom:5px;"
-;         :data-options "iconCls:'icon-back'"
-;         :href "javascript:void(0)"
-;         :onClick "goBack()"}))]]])
+(defn asistir-view [title rodadas_id token]
+  (build-form
+    title
+    token
+    (list
+      (build-field
+        {:id "rodadas_id"
+         :name "rodadas_id"
+         :type "hidden"
+         :value (str rodadas_id)})
+      (build-field
+        {:id "user"
+         :name "user"
+         :class "easyui-textbox"
+         :data-options "label:'Nombre:',labelPosition:'top',
+                       required:true,width:'100%'"})
+      (build-field
+        {:id "comentarios"
+         :name "comentarios"
+         :class "easyui-textbox"
+         :data-options "label:'Comentarios:',labelPosition:'top',
+                       width:'100%',height:'120px',required:true,
+                       multiline:true"})
+      (build-field
+        {:id "email"
+         :name "email"
+         :class "easyui-textbox easyui-validatebox"
+         :validType "email"
+         :data-options "label:'Email:',labelPosition:'top',
+                       width:'100%',required:true"})
+      (build-radio-buttons
+        "Asistire?"
+        (list
+          {:id "asistir_si"
+           :name "asistir"
+           :class "easyui-radiobutton"
+           :value "T"
+           :label "Si"
+           :data-options "checked:true"}
+          {:id "asistir_no"
+           :name "asistir"
+           :class "easyui-radiobutton"
+           :label "No"
+           :value "F"
+           :data-options "checked:false"})))
+    (list
+      (build-button
+        (list
+          {:text "Postear"
+           :id "submitbtn"
+           :class "easyui-linkbutton c6"
+           :style "margin-right:5px;margin-bottom:5px;"
+           :data-options "iconCls:'icon-ok'"
+           :href "javascript:void(0)"
+           :onclick "saveData()"}
+          {:text "Regresar"
+           :id "regresar"
+           :class "easyui-linkbutton"
+           :style "margin-bottom:5px;"
+           :data-options "iconCls:'icon-back'"
+           :href "javascript:void(0)"
+           :onclick "goBack()"})))))
 
 (defn asistir-scripts []
-  (list
-   [:script
-    (str
-     "
-      function goBack() {
-          window.location.href = \"/rodadas\";
-      }
-
-      function saveData() {
-          $(\".fm\").form(\"submit\", {
-              url: '/rodadas/asistir',
-              queryParams: {'__anti-forgery-token': token},
-              onSubmit: function() {
-                  return $(this).form(\"enableValidation\").form(\"validate\");
-              },
-              success: function(result) {
-                  $(\"#submitbtn\").linkbutton('disable');
-                  var json = JSON.parse(result);
-                  if(json.error && json.success) {
-                      $.messager.show({
-                          title: 'Error',
-                          msg: json.success + \"<br>\" + json.error
-                      });
-                  } else if (json.error) {
-                      $.messager.show({
-                          title: 'Error',
-                          msg: json.error
-                      });
-                  } else if (json.success) {
-                      $.messager.show({
-                          title: 'Success',
-                          msg: json.success
-                      });
-                      window.location.href=\"/rodadas\";
-                  }
-                  $(\"#submitbtn\").linkbutton('enable');
-              }
-          });
-      }
-      ")]))
+  (include-js "/scripts/routes/asistir_scripts.js"))
