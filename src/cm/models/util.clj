@@ -769,7 +769,7 @@
 
 (defn build-table [title url fields]
   [:table.dg
-   {:style "width: 100%;height:600px;"
+   {:style "width: 100%;height:500px;"
     :title title
     :data-options
     (str
