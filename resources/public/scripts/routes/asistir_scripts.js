@@ -29,7 +29,7 @@ function saveData() {
                     title: 'Success',
                     msg: json.success
                 });
-                window.location.href="/rodadas";
+                window.close();
             }
             $("#submitbtn").linkbutton('enable');
         }
