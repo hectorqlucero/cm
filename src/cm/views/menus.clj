@@ -59,12 +59,12 @@
       [:a.in-menu.easyui-linkbutton {:data-options "plain:true,size:'small',width:'98%',height:'20px;'"
                                      :style "text-align:left;display:none;padding:2px;"
                                      :href "/"} "Informacion"]]
-     [:div {:title "Calendario Eventos"
+     [:div {:title "Eventos"
             :style "overflow:auto;padding:10px;"}
       [:a.in-menu.easyui-linkbutton {:data-options "plain:true,size:'small',width:'98%',height:'20px;'"
                                      :style "text-align:left;display:none;padding:2px;"
                                      :href "/eventos"} "Eventos Ciclistas"]]
-     [:div {:title "Calendario Rodadas"
+     [:div {:title "Rodadas"
             :style "overflow:auto;padding:10px;"}
       [:a.in-menu.easyui-linkbutton {:data-options "plain:true,size:'small',width:'98%',height:'20px;'"
                                      :style "text-align:left;display:none;padding:2px;"
