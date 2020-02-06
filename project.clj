@@ -8,7 +8,7 @@
                  [hiccup "1.0.5"]
                  [lib-noir "0.9.9"]
                  [com.draines/postal "2.0.3"]
-                 [cheshire "5.9.0"]
+                 [cheshire "5.10.0"]
                  [clj-pdf "2.4.0" :exclusions [commons-codec]]
                  [ondrs/barcode "0.1.0"]
                  [pdfkit-clj "0.1.7" :exclusions [commons-logging commons-codec]]
