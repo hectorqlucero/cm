@@ -19,9 +19,10 @@
          :data-options "label:'Contraseña:',labelPosition:'top',required:true,width:'100%'"}))
     (build-button
       {:href "javascript:void(0)"
+       :id "submit"
        :text "Acceder al Sitio"
        :class "easyui-linkbutton c6"
-       :onClick "submitForm()"})))
+       :onClick "submitForm(this)"})))
 
 (defn login-scripts []
   (include-js "/scripts/login_scripts.js"))
