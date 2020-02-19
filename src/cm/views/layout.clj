@@ -55,7 +55,7 @@
                                         collapsed:true,
                                         expandMode:'dock',
                                         onOpen: menu,
-                                        width:'25%',
+                                        width:'50%',
                                         cache:true"}
       (cond
         (= ok -1) nil

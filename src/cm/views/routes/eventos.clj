@@ -2,7 +2,9 @@
   (:require [cm.models.util :refer [get-image]]
             [hiccup.page :refer [include-css include-js]]
             [clojure.java.io :as io]
-            [ring.util.response :as r]))
+            [ring.util.response :as r])
+  (:import java.text.SimpleDateFormat
+           [java.util Calendar UUID]))
 
 (defn read-image [source]
   (let [bin (io/file source)]
@@ -81,7 +83,7 @@
                                              :style          "width:100px;"} "Detalles"]]]
           [:div.row
            [:div.col-auto
-            [:img {:src     (str "/uploads/eventos/" (row :imagen))
+            [:img {:src     (str "/uploads/eventos/" (row :imagen) "?t=" (str (UUID/randomUUID)))
                    :id      (row :id)
                    :width   "99"
                    :height  "80"

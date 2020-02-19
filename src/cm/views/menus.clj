@@ -14,7 +14,7 @@
             :style "overflow:auto;padding:10px;"}
       [:a.in-menu.easyui-linkbutton {:data-options "plain:true,size:'small',width:'98%',height:'20px;'"
                                      :style "text-align:left;display:none;padding:2px;"
-                                     :href "/eventos"} "Eventos Ciclistas"]]
+                                     :href "/eventos"} "Eventos"]]
      [:div {:title "Rodadas"
             :style "overflow:auto;padding:10px;"}
       [:a.in-menu.easyui-linkbutton {:data-options "plain:true,size:'small',width:'98%',height:'20px;'"
@@ -29,22 +29,22 @@
             :style "overflow:auto;padding:10px;"}
       [:a.in-menu.easyui-linkbutton {:data-options "plain:true,size:'small',width:'98%',height:'20px;'"
                                      :style "text-align:left;display:none;padding:2px;"
-                                     :href "/grupos"} "Grupos Ciclistas"]]
+                                     :href "/grupos"} "Grupos"]]
      [:div {:title "Entrar"
             :style "overflow:auto;padding:10px;"}
       [:a.in-menu.easyui-linkbutton {:data-options "plain:true,size:'small',width:'98%',height:'20px;'"
                                      :style "text-align:left;display:none;padding:2px;"
-                                     :href "/login"} "Entrar al sitio"]]
+                                     :href "/login"} "Entrar"]]
      [:div {:title "Registrarse"
             :style "overflow:auto;padding:10px;"}
       [:a.in-menu.easyui-linkbutton {:data-options "plain:true,size:'small',width:'98%',height:'20px;'"
                                      :style "text-align:left;display:none;padding:2px;"
-                                     :href "/registrar"} "Registrate Aqui"]]
+                                     :href "/registrar"} "Registrate"]]
      [:div {:title "Cambiar su Contraseña"
             :style "overflow:auto;padding:10px;"}
       [:a.in-menu.easyui-linkbutton {:data-options "plain:true,size:'small',width:'98%',height:'20px;'"
                                      :style "text-align:left;display:none;padding:2px;"
-                                     :href "/rpaswd"} "Cambia tu Contraseña"]]
+                                     :href "/rpaswd"} "Contraseña"]]
      [:div {:title "Ayuda"
             :style "padding:10px;"
             :data-options "iconCls:'icon-help'"}
@@ -63,12 +63,12 @@
             :style "overflow:auto;padding:10px;"}
       [:a.in-menu.easyui-linkbutton {:data-options "plain:true,size:'small',width:'98%',height:'20px;'"
                                      :style "text-align:left;display:none;padding:2px;"
-                                     :href "/eventos"} "Eventos Ciclistas"]]
+                                     :href "/eventos"} "Eventos"]]
      [:div {:title "Rodadas"
             :style "overflow:auto;padding:10px;"}
       [:a.in-menu.easyui-linkbutton {:data-options "plain:true,size:'small',width:'98%',height:'20px;'"
                                      :style "text-align:left;display:none;padding:2px;"
-                                     :href "/rodadas"} "Calendario Rodadas"]]
+                                     :href "/rodadas"} "Rodadas"]]
      [:div {:title "Talleres"
             :style "overflow:auto;padding:10px;"}
       [:a.in-menu.easyui-linkbutton {:data-options "plain:true,size:'small',width:'98%',height:'20px;'"
@@ -78,17 +78,17 @@
             :style "overflow:auto;padding:10px;"}
       [:a.in-menu.easyui-linkbutton {:data-options "plain:true,size:'small',width:'98%',height:'20px;'"
                                      :style "text-align:left;display:none;padding:2px;"
-                                     :href "/grupos"} "Grupos Ciclistas"]]
+                                     :href "/grupos"} "Grupos"]]
      [:div {:title "Mant. Rodadas"
             :style "overflow:auto;padding:10px;"}
       [:a.in-menu.easyui-linkbutton {:data-options "plain:true,size:'small',width:'98%',height:'20px;'"
                                      :style "text-align:left;display:none;padding:2px;"
-                                     :href "/rodadas/crear"} "Mant. Rodadas"]]
+                                     :href "/rodadas/crear"} "Rodadas"]]
      [:div {:title "Cambiar su Contraseña"
             :style "overflow:auto;padding:10px;"}
       [:a.in-menu.easyui-linkbutton {:data-options "plain:true,size:'small',width:'98%',height:'20px;'"
                                      :style "text-align:left;display:none;padding:2px;"
-                                     :href "/rpaswd"} "Cambia tu Contraseña"]]
+                                     :href "/rpaswd"} "Contraseña"]]
      (if (= (user-level) "S")
        [:div {:title "Administrar"
               :style "overflow:auto;padding:10px;"}
@@ -105,7 +105,7 @@
             :style "overflow:auto;padding:10px;"}
       [:a.in-menu.easyui-linkbutton {:data-options "plain:true,size:'small',width:'98%',height:'20px;'"
                                      :style "text-align:left;display:none;padding:2px;"
-                                     :href "/logoff"} "Salir del sitio"]]
+                                     :href "/logoff"} "Salir"]]
      [:div {:title "Ayuda"
             :style "padding:10px;"
             :data-options "iconCls:'icon-help'"}
