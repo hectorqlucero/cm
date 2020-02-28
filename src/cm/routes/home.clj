@@ -26,10 +26,10 @@
                    margin-bottom:20px;"}
      [:h3 "Bienvenido al sitio Ciclismo Mexicali"]
      [:ul
-      [:li [:strong "Eventos: "] "Listado de todos los eventos y carreras.  Ex. Paseo Rosarito Ensenada"]
-      [:li [:strong "Rodadas: "] "Rodadas organizadas por grupos o particulares.  Ex. Ver las rodadas de Grupos y confirmar asistencia a rodadas."]
+      [:li [:strong "Eventos: "] "Listado de todos los eventos y carreras.  Ej. Paseo Rosarito Ensenada"]
+      [:li [:strong "Rodadas: "] "Rodadas organizadas por grupos o particulares.  Ej. Ver las rodadas de Grupos y confirmar asistencia a rodadas."]
       [:li [:strong "Talleres: "] "Talleres de reparación/venta de bicicletas"]
-      [:li [:strong "Grupos: "] "Grupos ciclistas ex. Cuadrante Rosita, Sector Ciclista Azul etc..."]
+      [:li [:strong "Grupos: "] "Grupos ciclistas ej. Cuadrante Rosita, Sector Ciclista Azul etc..."]
       [:li [:strong "Entrar: "] "Aquí podrás registrarte como miembro y así crear rodadas para invitar a otros ciclistas.  Las rodadas que hayas creado saldrán en el calendario de rodadas y ciclistas podrán confirmar asistencia y recibirás un correo electronico.  Si cancelas la rodada todos los que confirmaron serán notificados con un correo electrónico que la rodada se canceló"]]
      [:br] [:br]
      [:div {:style "margin-left:20px;margin-right:20px;margin-bottom:20px;"}
