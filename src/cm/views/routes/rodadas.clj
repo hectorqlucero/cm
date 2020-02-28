@@ -1,6 +1,5 @@
 (ns cm.views.routes.rodadas
-  (:require [hiccup.page :refer [include-css
-                                 include-js]]
+  (:require [hiccup.page :refer [include-css include-js]]
             [cm.models.util :refer [build-form
                                     build-field
                                     build-radio-buttons
@@ -8,11 +7,8 @@
 
 (defn rodadas-view []
   (list
-   (include-css "/bootstrap/css/bootstrap.min.css")
-   (include-css "/bootstrap/css/lumen.min.css")
    (include-css "/font/css/all.min.css")
    (include-css "/fullcalendar/fullcalendar.min.css")
-   (include-css "/fullcandar/fullcalendar.print.min.css")
    [:div#calendar]
    [:div#fullCalModal.modal.fade
     [:div.modal-dialog
@@ -31,8 +27,6 @@
 
 (defn rodadas-scripts []
   (list
-    (include-js "/popper/popper.min.js")
-    (include-js "/bootstrap/js/bootstrap.min.js")
     (include-js "/font/js/all.min.js")
     (include-js "/fullcalendar/lib/moment.min.js")
     (include-js "/fullcalendar/fullcalendar.min.js")

@@ -1,19 +1,71 @@
 (ns cm.views.layout
   (:require [hiccup.page :refer [html5 include-css include-js]]
-            [cm.views.menus :refer [rmenu pmenu]]
-            [cm.models.crud :refer [config]]
-            [cm.models.util :refer [user-login]]))
+            [cm.models.util :refer [user-level]]))
+
+(defn build-admin []
+  (if (= (user-level) "S")
+    (do
+      (list
+        [:a.dropdown-item {:href "/rodadas/crear"} "Rodadas"]
+        [:a.dropdown-item {:href "/eventos/crear"} "Eventos"]
+        [:a.dropdown-item {:href "/talleres/crear"} "Talleres"]
+        [:a.dropdown-item {:href "/cuadrantes/crear"} "Grupos"]))
+    [:a.dropdown-item {:href "/rodadas/crear"} "Rodadas"]))
+
+(defn menus-private []
+  (list
+    [:nav.navbar.navbar-expand-sm.navbar-dark.bg-primary.fixed-top
+     [:a.navbar-brand {:href "/"} "Ciclismo Mexicali"]
+     [:button.navbar-toggler {:type "button"
+                              :data-toggle "collapse"
+                              :data-target "#collapsibleNavbar"}
+      [:span.navbar-toggler-icon]]
+     [:div#collapsibleNavbar.collapse.navbar-collapse
+      [:ul.navbar-nav
+       [:li.nav-item [:a.nav-link {:href "/eventos"} "Eventos"]]
+       [:li.nav-item [:a.nav-link {:href "/rodadas"} "Rodadas"]]
+       [:li.nav-item [:a.nav-link {:href "/talleres"} "Talleres"]]
+       [:li.nav-item [:a.nav-link {:href "/grupos"} "Grupos"]]
+       [:li.nav-item.dropdown
+        [:a.nav-link.dropdown-toggle {:href "#"
+                                      :id "navdrop"
+                                      :data-toggle "dropdown"} "Administrar"]
+        [:div.dropdown-menu
+         (build-admin)]]
+       [:li.nav-item [:a.nav-link {:href "/logoff"} "Salir"]]]]]))
+
+(defn menus-public []
+  (list
+    [:nav.navbar.navbar-expand-sm.navbar-dark.bg-primary.fixed-top
+     [:a.navbar-brand {:href "/"} "Ciclismo Mexicali"]
+     [:button.navbar-toggler {:type "button"
+                              :data-toggle "collapse"
+                              :data-target "#collapsibleNavbar"}
+      [:span.navbar-toggler-icon]]
+     [:div#collapsibleNavbar.collapse.navbar-collapse
+      [:ul.navbar-nav
+       [:li.nav-item [:a.nav-link {:href "/eventos"} "Eventos"]]
+       [:li.nav-item [:a.nav-link {:href "/rodadas"} "Rodadas"]]
+       [:li.nav-item [:a.nav-link {:href "/talleres"} "Talleres"]]
+       [:li.nav-item [:a.nav-link {:href "/grupos"} "Grupos"]]
+       [:li.nav-item [:a.nav-link {:href "/login"} "Entrar"]]
+       ]]]))
 
 (defn app-css []
   (list
-   (include-css "/easyui/themes/metro-blue/easyui.css")
-   (include-css "/easyui/themes/icon.css")
-   (include-css "/easyui/themes/color.css")
-   (include-css "/css/main.css")))
+    (include-css "/easyui/themes/metro-blue/easyui.css")
+    (include-css "/easyui/themes/icon.css")
+    (include-css "/easyui/themes/color.css")
+    (include-css "/css/main.css")
+    (include-css "/bootstrap/css/bootstrap.min.css")
+    (include-css "/bootstrap/css/lumen.min.css")
+    (include-css "/css/main.css")))
 
 (defn app-js []
   (list
     (include-js "/easyui/jquery.min.js")
+    (include-js "/popper/popper.min.js")
+    (include-js "/bootstrap/js/bootstrap.min.js")
     (include-js "/easyui/jquery.easyui.min.js")
     (include-js "/easyui/jquery.edatagrid.js")
     (include-js "/easyui/datagrid-detailview.js")
@@ -22,52 +74,26 @@
     (include-js "/easyui/datagrid-scrollview.js")
     (include-js "/easyui/datagrid-filter.js")
     (include-js "/easyui/locale/easyui-lang-es.js")
-    (include-js "/easyui/easyloader.js")
     (include-js "/js/main.js")))
 
 (defn application [title ok js & content]
-  (html5
-    [:head
-     [:title title]
-     [:meta {:charset "UTF-8"}]
-     [:meta {:name "viewport"
-             :content "width=device-width, initial-scale=1.0, shrink-to-fit=no"}]
-     [:meta {:http-equiv "Page-Enter"
-             :content "blendTrans(Duration=.01"}]
-     [:meta {:http-equiv "Page-Exit"
-             :content "blendTrans(Duration=.01)"}]
-     (app-css)]
-    [:body.easyui-layout
-     [:div#loader]
-     [:div {:style "height:20px;"
-            :data-options "region:'north'"}
-      [:div {:style "float:left;padding-left:3px;"} [:span {:style "font-weight:bold;"} "Sitio: "] (config :site-name)]
-      [:div {:style "float:right;padding-right:epx;"} [:span {:style "font-weight:bold;"} "Usuario: "] (user-login)]
-      ]
-     [:div {:style "height:30px;"
-            :data-options "region:'south',split:true"} [:span {:style "font-size:.6em"} "Lucero Systems"]]
-     [:div#menu-section {:style "padding:10px;"
-                         :title "Menu"
-                         :data-options "region:'west',
-                                        hideCollapsedContent:false,
-                                        split:true,
-                                        collapsible:false,
-                                        collapsed:true,
-                                        expandMode:'dock',
-                                        onOpen: menu,
-                                        width:'50%',
-                                        cache:true"}
-      (cond
-        (= ok -1) nil
-        (= ok 0) (rmenu)
-        (> ok 0) (pmenu))]
-     [:div {:data-options "region:'center'"
-            :id "center-container"
-            :title "<--- Clic para abrir el menu"
-            :style "padding;5px;background:#eee"}
-      [:div#content {:style "padding:5px;margin-bottom:5px;"} content]]
-     (app-js)
-     js]))
+  (html5 {:ng-app "Inventario" :lang "es"}
+         [:head
+          [:title title]
+          [:meta {:charset "UTF-8"}]
+          [:meta {:name "viewport"
+                  :content "width=device-width, initial-scale=1"}]
+          (app-css)]
+         [:body
+          (cond
+            (= ok -1) nil
+            (= ok 0) (menus-public)
+            (> ok 0) (menus-private))
+          [:div#content.container-fluid.easyui-panel {:style "margin-top:75px;border:none;"
+                                              :data-options "closed:false"} 
+           content]
+          (app-js)
+          js]))
 
 (defn error-404 [error return-url]
   [:div

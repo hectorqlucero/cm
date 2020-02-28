@@ -6,7 +6,10 @@
             [cm.views.layout :refer [application]]
             [cm.views.routes.rodadas
              :refer
-             [asistir-scripts asistir-view rodadas-scripts rodadas-view]]
+             [asistir-scripts 
+              asistir-view 
+              rodadas-scripts 
+              rodadas-view]]
             [hiccup.page :refer [html5]]
             [ring.util.anti-forgery :refer [anti-forgery-field]]))
 

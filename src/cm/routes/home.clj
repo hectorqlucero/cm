@@ -32,7 +32,7 @@
       [:li [:strong "Grupos: "] "Grupos ciclistas ex. Cuadrante Rosita, Sector Ciclista Azul etc..."]
       [:li [:strong "Entrar: "] "Aquí podrás registrarte como miembro y así crear rodadas para invitar a otros ciclistas.  Las rodadas que hayas creado saldrán en el calendario de rodadas y ciclistas podrán confirmar asistencia y recibirás un correo electronico.  Si cancelas la rodada todos los que confirmaron serán notificados con un correo electrónico que la rodada se canceló"]]
      [:br] [:br]
-     [:div {:style "width:80%;text-align:left;display:inline-block"}
+     [:div {:style "margin-left:20px;margin-right:20px;margin-bottom:20px;"}
       [:p "Este sitio es para todos los ciclistas ya sea de Mexicali o cualquiera que venga a Mexicali por causas de trabajo o vacaciones."]
       [:hr]
       [:p "Si itenes alguna sugerencia o necesitas ayuda, estamos para ayudarte"]
@@ -42,8 +42,8 @@
 (defn main [request]
   (let [title (get-main-title)
         ok (get-session-id)
-        content [:div [:span {:style "margin-left:20px;"} (get-main-title)]]]
-    (application "CM" ok nil content)))
+        content [:div [:span {:style "margin-left:20px;"} (get-main-title)]] ]
+    (application "Mi Inventario" ok nil content)))
 ;; End Main
 
 ;; Start Login

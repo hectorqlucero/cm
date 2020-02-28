@@ -87,8 +87,7 @@
 
 (defn get-session-id []
   (try
-    (let [id (session/get :user_id)]
-      (or id 0))
+    (if (session/get :user_id) (session/get :user_id) 0)
     (catch Exception e 0)))
 
 (defn current_date []
@@ -466,13 +465,6 @@
                 (:username (first (Query db ["select username from users where id = ?" id]))))]
     email))
 
-(defn user-login []
-  (let [id (get-session-id)
-        name (if (= id 0)
-               "Anomimo"
-               (:name (first (Query db ["select CONCAT(firstname,' ',lastname) as name from users where id = ?" id]))))]
-    name))
-
 (defn get-photo-val [table-name field-name id-name id-value]
   (if (or
         (nil? table-name)
@@ -820,7 +812,8 @@
                 :data-options "novalidate:true"})
     token
     fields]
-   buttons])
+   buttons
+   (if-not (nil? options) (first options))])
 
 (defn build-dialog [title fields & options]
   [:div.dlg.easyui-dialog {:closed  "true"

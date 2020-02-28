@@ -1,18 +1,24 @@
 (ns cm.proutes.rodadas
   (:require [cheshire.core :refer [generate-string]]
-            [cm.models.crud :refer [build-postvars db Delete Query Save]]
+            [cm.models.crud :refer [build-postvars
+                                    db
+                                    Delete
+                                    Query
+                                    Save]]
             [cm.models.email :refer [host send-email]]
             [cm.models.grid :refer :all]
-            [cm.models.util
-             :refer
-             [fix-id get-session-id parse-int user-email user-level]]
+            [cm.models.util :refer [fix-id
+                                    get-session-id
+                                    parse-int
+                                    user-email
+                                    user-level]]
             [cm.views.layout :refer :all]
             [cm.views.proutes.rodadas :refer [rodadas-scripts rodadas-view]]))
 
 (defn rodadas [request]
-  (let [title   "Entrenamiento - Rodadas"
-        ok      (get-session-id)
-        js      (rodadas-scripts)
+  (let [title "Entrenamiento - Rodadas"
+        ok (get-session-id)
+        js (rodadas-scripts)
         content (rodadas-view title)]
     (application title ok js content)))
 
@@ -136,4 +142,3 @@
         (generate-string {:error "No se pudo remover!"})))
     (catch Exception e (.getMessage e))))
 ;;end rodadas-delete
-

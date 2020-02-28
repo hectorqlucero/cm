@@ -6,7 +6,7 @@
             [compojure.core :refer [defroutes GET POST]]))
 
 (defroutes proutes
-  ;; Start Rodadas
+  ;; Start rodadas
   (GET "/rodadas/crear" request [] (rodadas/rodadas request))
   (POST "/rodadas/crear" request [] (rodadas/grid-rodadas request))
   (GET "/rodadas/crear/edit/:id" [id] (rodadas/form-rodadas id))

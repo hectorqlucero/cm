@@ -1,20 +1,20 @@
 (ns cm.routes.eventos
   (:require [cm.models.crud :refer [config db Query]]
-            [cm.models.util
-             :refer
-             [current_year get-month-name get-session-id parse-int zpl]]
+            [cm.models.util :refer [current_year
+                                    get-month-name 
+                                    get-session-id 
+                                    parse-int zpl]]
             [cm.views.layout :refer [application]]
-            [cm.views.routes.eventos
-             :refer
-             [display-eventos-scripts
-              display-eventos-view
-              eventos-scripts
-              eventos-view]]))
+            [cm.views.routes.eventos :refer [eventos-view
+                                             eventos-scripts
+                                             display-eventos-view
+                                             display-eventos-scripts
+                                             ]]))
 
 (defn eventos [request]
-  (let [title   "Eventos"
-        ok      (get-session-id)
-        js      (eventos-scripts)
+  (let [title "Eventos"
+        ok (get-session-id)
+        js (eventos-scripts)
         content (eventos-view title (current_year))]
     (application title ok js content)))
 

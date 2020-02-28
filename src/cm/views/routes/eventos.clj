@@ -14,13 +14,11 @@
   {:width   152
    :height  152
    :style   "cursor:pointer;cursor:hand;"
-   :src     (str "/images/Calendario_" month-name ".jpg")
+   :src     (str "/images/Calendario_" month-name ".jpeg")
    :onclick (str "showEvents(" year "," month ")")})
 
 (defn eventos-view [title year]
   (list
-    (include-css "/bootstrap/css/bootstrap.min.css")
-    (include-css "/bootstrap/css/lumen.min.css")
    [:h1 {:style "text-align:center;margin:0;margin-bottom:0;font-size:2em;font-weight:bold;color:#fa981b;text-transform:uppercase;"} title]
    [:div.d-flex.flex-wrap.align-content-center.align-content-stretch 
     [:div.d-flex.justify-content-center
@@ -50,8 +48,6 @@
 
 (defn eventos-scripts []
   (list
-    (include-js "/popper/popper.min.js")
-    (include-js "/bootstrap/js/bootstrap.min.js")
     [:script
      (str
        "function showEvents(year, month) {
@@ -62,8 +58,6 @@
 
 (defn display-eventos-view [title year month rows path]
   (list
-    (include-css "/bootstrap/css/bootstrap.min.css")
-    (include-css "/bootstrap/css/lumen.min.css")
     [:div.col-12.text-center
      [:button.btn.btn-primary {:onclick "printPDF()"} "Imprimir"]]
     [:h3 {:style "color:#fa981b;text-transform:uppercase;font-weight:bold;"} title]
@@ -112,8 +106,6 @@
 
 (defn display-eventos-scripts [year month]
   (list
-    (include-js "/popper/popper.min.js")
-    (include-js "/bootstrap/js/bootstrap.min.js")
     [:script
      (str
        "

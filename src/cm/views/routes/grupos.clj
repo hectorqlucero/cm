@@ -3,8 +3,6 @@
 
 (defn reporte-view [title rows]
   (list
-    (include-css "/bootstrap/css/bootstrap.min.css")
-    (include-css "/bootstrap/css/lumen.min.css")
     (for [row rows]
       [:div.row
        [:div.col-auto
@@ -47,8 +45,6 @@
 
 (defn reporte-scripts []
   (list
-    (include-js "/popper/popper.min.js")
-    (include-js "/bootstrap/js/bootstrap.min.js")
     [:script
      "
      $(function() {
