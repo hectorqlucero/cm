@@ -36,8 +36,8 @@
       [:p "Este sitio es para todos los ciclistas ya sea de Mexicali o cualquiera que venga a Mexicali por causas de trabajo o vacaciones."]
       [:hr]
       [:p "Si itenes alguna sugerencia o necesitas ayuda, estamos para ayudarte"]
-      [:p [:a.easyui-linkbutton {:data-options "plain:false"
-                                 :href "mailto:lucero_systems@fastmail.com"} "Mandame un Correo"]]]]))
+      [:p [:a.easyui-linkbutton.c6 {:data-options "plain:false"
+                                    :href "mailto:lucero_systems@fastmail.com"} "Mandame un Correo"]]]]))
 
 (defn main [request]
   (let [title (get-main-title)
