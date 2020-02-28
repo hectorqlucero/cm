@@ -77,10 +77,10 @@
       title
       "/eventos/crear"
       (list
-        [:th {:data-options "field:'titulo',sortable:true"} "Evento"]
-        [:th {:data-options "field:'lugar',sortable:false"} "Lugar"]
         [:th {:data-options "field:'fecha',sortable:true"} "Fecha"]
         [:th {:data-options "field:'hora',sortable:true"} "Hora"]
+        [:th {:data-options "field:'titulo',sortable:true"} "Evento"]
+        [:th {:data-options "field:'lugar',sortable:false"} "Punto de Reunión"]
         [:th {:data-options "field:'organiza',sortable:true"} "Quién Organiza"]))
     (build-toolbar (toolbar-extra))
     (build-dialog title dialog-fields)

@@ -45,6 +45,7 @@
           join     ""
           search   (grid-search (:search params nil) scolumns)
           order    (grid-sort (:sort params nil) (:order params nil))
+          order    (grid-sort-extra order "fecha,hora")
           offset   (grid-offset (parse-int (:rows params)) (parse-int (:page params)))
           rows     (grid-rows table aliases join search order offset)]
       (generate-string rows))
