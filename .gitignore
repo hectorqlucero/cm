@@ -2,7 +2,7 @@
 /classes
 /checkouts
 config.clj
-uploads/
+/uploads
 profiles.clj
 pom.xml
 pom.xml.asc
