@@ -20,7 +20,7 @@
    name")
 
 (defn reporte [request]
-  (let [title   "Talleres de bicicletas"
+  (let [title   "Grupos"
         ok      (get-session-id)
         js      (reporte-scripts)
         rows    (Query db reporte-sql)

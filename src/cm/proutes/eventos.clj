@@ -1,6 +1,6 @@
 (ns cm.proutes.eventos
   (:require [cheshire.core :refer [generate-string]]
-            [cm.models.crud :refer [build-postvars config db Delete Query Save]]
+            [cm.models.crud :refer [build-postvars config db Delete Query Save Update]]
             [cm.models.grid :refer :all]
             [cm.models.util
              :refer
@@ -16,15 +16,6 @@
     (application title ok js content)))
 
 ;; Start eventos grid
-(def search-columns
-  ["id"
-   "titulo"
-   "detalles"
-   "lugar"
-   "DATE_FORMAT(fecha,'%m/%d/%Y')"
-   "TIME_FORMAT(hora,'%h:%i %p'"
-   "organiza"])
-
 (def aliases-columns
   ["id"
    "titulo"
@@ -37,10 +28,7 @@
 (defn eventos-grid [{params :params}]
   (try
     (let [table    "eventos"
-          user     (or (get-session-id) "Anonimo")
-          level    (user-level)
-          email    (user-email)
-          scolumns (convert-search-columns search-columns)
+          scolumns nil
           aliases  aliases-columns
           join     ""
           search   (grid-search (:search params nil) scolumns)
@@ -72,21 +60,28 @@
     (catch Exception e (.getMessage e))))
 ;; End eventos form
 
+;; Start eventos-save
+(defn get-id [id postvars]
+  (if (nil? id)
+    (do
+      (let [result (Save db :eventos postvars ["id = ?" id])]
+        (str (:generated_key (first result)))))
+    id))
+
 (defn eventos-save [{params :params}]
   (try
-    (let [id         (fix-id (:id params))
-          file       (:file params)
-          image-name (if-not (zero? (:size file))
-                       (upload-image file id (str (config :uploads) "/eventos/"))
-                       (str (params :imagen)))
-          user       (or (get-session-id) "Anonimo")
-          repetir    (or (:repetir params) "F")
-          data       (dissoc (build-postvars "eventos" params) :file)
-          postvars   (assoc data :imagen image-name)
-          result     (Save db :eventos postvars ["id = ?" id])]
+    (let [id (fix-id (:id params))
+          file (:file params)
+          postvars (dissoc (build-postvars "eventos" params) :file)
+          the-id (str (get-id id postvars))
+          path (str (:uploads config) "/eventos/")
+          image-name (upload-image file the-id path)
+          postvars (assoc postvars :imagen image-name :id the-id)
+          result (Update db :eventos postvars ["id = ?" the-id])]
       (if (seq result)
         (generate-string {:success "Correctamente Processado!"})
         (generate-string {:error "No se pudo processar!"})))))
+;; End eventos-save
 
 (defn eventos-delete [{params :params}]
   (try

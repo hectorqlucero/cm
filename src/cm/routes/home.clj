@@ -3,11 +3,11 @@
             [hiccup.page :refer [html5]]
             [ring.util.anti-forgery :refer [anti-forgery-field]]
             [cm.models.crud :refer [db
-                                            Query]]
+                                    Query]]
             [cm.models.util :refer [get-session-id]]
             [cm.views.layout :refer :all]
             [cm.views.home :refer [login-view
-                                           login-scripts]]
+                                   login-scripts]]
             [noir.session :as session]
             [noir.util.crypt :as crypt]
             [noir.response :refer [redirect]]))
@@ -43,7 +43,7 @@
   (let [title (get-main-title)
         ok (get-session-id)
         content [:div [:span {:style "margin-left:20px;"} (get-main-title)]] ]
-    (application "Mi Inventario" ok nil content)))
+    (application "CM" ok nil content)))
 ;; End Main
 
 ;; Start Login
