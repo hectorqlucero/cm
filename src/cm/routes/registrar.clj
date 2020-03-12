@@ -1,6 +1,7 @@
 (ns cm.routes.registrar
   (:require [cheshire.core :refer [generate-string]]
-            [cm.views.layout :refer :all]
+            [clojure.string :refer [lower-case]]
+            [cm.views.layout :refer [application error-404]]
             [cm.views.registrar :refer [registrar-scripts
                                         registrar-view
                                         reset-password-scripts
@@ -22,7 +23,7 @@
                                     create-token]]))
 
 ;; Start registrar
-(defn registrar [request]
+(defn registrar [_]
   (let [title "Registro de usuarios"
         token (anti-forgery-field)
         ok (get-session-id)
@@ -34,9 +35,10 @@
       (error-404 error-text return-url)
       (application title ok js content))))
 
-(defn registrar! [{params :params}]
+(defn registrar!
   "Postear los datos de registro de un nuevo cliente el la tabla usuarios"
-  (let [email (clojure.string/lower-case (or (:email params) "0"))
+  [{params :params}]
+  (let [email (lower-case (or (:email params) "0"))
         password (:password params)
         params (assoc params 
                       :level "u"
@@ -54,7 +56,7 @@
 ;; End registrar
 
 ;; Start reset-password
-(defn reset-password [request]
+(defn reset-password [_]
   (let [title "Resetear Contraseña"
         token (anti-forgery-field)
         ok (get-session-id)
@@ -69,8 +71,9 @@
 (defn get-username-row [username]
   (first (Query db ["SELECT * FROM users WHERE username = ?" username])))
 
-(defn email-body [row url]
+(defn email-body
   "Crear el cuerpo del email"
+  [row url]
   (let [nombre       (str (:firstname row) " " (:lastname row))
         email        (:email row)
         subject      "Resetear tu contraseña"

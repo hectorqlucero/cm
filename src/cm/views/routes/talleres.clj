@@ -1,14 +1,14 @@
 (ns cm.views.routes.talleres
-  (:require [hiccup.page :refer [include-css include-js]]))
+  (:require [clojure.string :refer [upper-case]]))
 
-(defn reporte-view [title rows]
+(defn reporte-view [_ rows]
   (list
     (for [row rows]
       [:div.row
        [:div.col-auto
         [:div.row
          [:div.col-auto
-          [:h3.h3-primary {:style "color:#127ba3;font-weight:bold;"} (clojure.string/upper-case (:nombre row))]]]
+          [:h3.h3-primary {:style "color:#127ba3;font-weight:bold;"} (upper-case (:nombre row))]]]
         [:div.row
          [:div.col-auto
           [:button.btn.btn-info.btn.lg.btn-block {:data-toggle    "popover"

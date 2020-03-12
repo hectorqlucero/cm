@@ -1,5 +1,6 @@
 (ns cm.routes.rodadas
   (:require [cheshire.core :refer [generate-string]]
+            [clojure.string :refer [blank?]]
             [cm.models.crud :refer [db Delete Query Query! Save]]
             [cm.models.email :refer [host send-email]]
             [cm.models.util :refer [fix-id get-session-id]]
@@ -10,7 +11,6 @@
               asistir-view 
               rodadas-scripts 
               rodadas-view]]
-            [hiccup.page :refer [html5]]
             [ring.util.anti-forgery :refer [anti-forgery-field]]))
 
 ;; Start rodadas
@@ -20,10 +20,10 @@
 (defn repeat-event []
   (let [purge-rows (Query db "SELECT id from rodadas where fecha < CURRENT_DATE()")
         purge-keys (apply str (interpose "," (map #(str (:id %)) purge-rows)))
-        sql        (str "DELETE from rodadas_link where rodadas_id IN(" purge-keys ")")
-        result     (if-not (clojure.string/blank? purge-keys)
-                     (Query! db sql)
-                     nil)]
+        sql        (str "DELETE from rodadas_link where rodadas_id IN(" purge-keys ")")]
+    (if-not (blank? purge-keys)
+      (Query! db sql)
+      nil)
     (Query! db "UPDATE rodadas SET fecha = DATE_ADD(fecha,INTERVAL 7 DAY) WHERE fecha < CURRENT_DATE()")))
 
 (defn process-confirmados [rodadas_id]
@@ -33,7 +33,7 @@
                "ninguno")]
     data))
 
-(defn rodadas [request]
+(defn rodadas [_]
   (purge)
   (repeat-event)
   (let [title   "Rodadas"

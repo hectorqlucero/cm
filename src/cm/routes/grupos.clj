@@ -19,7 +19,7 @@
    ORDER BY
    name")
 
-(defn reporte [request]
+(defn reporte [_]
   (let [title   "Grupos"
         ok      (get-session-id)
         js      (reporte-scripts)

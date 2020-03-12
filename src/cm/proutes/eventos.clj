@@ -1,19 +1,19 @@
 (ns cm.proutes.eventos
   (:require [cheshire.core :refer [generate-string]]
             [cm.models.crud :refer [build-postvars config db Delete Query Save Update]]
-            [cm.models.grid :refer :all]
+            [cm.models.grid :as grid]
             [cm.models.util
              :refer
-             [fix-id get-session-id parse-int upload-image user-email user-level]]
-            [cm.views.layout :refer :all]
+             [fix-id get-session-id parse-int upload-image]]
+            [cm.views.layout :as layout]
             [cm.views.proutes.eventos :refer [eventos-scripts eventos-view]]))
 
-(defn eventos [request]
+(defn eventos [_]
   (let [title   "Calendario - Eventos"
         ok      (get-session-id)
         js      (eventos-scripts)
         content (eventos-view title)]
-    (application title ok js content)))
+    (layout/application title ok js content)))
 
 ;; Start eventos grid
 (def aliases-columns
@@ -31,11 +31,11 @@
           scolumns nil
           aliases  aliases-columns
           join     ""
-          search   (grid-search (:search params nil) scolumns)
-          order    (grid-sort (:sort params nil) (:order params nil))
-          order    (grid-sort-extra order "fecha,hora")
-          offset   (grid-offset (parse-int (:rows params)) (parse-int (:page params)))
-          rows     (grid-rows table aliases join search order offset)]
+          search   (grid/grid-search (:search params nil) scolumns)
+          order    (grid/grid-sort (:sort params nil) (:order params nil))
+          order    (grid/grid-sort-extra order "fecha,hora")
+          offset   (grid/grid-offset (parse-int (:rows params)) (parse-int (:page params)))
+          rows     (grid/grid-rows table aliases join search order offset)]
       (generate-string rows))
     (catch Exception e (.getMessage e))))
 ;; End eventos grid
@@ -63,9 +63,8 @@
 ;; Start eventos-save
 (defn get-id [id postvars]
   (if (nil? id)
-    (do
-      (let [result (Save db :eventos postvars ["id = ?" id])]
-        (str (:generated_key (first result)))))
+    (let [result (Save db :eventos postvars ["id = ?" id])]
+      (str (:generated_key (first result))))
     id))
 
 (defn eventos-save [{params :params}]

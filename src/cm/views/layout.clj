@@ -4,12 +4,11 @@
 
 (defn build-admin []
   (if (= (user-level) "S")
-    (do
-      (list
-        [:a.dropdown-item {:href "/rodadas/crear"} "Rodadas"]
-        [:a.dropdown-item {:href "/eventos/crear"} "Eventos"]
-        [:a.dropdown-item {:href "/talleres/crear"} "Talleres"]
-        [:a.dropdown-item {:href "/cuadrantes/crear"} "Grupos"]))
+    (list
+     [:a.dropdown-item {:href "/rodadas/crear"} "Rodadas"]
+     [:a.dropdown-item {:href "/eventos/crear"} "Eventos"]
+     [:a.dropdown-item {:href "/talleres/crear"} "Talleres"]
+     [:a.dropdown-item {:href "/cuadrantes/crear"} "Grupos"])
     [:a.dropdown-item {:href "/rodadas/crear"} "Rodadas"]))
 
 (defn menus-private []

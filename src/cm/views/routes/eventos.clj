@@ -1,10 +1,6 @@
 (ns cm.views.routes.eventos
-  (:require [cm.models.util :refer [get-image]]
-            [hiccup.page :refer [include-css include-js]]
-            [clojure.java.io :as io]
-            [ring.util.response :as r])
-  (:import java.text.SimpleDateFormat
-           [java.util Calendar UUID]))
+  (:require [clojure.java.io :as io])
+  (:import [java.util UUID]))
 
 (defn read-image [source]
   (let [bin (io/file source)]
@@ -56,7 +52,7 @@
         }
         ")]))
 
-(defn display-eventos-view [title year month rows path]
+(defn display-eventos-view [title _ _ rows _]
   (list
     [:div.col-12.text-center
      [:button.btn.btn-primary {:onclick "printPDF()"} "Imprimir"]]

@@ -1,14 +1,19 @@
 (ns cm.proutes.cuadrantes
   (:require [cheshire.core :refer [generate-string]]
             [cm.models.crud :refer [build-postvars db Delete Query Save]]
-            [cm.models.grid :refer :all]
+            [cm.models.grid :refer [convert-search-columns 
+                                    grid-search 
+                                    grid-sort 
+                                    grid-sort-extra
+                                    grid-offset
+                                    grid-rows]]
             [cm.models.util :refer [fix-id get-session-id parse-int]]
-            [cm.views.layout :refer :all]
+            [cm.views.layout :refer [application]]
             [cm.views.proutes.cuadrantes
              :refer
              [cuadrantes-scripts cuadrantes-view]]))
 
-(defn cuadrantes [request]
+(defn cuadrantes [_]
   (let [title   "Cuadrantes"
         ok      (get-session-id)
         js      (cuadrantes-scripts)

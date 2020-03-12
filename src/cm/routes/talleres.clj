@@ -4,7 +4,7 @@
             [cm.views.layout :refer [application]]
             [cm.views.routes.talleres :refer [reporte-scripts reporte-view]]))
 
-(defn reporte [request]
+(defn reporte [_]
   (let [title   "Talleres de bicicletas"
         ok      (get-session-id)
         js      (reporte-scripts)

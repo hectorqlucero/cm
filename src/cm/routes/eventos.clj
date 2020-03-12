@@ -11,7 +11,7 @@
                                              display-eventos-scripts
                                              ]]))
 
-(defn eventos [request]
+(defn eventos [_]
   (let [title "Eventos"
         ok (get-session-id)
         js (eventos-scripts)

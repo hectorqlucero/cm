@@ -1,8 +1,7 @@
 (ns cm.views.proutes.eventos
   (:require [hiccup.page :refer [include-js]]
             [ring.util.anti-forgery :refer [anti-forgery-field]]
-            [cm.models.util :refer [user-level
-                                    build-table
+            [cm.models.util :refer [build-table
                                     build-dialog
                                     build-dialog-buttons
                                     build-toolbar

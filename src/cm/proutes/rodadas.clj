@@ -6,16 +6,22 @@
                                     Query
                                     Save]]
             [cm.models.email :refer [host send-email]]
-            [cm.models.grid :refer :all]
+            [cm.models.grid :refer [convert-search-columns
+                                    grid-search
+                                    grid-search-extra
+                                    grid-sort
+                                    grid-offset
+                                    grid-rows]]
             [cm.models.util :refer [fix-id
                                     get-session-id
                                     parse-int
                                     user-email
                                     user-level]]
-            [cm.views.layout :refer :all]
+            [cm.views.layout :refer [application]]
+            [clojure.string :refer [lower-case]]
             [cm.views.proutes.rodadas :refer [rodadas-scripts rodadas-view]]))
 
-(defn rodadas [request]
+(defn rodadas [_]
   (let [title "Entrenamiento - Rodadas"
         ok (get-session-id)
         js (rodadas-scripts)
@@ -52,14 +58,13 @@
 (defn grid-rodadas [{params :params}]
   (try
     (let [table    "rodadas"
-          user     (or (get-session-id) "Anonimo")
           level    (user-level)
           email    (user-email)
           scolumns (convert-search-columns search-columns)
           aliases  aliases-columns
           join     ""
           search   (grid-search (:search params nil) scolumns)
-          search   (if (= level "U") (grid-search-extra search (str "leader_email = '" email "'")))
+          search   (if (= level "U") (grid-search-extra search (str "leader_email = '" email "'")) nil)
           order    (grid-sort (:sort params nil) (:order params nil))
           offset   (grid-offset (parse-int (:rows params)) (parse-int (:page params)))
           rows     (grid-rows table aliases join search order offset)]
@@ -96,9 +101,8 @@
 (defn rodadas-save [{params :params}]
   (try
     (let [id           (fix-id (:id params))
-          user         (or (get-session-id) "Anonimo")
           repetir      (:repetir params)
-          leader_email (clojure.string/lower-case (:leader_email params))
+          leader_email (lower-case (:leader_email params))
           data         (build-postvars "rodadas" params)
           postvars     (assoc data :leader_email leader_email :repetir repetir)
           result       (Save db :rodadas postvars ["id = ?" id])]

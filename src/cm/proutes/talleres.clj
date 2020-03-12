@@ -1,12 +1,17 @@
 (ns cm.proutes.talleres
   (:require [cheshire.core :refer [generate-string]]
             [cm.models.crud :refer [build-postvars db Delete Query Save]]
-            [cm.models.grid :refer :all]
+            [cm.models.grid :refer [convert-search-columns
+                                    grid-search
+                                    grid-sort
+                                    grid-sort-extra
+                                    grid-offset
+                                    grid-rows]]
             [cm.models.util :refer [fix-id get-session-id parse-int]]
-            [cm.views.layout :refer :all]
+            [cm.views.layout :refer [application]]
             [cm.views.proutes.talleres :refer [talleres-scripts talleres-view]]))
 
-(defn talleres [request]
+(defn talleres [_]
   (let [title   "Talleres"
         ok      (get-session-id)
         js      (talleres-scripts)

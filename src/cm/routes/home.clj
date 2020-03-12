@@ -5,7 +5,7 @@
             [cm.models.crud :refer [db
                                     Query]]
             [cm.models.util :refer [get-session-id]]
-            [cm.views.layout :refer :all]
+            [cm.views.layout :refer [application]]
             [cm.views.home :refer [login-view
                                    login-scripts]]
             [noir.session :as session]
@@ -39,10 +39,10 @@
       [:p [:a.easyui-linkbutton.c6 {:data-options "plain:false"
                                     :href "mailto:lucero_systems@fastmail.com"} "Mandame un Correo"]]]]))
 
-(defn main [request]
+(defn main [_]
   (let [title (get-main-title)
         ok (get-session-id)
-        content [:div [:span {:style "margin-left:20px;"} (get-main-title)]] ]
+        content [:div [:span {:style "margin-left:20px;"} title]] ]
     (application "CM" ok nil content)))
 ;; End Main
 
@@ -60,12 +60,11 @@
   (let [row (first (Query db ["SELECT * FROM users WHERE username = ?" username]))
         active (:active row)]
     (if (= active "T")
-      (do
-        (if (crypt/compare password (:password row))
-          (do
-            (session/put! :user_id (:id row))
-            (generate-string {:url "/"}))
-          (generate-string {:error "Hay problemas para accesar el sitio!"})))
+      (if (crypt/compare password (:password row))
+        (do
+          (session/put! :user_id (:id row))
+          (generate-string {:url "/"}))
+        (generate-string {:error "Hay problemas para accesar el sitio!"}))
       (generate-string {:error "El usuario esta inactivo!"}))))
 ;; End login
 

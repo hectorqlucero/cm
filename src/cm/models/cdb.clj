@@ -1,5 +1,5 @@
 (ns cm.models.cdb
-  (:require [cm.models.crud :refer :all]
+  (:require [cm.models.crud :refer [db Query! Insert-multi]]
             [noir.util.crypt :as crypt]))
 
 
@@ -38,18 +38,21 @@
     :active    "T"}])
 ;; End users table
 
-(defn create-database []
+(defn create-database
   "Create database tables and default admin users
    Note: First create the database on MySQL with any client"
+  []
   (Query! db users-sql))
 
-(defn reset-database []
+(defn reset-database
   "Removes existing tables and re-creates them"
+  []
   (Query! db "DROP table IF EXISTS users")
   (Query! db users-sql))
 
-(defn migrate []
+(defn migrate
   "Migrate by the seat of my pants"
+  []
   (Query! db "DROP table IF EXISTS users")
   (Query! db users-sql)
   (Query! db "LOCK TABLES users WRITE;")

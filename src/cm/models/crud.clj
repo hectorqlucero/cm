@@ -36,23 +36,29 @@
 
 (def KEY "897sdn9j98u98kjz")
 
-(defn aes-in [value & alias]
+(defn aes-in
   "Encrypt a value MySQL"
+  [value & alias]
   (str "AES_ENCRYPT('" value "','" SALT "')"
        (if (seq alias)
-         (str " as " (first alias)))))
+         (str " as " (first alias))
+         nil)))
 
-(defn aes-out [value & alias]
+(defn aes-out
   "Decrypt a value MySQL"
+  [value & alias]
   (str "AES_DECRYPT('" value "','" SALT "')"
        (if (seq alias)
-         (str " as " (first alias)))))
+         (str " as " (first alias))
+         nil)))
 
-(defn aes-sel [field & alias]
+(defn aes-sel
   "Return field decrypted MySQL"
+  [field & alias]
   (str "AES_DECRYPT(" field ",'" SALT "')"
        (if (seq alias)
-         (str " as " (first alias)))))
+         (str " as " (first alias))
+         nil)))
 
 (def phone_mask "(___) ___-____")
 
@@ -82,8 +88,9 @@
 (defn cleanup_n5 [v]
   (when-not (= v n5_mask) v))
 
-(defn cleanup [row]
+(defn cleanup
   "Cleanup row - convert masks or blanks into nil"
+  [row]
   (apply merge
          (for [[k v] row]
            (let [value (and (cleanup_blanks v)
@@ -112,8 +119,8 @@
 (defn Insert-multi
   "Inserts multiple rows in specified table"
   [db table rows]
-  (j/with-db-transaction [t-con db]
-    (j/insert-multi! t-con table rows)))
+  (j/with-db-transaction [db]
+    (j/insert-multi! db table rows)))
 
 (defn Update
   "Updates columns in the specified table"
@@ -128,10 +135,10 @@
 (defn Save
   "Updates columns or inserts a new row in the specified table"
   [db table row where-clause]
-  (j/with-db-transaction [t-con db]
-    (let [result (j/update! t-con table (cleanup row) where-clause {:entities (j/quoted \`)})]
+  (j/with-db-transaction [db]
+    (let [result (j/update! db table (cleanup row) where-clause {:entities (j/quoted \`)})]
       (if (zero? (first result))
-        (j/insert! t-con table (cleanup row) {:entities (j/quoted \`)})
+        (j/insert! db table (cleanup row) {:entities (j/quoted \`)})
         result))))
 
 (defn crud-fix-id [v]
@@ -144,17 +151,17 @@
        (map clojure.string/capitalize)
        (clojure.string/join)))
 
-(defn crud-format-date-internal [s]
+(defn crud-format-date-internal
   "Convert a MM/dd/yyyy format date to yyyy-MM-dd format using a string as a date
    eg. 02/01/1997 -> 1997-02-01"
+  [s]
   (if (not-empty s)
     (try
-      (do
-        (.format
-          (SimpleDateFormat. "yyyy-MM-dd")
-          (.parse
-            (SimpleDateFormat. "MM/dd/yyyy") s)))
-      (catch Exception e nil))
+      (.format
+       (SimpleDateFormat. "yyyy-MM-dd")
+       (.parse
+        (SimpleDateFormat. "MM/dd/yyyy") s))
+      (catch Exception e (.getMessage e)))
     nil))
 
 (defn get-table-describe [table]
@@ -166,19 +173,7 @@
 (defn get-table-types [table]
   (map #(keyword (:type %)) (get-table-describe table)))
 
-(defn get-table-columns [table]
-  "Get table column names in a vector"
-  (let [the-fields (Query db (str "DESCRIBE " table))
-        tfields (map #(keyword (:field %)) the-fields)]
-    tfields))
-
-(defn get-table-columns [table]
-  (map #(keyword (:field %)) (get-table-describe table)))
-
-(defn get-table-types [table]
-  (map #(keyword (:type %)) (get-table-describe table)))
-
-(defn process-field [params field field-type field-key]
+(defn process-field [params field field-type]
   (let [value (str ((keyword field) params))
         field-type (st/lower-case field-type)]
     (cond
@@ -187,11 +182,12 @@
       (st/includes? field-type "date") (crud-format-date-internal value)
       :else value)))
 
-(defn build-postvars [table params]
+(defn build-postvars
   "Build post vars for table and process by type"
+  [table params]
   (let [td (get-table-describe table)]
     (into {}
           (map (fn [x]
                  {(keyword (:field x))
-                  (process-field params (:field x) (:type x) (:key x))
-                  }) td))))
+                  (process-field params (:field x) (:type x))
+                  })td))))

@@ -104,19 +104,19 @@
                       width:'100%'"})
 
     (if (= (user-level) "S")
-      (do
-        (list
-          [:label "Repetir?"]
-          [:div {:style "margin-bottom:5px;"}
-           [:input#repetir.easyui-radiobutton {:id "repetir_no"
-                                               :name "repetir"
-                                               :value "F"
-                                               :data-options "label:'No',checked:true"}]]
-          [:div {:style "margin-bottom:5px;"}
-           [:input#repetir.easyui-radiobutton {:id "repetir_si"
-                                               :name "repetir"
-                                               :value "T"
-                                               :data-options "label:'Si'"}]])))))
+      (list
+       [:label "Repetir?"]
+       [:div {:style "margin-bottom:5px;"}
+        [:input#repetir.easyui-radiobutton {:id "repetir_no"
+                                            :name "repetir"
+                                            :value "F"
+                                            :data-options "label:'No',checked:true"}]]
+       [:div {:style "margin-bottom:5px;"}
+        [:input#repetir.easyui-radiobutton {:id "repetir_si"
+                                            :name "repetir"
+                                            :value "T"
+                                            :data-options "label:'Si'"}]])
+      nil)))
 
 (defn toolbar-extra []
   (list
