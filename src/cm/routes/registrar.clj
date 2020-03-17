@@ -41,8 +41,8 @@
   (let [email (lower-case (or (:email params) "0"))
         password (:password params)
         params (assoc params 
-                      :level "u"
-                      :active "t"
+                      :level "U"
+                      :active "T"
                       :password (crypt/encrypt password)
                       :email email
                       :username email)

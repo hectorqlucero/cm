@@ -135,10 +135,10 @@
 (defn Save
   "Updates columns or inserts a new row in the specified table"
   [db table row where-clause]
-  (j/with-db-transaction [db]
-    (let [result (j/update! db table (cleanup row) where-clause {:entities (j/quoted \`)})]
+  (j/with-db-transaction [t-con db]
+    (let [result (j/update! t-con table (cleanup row) where-clause {:entities (j/quoted \`)})]
       (if (zero? (first result))
-        (j/insert! db table (cleanup row) {:entities (j/quoted \`)})
+        (j/insert! t-con table (cleanup row) {:entities (j/quoted \`)})
         result))))
 
 (defn crud-fix-id [v]
