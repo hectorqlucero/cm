@@ -6,6 +6,7 @@
                                     build-dialog
                                     build-dialog-buttons
                                     build-toolbar
+                                    build-text-editor
                                     build-field]]))
 
 (defn dialog-fields []
@@ -23,15 +24,11 @@
                       required: true,
                       width:'100%'"
        :validType    "length[0,20]"})
-    (build-field
-      {:id           "detalles"
-       :name         "detalles"
-       :class        "easyui-textbox"
-       :data-options "label:'Describir Rodada:',
-                      labelPosition:'top',
-                      multiline:true,
-                      width:'100%',
-                      height:120"})
+    (build-text-editor
+      {:label "Describir Rodada:"
+       :id "texteditor"
+       :name "detalles"
+       :placeholder "Detalles de la rodada..."})
     (build-field
       {:id           "punto_reunion"
        :name         "punto_reunion"
@@ -144,4 +141,22 @@
     (build-dialog-buttons)))
 
 (defn rodadas-scripts []
-  (include-js "/js/grid.js"))
+  (list
+  (include-js "/js/grid.js")
+  [:script
+   "
+   $(function() {
+      $('#texteditor').richText();
+    });
+    $('.dlg').dialog({
+      onOpen: function() {
+        $('#texteditor').val('').trigger('change');
+      }
+    });
+    $('.fm').form({
+      onLoadSuccess: function(data) {
+        $('#texteditor').trigger('change');
+      }
+    });
+   "
+   ]))

@@ -829,6 +829,13 @@
   [:div {:style "margin-bottom:10px;"}
    [:input options]])
 
+(defn build-text-editor
+  "ex. {:label 'My Label' :name 'fieldname' :placeholder 'myplaceholder' :class 'easyui-textbox'}"
+  [options]
+  [:div {:style "margin-bottom:10px;"}
+   [:label (:label options)]
+   [:textarea (dissoc options :label)]])
+
 (defn build-button [options]
   [:div {:style "text-align:center;padding:5px 0"}
    (if (list? options)
@@ -863,15 +870,16 @@
 (defn build-dialog [title fields & options]
   [:div.dlg.easyui-dialog {:closed  "true"
                            :buttons "#dlg-buttons"
-                           :style   "width:100%;padding:10px 20px;max-width:600px;"}
+                           :style   "width:100%;padding:10px 20px;max-width:670px;"}
    [:div#p.easyui-panel {:title title
                          :style "width:100%;
-                                 max-width:600px;
+                                 max-width:670px;
                                  height:auto;
-                                 max-height:98%;
+                                 max-height:100%;
                                  padding:10px 20px"}
     [:form.fm (or (first options) {:method "post"
                                    :enctype "multipart/form-data"
                                    :data-options "novalidate:true"}) 
      fields]]])
+
 ;; End hiccup stuff

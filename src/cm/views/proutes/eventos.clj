@@ -7,6 +7,7 @@
                                     build-toolbar
                                     build-image-field
                                     build-image-field-script
+                                    build-text-editor
                                     build-field]]))
 
 (def dialog-fields
@@ -17,30 +18,30 @@
       {:id           "titulo"
        :name         "titulo"
        :class        "easyui-textbox easyui-validatebox"
-       :data-options "label:'Tituto para el calendario<small>(ex: VII Gran Fondo</small>):',
+       :prompt       "VII Gran Fondo"
+       :data-options "label:'Titulo para el calendario<small>(ex: VII Gran Fondo</small>):',
                       labelPosition:'top',
                       width:'100%',
                       required: true"
        :validType    "length[0,100]"})
-    (build-field
-      {:id           "detalles"
-       :name         "detalles"
-       :class        "easyui-textbox"
-       :data-options "label:'Describir Evento:',
-                      labelPosition:'top',
-                      width:'100%',
-                      multiline:true,height:120"})
+    (build-text-editor
+      {:label "Detalles del evento:"
+       :id "texteditor"
+       :name "detalles"
+       :placeholder "Detalles del evento..."})
     (build-field
       {:id           "lugar"
        :name         "lugar"
        :class        "easyui-textbox"
-       :data-options "label:'Punto de Reunión(<small>ex. Parque Hidalgo</small>):',
+       :prompt       "Punto de Reunion ej. Parque Hidalgo..."
+       :data-options "label:'Punto de Reunión:',
                       labelPosition:'top',
                       width:'100%',
                       multiline:true,height:120"})
     (build-field
       {:id           "fecha"
        :name         "fecha"
+       :prompt       "mm/dd/yyyy"
        :class        "easyui-datebox"
        :data-options "label:'Fecha/Evento:',
                       labelPosition:'top',
@@ -49,6 +50,7 @@
     (build-field
       {:id    "hora"
        :name  "hora"
+       :prompt "20:00"
        :class "easyui-timespinner"
        :data-options "label:'Hora:',
                       labelPosition:'top',
@@ -56,6 +58,7 @@
     (build-field
       {:id           "organiza"
        :name         "organiza"
+       :prompt       "Cuadrante Rosita"
        :class        "easyui-textbox"
        :data-options "label:'Quién Organiza:',
                       labelPosition:'top',
@@ -87,6 +90,5 @@
 
 (defn eventos-scripts []
   (list
-    (include-js "/js/grid.js")
-    (include-js "/scripts/proutes/eventos_scripts.js")
-    [:script (build-image-field-script)]))
+    (include-js "/js/grid.js") 
+    (include-js "/scripts/proutes/eventos_scripts.js")))

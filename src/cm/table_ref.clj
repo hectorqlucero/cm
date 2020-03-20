@@ -114,3 +114,10 @@
 
 (defn imagen [table field idname value & extra-folder]
   (get-image table field idname value (first extra-folder)))
+
+(defn get-item 
+  "Generic get field value from table"
+  [table field idname idvalue]
+  (let [sql (str "SELECT " field " FROM " table " WHERE " idname "='" idvalue "'")
+        row (first (Query db sql))]
+    ((keyword field) row)))

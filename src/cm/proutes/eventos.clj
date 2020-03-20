@@ -39,7 +39,7 @@
       (generate-string rows))
     (catch Exception e (.getMessage e))))
 ;; End eventos grid
-
+ 
 ;; Start eventos form
 (def eventos-form-sql
   "SELECT id as id,
@@ -55,8 +55,9 @@
 
 (defn eventos-form [id]
   (try
-    (let [row (Query db [eventos-form-sql id])]
-      (generate-string (first row)))
+    (let [row (first (Query db [eventos-form-sql id]))
+          row (assoc row :te (:titulo row))]
+      (generate-string row))
     (catch Exception e (.getMessage e))))
 ;; End eventos form
 

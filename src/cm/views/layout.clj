@@ -58,7 +58,9 @@
     (include-css "/css/main.css")
     (include-css "/bootstrap/css/bootstrap.min.css")
     (include-css "/bootstrap/css/lumen.min.css")
-    (include-css "/css/main.css")))
+    (include-css "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
+    (include-css "/RichText/src/richtext.min.css")
+    ))
 
 (defn app-js []
   (list
@@ -73,6 +75,7 @@
     (include-js "/easyui/datagrid-scrollview.js")
     (include-js "/easyui/datagrid-filter.js")
     (include-js "/easyui/locale/easyui-lang-es.js")
+    (include-js "/RichText/src/jquery.richtext.min.js")
     (include-js "/js/main.js")))
 
 (defn application [title ok js & content]
@@ -89,7 +92,7 @@
             (= ok 0) (menus-public)
             (> ok 0) (menus-private))
           [:div#content.container-fluid.easyui-panel {:style "margin-top:75px;border:none;"
-                                              :data-options "closed:false"} 
+                                                      :data-options "closed:false"} 
            content]
           (app-js)
           js]))
