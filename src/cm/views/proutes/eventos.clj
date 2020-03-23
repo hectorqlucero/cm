@@ -6,7 +6,6 @@
                                     build-dialog-buttons
                                     build-toolbar
                                     build-image-field
-                                    build-image-field-script
                                     build-text-editor
                                     build-field]]))
 

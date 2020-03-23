@@ -24,10 +24,10 @@
 
 ;; Start registrar
 (defn registrar [_]
-  (let [title "Registro de usuarios"
-        token (anti-forgery-field)
-        ok (get-session-id)
-        js (registrar-scripts)
+  (let [title   "Registro de usuarios"
+        token   (anti-forgery-field)
+        ok      (get-session-id)
+        js      (registrar-scripts)
         error-text "Existe una session, no se puede crear un nuevo usuario"
         return-url "/"
         content (registrar-view title token)]

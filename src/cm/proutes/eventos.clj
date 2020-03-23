@@ -70,14 +70,14 @@
 
 (defn eventos-save [{params :params}]
   (try
-    (let [id (fix-id (:id params))
-          file (:file params)
-          postvars (dissoc (build-postvars "eventos" params) :file)
-          the-id (str (get-id id postvars))
-          path (str (:uploads config) "/eventos/")
+    (let [id         (fix-id (:id params))
+          file       (:file params)
+          postvars   (dissoc (build-postvars "eventos" params) :file)
+          the-id     (str (get-id id postvars))
+          path       (str (:uploads config) "/eventos/")
           image-name (upload-image file the-id path)
-          postvars (assoc postvars :imagen image-name :id the-id)
-          result (Update db :eventos postvars ["id = ?" the-id])]
+          postvars   (assoc postvars :imagen image-name :id the-id)
+          result     (Update db :eventos postvars ["id = ?" the-id])]
       (if (seq result)
         (generate-string {:success "Correctamente Processado!"})
         (generate-string {:error "No se pudo processar!"})))))

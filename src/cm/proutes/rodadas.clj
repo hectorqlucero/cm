@@ -22,9 +22,9 @@
             [cm.views.proutes.rodadas :refer [rodadas-scripts rodadas-view]]))
 
 (defn rodadas [_]
-  (let [title "Entrenamiento - Rodadas"
-        ok (get-session-id)
-        js (rodadas-scripts)
+  (let [title   "Entrenamiento - Rodadas"
+        ok      (get-session-id)
+        js      (rodadas-scripts)
         content (rodadas-view title)]
     (application title ok js content)))
 

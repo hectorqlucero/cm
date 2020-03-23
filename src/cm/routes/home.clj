@@ -21,35 +21,35 @@
 
 (defn get-main-title []
   (html5
-    [:div {:style "margin-left:20px;
+   [:div {:style "margin-left:20px;
                    margin-right:20px;
                    margin-bottom:20px;"}
-     [:h3 "Bienvenido al sitio Ciclismo Mexicali"]
-     [:ul
-      [:li [:strong "Eventos: "] "Listado de todos los eventos y carreras.  Ej. Paseo Rosarito Ensenada"]
-      [:li [:strong "Rodadas: "] "Rodadas organizadas por grupos o particulares.  Ej. Ver las rodadas de Grupos y confirmar asistencia a rodadas."]
-      [:li [:strong "Talleres: "] "Talleres de reparación/venta de bicicletas"]
-      [:li [:strong "Grupos: "] "Grupos ciclistas ej. Cuadrante Rosita, Sector Ciclista Azul etc..."]
-      [:li [:strong "Entrar: "] "Aquí podrás registrarte como miembro y así crear rodadas para invitar a otros ciclistas.  Las rodadas que hayas creado saldrán en el calendario de rodadas y ciclistas podrán confirmar asistencia y recibirás un correo electronico.  Si cancelas la rodada todos los que confirmaron serán notificados con un correo electrónico que la rodada se canceló"]]
-     [:br] [:br]
-     [:div {:style "margin-left:20px;margin-right:20px;margin-bottom:20px;"}
-      [:p "Este sitio es para todos los ciclistas ya sea de Mexicali o cualquiera que venga a Mexicali por causas de trabajo o vacaciones."]
-      [:hr]
-      [:p "Si itenes alguna sugerencia o necesitas ayuda, estamos para ayudarte"]
-      [:p [:a.easyui-linkbutton.c6 {:data-options "plain:false"
-                                    :href "mailto:lucero_systems@fastmail.com"} "Mandame un Correo"]]]]))
+    [:h3 "Bienvenido al sitio Ciclismo Mexicali"]
+    [:ul
+     [:li [:strong "Eventos: "] "Listado de todos los eventos y carreras.  Ej. Paseo Rosarito Ensenada"]
+     [:li [:strong "Rodadas: "] "Rodadas organizadas por grupos o particulares.  Ej. Ver las rodadas de Grupos y confirmar asistencia a rodadas."]
+     [:li [:strong "Talleres: "] "Talleres de reparación/venta de bicicletas"]
+     [:li [:strong "Grupos: "] "Grupos ciclistas ej. Cuadrante Rosita, Sector Ciclista Azul etc..."]
+     [:li [:strong "Entrar: "] "Aquí podrás registrarte como miembro y así crear rodadas para invitar a otros ciclistas.  Las rodadas que hayas creado saldrán en el calendario de rodadas y ciclistas podrán confirmar asistencia y recibirás un correo electronico.  Si cancelas la rodada todos los que confirmaron serán notificados con un correo electrónico que la rodada se canceló"]]
+    [:br] [:br]
+    [:div {:style "margin-left:20px;margin-right:20px;margin-bottom:20px;"}
+     [:p "Este sitio es para todos los ciclistas ya sea de Mexicali o cualquiera que venga a Mexicali por causas de trabajo o vacaciones."]
+     [:hr]
+     [:p "Si itenes alguna sugerencia o necesitas ayuda, estamos para ayudarte"]
+     [:p [:a.easyui-linkbutton.c6 {:data-options "plain:false"
+                                   :href "mailto:lucero_systems@fastmail.com"} "Mandame un Correo"]]]]))
 
 (defn main [_]
-  (let [title (get-main-title)
-        ok (get-session-id)
-        content [:div [:span {:style "margin-left:20px;"} title]] ]
+  (let [title   (get-main-title)
+        ok      (get-session-id)
+        content [:div [:span {:style "margin-left:20px;"} title]]]
     (application "CM" ok nil content)))
 ;; End Main
 
 ;; Start Login
 (defn login [_]
-  (let [title "Accesar al Sitio"
-        ok (get-session-id)
+  (let [title   "Accesar al Sitio"
+        ok      (get-session-id)
         content (login-view (anti-forgery-field))
         scripts (login-scripts)]
     (if-not (= (get-session-id) 0)
@@ -57,7 +57,7 @@
       (application title ok scripts content))))
 
 (defn login! [username password]
-  (let [row (first (Query db ["SELECT * FROM users WHERE username = ?" username]))
+  (let [row    (first (Query db ["SELECT * FROM users WHERE username = ?" username]))
         active (:active row)]
     (if (= active "T")
       (if (crypt/compare password (:password row))

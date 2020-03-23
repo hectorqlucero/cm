@@ -12,9 +12,9 @@
                                              ]]))
 
 (defn eventos [_]
-  (let [title "Eventos"
-        ok (get-session-id)
-        js (eventos-scripts)
+  (let [title   "Eventos"
+        ok      (get-session-id)
+        js      (eventos-scripts)
         content (eventos-view title (current_year))]
     (application title ok js content)))
 
@@ -41,11 +41,11 @@
   hora ")
 
 (defn display-eventos [year month]
-  (let [title (get-month-name (parse-int month))
-        ok (get-session-id)
-        js (display-eventos-scripts year month)
-        rows (Query db [eventos-sql year month])
-        rows (map #(assoc % :day (zpl (% :day) 2)) rows)
+  (let [title   (get-month-name (parse-int month))
+        ok      (get-session-id)
+        js      (display-eventos-scripts year month)
+        rows    (Query db [eventos-sql year month])
+        rows    (map #(assoc % :day (zpl (% :day) 2)) rows)
         content (display-eventos-view title year month rows (str (config :path) "eventos/"))]
     (application title ok js content)))
 ;; End display-eventos
