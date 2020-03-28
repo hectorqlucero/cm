@@ -70,7 +70,7 @@
     (catch Exception e (.getMessage e))))
 
 (defn build-grid
-  "builds grid. Parameters: table,search-extra,sort-extra,join"
+  "builds grid. Parameters: params, table Args: map with one or more, :sort-extra, :search-extra, :join, ex. {:sort-extra 'firstname,lastname'}"
   [params table & args]
   (try
     (let [aliases (build-grid-columns table)
