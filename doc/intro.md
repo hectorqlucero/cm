@@ -16,7 +16,8 @@ Ciclismo Mexicali is software written for the Mexicali, Mexico and all cyclist v
 - The configuration file needs to be created.  To do this you need to do the following:
     1. From the root of your application: **mkdir resources/private**
     2. From the root of your application: **touch resources/private/config.clj**
-    3. The config file referenced in **2** above **config.clj** should have the following:
+    3. The config file referenced above **config.clj** should have the following:
+
        `{:db-protocl "mysql"
            :db-name "//localhost:3306/**your-database-name**?characterEncoding=UTF-8"
            :db-user "your-database-user"
