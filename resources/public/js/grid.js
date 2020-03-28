@@ -31,7 +31,7 @@ function editItem(params) {
     var id = params.hasOwnProperty('idField') ? params.idField : row.id;
     $.get(window.location.href + '/edit/' + id, function(data) {
       fm.form('load',data);
-    }, 'json');
+    }, 'json')
   }
 }
 

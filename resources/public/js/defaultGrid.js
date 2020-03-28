@@ -15,7 +15,6 @@
 var dataGrid = $('.datagrid-searchable');
 var dialog = $('.dlg');
 var form = $('.fm');
-var te = $('.texteditor');
 var windowHeight;
 var token = $('#__anti-forgery-token').val();
 

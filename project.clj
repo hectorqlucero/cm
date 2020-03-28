@@ -1,4 +1,4 @@
-(defproject cm "0.1.0"
+(defproject sk "0.1.0"
   :description "Change me"
   :url "http://example.com/FIXME"
   :license {:name "EPL-2.0 OR GPL-2.0-or-later WITH Classpath-exception-2.0"
@@ -9,7 +9,7 @@
                  [lib-noir "0.9.9"]
                  [com.draines/postal "2.0.3"]
                  [cheshire "5.10.0"]
-                 [clj-pdf "2.4.0" :exclusions [commons-codec]]
+                 [clj-pdf "2.4.2" :exclusions [commons-codec]]
                  [ondrs/barcode "0.1.0"]
                  [pdfkit-clj "0.1.7" :exclusions [commons-logging commons-codec]]
                  [clj-jwt "0.1.1"]
@@ -22,13 +22,13 @@
                  [ring/ring-core "1.8.0" :exclusions [ring/ring-codec commons-logging commons-codec]]
                  [ring/ring-anti-forgery "1.3.0"]
                  [ring/ring-defaults "0.3.2"]]
-  :main ^:skip-aot cm.core
-  :aot [cm.core]
+  :main ^:skip-aot sk.core
+  :aot [sk.core]
   :plugins [[lein-ancient "0.6.10"]
             [lein-pprint "1.1.2"]]
   :uberjar-name "cm.jar"
   :target-path "target/%s"
-  :ring {:handler cm.core/app
+  :ring {:handler sk.core/app
          :auto-reload? true
          :auto-refresh? false}
   :resources-paths ["shared" "resources"]
