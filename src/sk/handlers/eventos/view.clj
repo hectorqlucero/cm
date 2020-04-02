@@ -55,7 +55,7 @@
 (defn display-eventos-view [title _ _ rows _]
   (list
     [:div.col-12.text-center
-     [:button.btn.btn-primary {:onclick "printPDF()"} "Imprimir"]]
+     [:button.btn.btn-primary {:onclick "window.location.href='/eventos/list'"} "Regresar"]]
     [:h3 {:style "color:#fa981b;text-transform:uppercase;font-weight:bold;"} title]
     (for [row rows]
       (list

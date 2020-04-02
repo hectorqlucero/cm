@@ -37,9 +37,8 @@
 (defn cuadrantes-save
   [{params :params}]
   (try
-    (let [table "cuadrantes"
-          upload-folder "cuadrantes"]
-      (build-form-save params table upload-folder))
+    (let [table "cuadrantes"]
+      (build-form-save params table))
     (catch Exception e (.getMessage e))))
 
 (defn cuadrantes-delete
