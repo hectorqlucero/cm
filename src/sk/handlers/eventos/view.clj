@@ -59,7 +59,7 @@
     [:h3 {:style "color:#fa981b;text-transform:uppercase;font-weight:bold;"} title]
     (for [row rows]
       (list
-        [:div.row
+        [:div.row.col-4
          [:div.col-auto
           [:a {:href "/eventos"}
            [:button.btn.btn-primary.btn-lg (:day row)]]]
