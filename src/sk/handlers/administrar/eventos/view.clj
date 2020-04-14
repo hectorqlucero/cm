@@ -47,8 +47,10 @@
     (build-field
       {:id    "hora"
        :name  "hora"
-       :class "easyui-timespinner"
-       :data-options "label:'Hora:',
+       :class "easyui-combobox"
+       :data-options "url:'/table_ref/get-time',
+                     method:'GET',
+                     label:'Hora:',
                       labelPosition:'top',
                       width:'100%'"})
     (build-field

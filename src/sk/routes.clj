@@ -19,6 +19,7 @@
   (GET "/table_ref/nivel_options" [] (generate-string (table_ref/nivel-options)))
   (GET "/table_ref/get_imagen/:id" [id] (table_ref/imagen "eventos" "imagen" "id" id "eventos/"))
   (GET "/table_ref/get-item/:table/:field/:fname/:fval" [table field fname fval] (table_ref/get-item table field fname fval))
+  (GET "/table_ref/get-time" [] (generate-string (table_ref/build-time)))
   ;; End table_ref
 
   ;; Start home

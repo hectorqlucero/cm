@@ -76,9 +76,11 @@
     (build-field
       {:id           "salida"
        :name         "salida"
-       :class        "easyui-timespinner"
-       :data-options "label:'Salida: <smail>ex. HH:MM 20:00 -> 8:00 PM</small>',
+       :class        "easyui-combobox"
+       :data-options "label:'Salida:',
                       labelPosition:'top',
+                      url:'/table_ref/get-time',
+                      method:'GET',
                       required:true,
                       width:'100%'"})
     (build-field
