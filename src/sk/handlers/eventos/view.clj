@@ -54,14 +54,15 @@
 
 (defn display-eventos-view [title _ _ rows _]
   (list
-    [:div.col-12.text-center
-     [:button.btn.btn-primary {:onclick "window.location.href='/eventos/list'"} "Regresar"]]
-    [:h3 {:style "color:#fa981b;text-transform:uppercase;font-weight:bold;"} title]
+    [:div.container
+     [:div.col-12.text-center
+      [:h3 {:style "color:#fa981b;text-transform:uppercase;font-weight:bold;"} title]
+      [:button.btn.btn-primary {:onclick "window.location.href='/eventos/list'"} "Regresar"]]
     (for [row rows]
       (list
         [:div.row.col-4
          [:div.col-auto
-          [:a {:href "/eventos"}
+          [:a {:href "#"}
            [:button.btn.btn-primary.btn-lg (:day row)]]]
          [:div.col-auto
           [:div.row
@@ -99,7 +100,7 @@
           [:div.row.warning
            [:div.col-auto {:style "color:#127ba3;"}]
            [:span {:style "color:#127ba3;"} (:leader row)]]]]
-        [:div.row [:div.col-auto "&nbsp;"]]))))
+        [:div.row [:div.col-auto "&nbsp;"]]))]))
 
 (defn display-eventos-scripts [year month]
   (list
