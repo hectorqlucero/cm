@@ -29,8 +29,7 @@
        (line-rr "Lider Email: " (:leader_email row))
        [:div.card-action
         [:a {:href (str "/rodadas/asistir/" (:id row))
-             :target "_blank"} [:strong.text-warning "Clic para confirmar asistencia"]]]]]]
-    [:br]))
+             :target "_blank"} [:strong.text-warning "Clic para confirmar asistencia"]]]]]]))
 
 (defn rr-view [rows]
   (list
