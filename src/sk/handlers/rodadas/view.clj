@@ -19,7 +19,7 @@
     [:h2 (:titulo row)
      [:div.card
       [:div.card-body {:style "font-size:.5em;"}
-       (line-rr "Fecha:" [:strong.text-warning (str (clojure.string/upper-case (:dia row)) (clojure.string/upper-case (:fecha row)))])
+       (line-rr "Fecha:" [:strong.text-warning (str (clojure.string/upper-case (:dia row)) (clojure.string/upper-case (:f_fecha row)))])
        (line-rr "Detalles: " (:detalles row))
        (line-rr "Punto de reunion: " (:punto_reunion row))
        (line-rr "Hora: " (:salida row))

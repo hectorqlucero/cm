@@ -49,8 +49,9 @@
 (def rr-sql
   "SELECT 
   id,
+  fecha,
   DATE_FORMAT(fecha, '%W ') as dia,
-  DATE_FORMAT(fecha, '%e de %M %Y') as fecha,
+  DATE_FORMAT(fecha, '%e de %M %Y') as f_fecha,
   titulo,
   detalles,
   punto_reunion,
