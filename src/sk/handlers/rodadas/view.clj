@@ -6,10 +6,9 @@
                                     build-button]]))
 
 (defn line-rr [label value]
-  (list
-    [:div.row
-     [:div.col-xs-4.col-sm-4.col-md-3.col-lg-1.text-primary [:strong label]]
-     [:div.col-xs.8.col-sm-8.col-md-9.col-lg-11 value]]))
+  [:div.row
+   [:div.col-xs-4.col-sm-4.col-md-3.col-lg-1.text-primary [:strong label]]
+   [:div.col-xs.8.col-sm-8.col-md-9.col-lg-11 value]])
 
 (defn body-rr [row]
   (list
