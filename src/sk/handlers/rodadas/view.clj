@@ -9,10 +9,7 @@
   (list
     [:div.row
      [:div.col-xs-4.col-sm-4.col-md-3.col-lg-1.text-primary [:strong label]]
-     [:div.col-xs.8.col-sm-8.col-md-9.col-lg-11 value]
-     [:div.row
-      [:div.col]
-      [:div.col]]]))
+     [:div.col-xs.8.col-sm-8.col-md-9.col-lg-11 value]]))
 
 (defn body-rr [row]
   (list
@@ -32,8 +29,7 @@
              :target "_blank"} [:strong.text-warning "Clic para confirmar asistencia"]]]]]]))
 
 (defn rr-view [rows]
-  (list
-    (map body-rr rows)))
+  (map body-rr rows))
 
 (defn rodadas-view []
   (list
