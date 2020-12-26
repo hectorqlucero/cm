@@ -5,6 +5,37 @@
                                     build-radio-buttons
                                     build-button]]))
 
+(defn line-rr [label value]
+  (list
+    [:div.row
+     [:div.col-xs-4.col-sm-4.col-md-3.col-lg-1.text-primary [:strong label]]
+     [:div.col-xs.8.col-sm-8.col-md-9.col-lg-11 value]
+     [:div.row
+      [:div.col]
+      [:div.col]]]))
+
+(defn body-rr [row]
+  (list
+    [:h2 (:titulo row)
+     [:div.card
+      [:div.card-body {:style "font-size:.5em;"}
+       (line-rr "Fecha:" [:strong.text-warning (str (clojure.string/upper-case (:dia row)) (clojure.string/upper-case (:fecha row)))])
+       (line-rr "Detalles: " (:detalles row))
+       (line-rr "Punto de reunion: " (:punto_reunion row))
+       (line-rr "Hora: " (:salida row))
+       (line-rr "Distancia: " (:distancia row))
+       (line-rr "Velocidad: " (:velocidad row))
+       (line-rr "Lider: " (:leader row))
+       (line-rr "Lider Email: " (:leader_email row))
+       [:div.card-action
+        [:a {:href (str "/rodadas/asistir/" (:id row))
+             :target "_blank"} [:strong.text-warning "Clic para confirmar asistencia"]]]]]]
+    [:br]))
+
+(defn rr-view [rows]
+  (list
+    (map body-rr rows)))
+
 (defn rodadas-view []
   (list
    (include-css "/font/css/all.min.css")
@@ -24,6 +55,9 @@
        [:button.btn.btn-default {:type         "button"
                                  :data-dismiss "modal"} "Regresar al Calendario"]
        [:a#eventUrl.btn.btn-primary {:target "_blank"} "Confirmar Asistencia"]]]]]))
+
+(defn rr-scripts []
+  [:script])
 
 (defn rodadas-scripts []
   (list
@@ -171,10 +205,13 @@
             url: '/rodadas/asistir',
             queryParams: {'__anti-forgery-token': token},
             onSubmit: function() {
-                return $(this).form('enableValidation').form('validate');
+              if($(this).form('validate')) {
+                $('#submitbtn').linkbutton('disable');
+                $('#submitbtn').linkbutton({text: 'Processando!'});
+              }
+              return $(this).form('enableValidation').form('validate');
             },
             success: function(result) {
-                $('#submitbtn').linkbutton('disable');
                 var json = JSON.parse(result);
                 if(json.error && json.success) {
                     $.messager.show({
@@ -193,7 +230,6 @@
                     });
                     window.close();
                 }
-                $('#submitbtn').linkbutton('enable');
             }
         });
     }

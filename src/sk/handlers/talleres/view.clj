@@ -3,11 +3,11 @@
 
 (defn reporte-view [title rows]
   (list
-    [:div.container
+    [:div.container-fluid
      [:div.col-12.text-center
       [:h3 {:style "color:#fa981b;text-transform:uppercase;font-weight:bold;"} title]]
      (for [row rows]
-       [:div.row.col-3
+       [:div.row.col-auto
         [:div.col-auto
          [:div.row
           [:div.col-auto
@@ -16,7 +16,7 @@
           [:div.col-auto
            [:button.btn.btn-info.btn.lg.btn-block {:data-toggle    "popover"
                                                    :data-placement "bottom"
-                                                   :data-content   (str (:historia row))} "Historia"]]]
+                                                   :data-content   (str (:historia row))} "click para Historia"]]]
          [:div.row
           [:div.col-auto
            [:strong "SITIO"]

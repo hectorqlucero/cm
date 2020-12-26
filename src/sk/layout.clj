@@ -23,7 +23,7 @@
      [:div#collapsibleNavbar.collapse.navbar-collapse
       [:ul.navbar-nav
        [:li.nav-item [:a.nav-link {:href "/eventos/list"} "Eventos"]]
-       [:li.nav-item [:a.nav-link {:href "/rodadas/list"} "Rodadas"]]
+       [:li.nav-item [:a.nav-link {:href "/rr"} "Rodadas"]]
        [:li.nav-item [:a.nav-link {:href "/talleres/list"} "Talleres"]]
        [:li.nav-item [:a.nav-link {:href "/grupos/list"} "Grupos"]]
        [:li.nav-item.dropdown
@@ -45,7 +45,7 @@
      [:div#collapsibleNavbar.collapse.navbar-collapse
       [:ul.navbar-nav
        [:li.nav-item [:a.nav-link {:href "/eventos/list"} "Eventos"]]
-       [:li.nav-item [:a.nav-link {:href "/rodadas/list"} "Rodadas"]]
+       [:li.nav-item [:a.nav-link {:href "/rr"} "Rodadas"]]
        [:li.nav-item [:a.nav-link {:href "/talleres/list"} "Talleres"]]
        [:li.nav-item [:a.nav-link {:href "/grupos/list"} "Grupos"]]
        [:li.nav-item [:a.nav-link {:href "/home/login"} "Entrar"]]
@@ -60,7 +60,6 @@
     (include-css "/easyui/themes/icon.css")
     (include-css "/easyui/themes/color.css")
     (include-css "/css/main.css")
-    (include-css "/fontawesome/css/fontawesome.min.css")
     (include-css "/RichText/src/richtext.min.css")))
 
 (defn app-js []
@@ -80,7 +79,7 @@
     (include-js "/js/main.js")))
 
 (defn application [title ok js & content]
-  (html5 {:ng-app "Inventario" :lang "es"}
+  (html5 {:ng-app "Ciclismo Mexicali" :lang "es"}
          [:head
           [:title title]
           [:meta {:charset "UTF-8"}]

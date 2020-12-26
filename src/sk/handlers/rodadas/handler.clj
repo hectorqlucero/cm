@@ -9,6 +9,8 @@
              :refer
              [asistir-scripts 
               asistir-view 
+              rr-view
+              rr-scripts
               rodadas-scripts 
               rodadas-view]]
             [ring.util.anti-forgery :refer [anti-forgery-field]]))
@@ -43,6 +45,33 @@
     (application title ok js content)))
 ;; End rodadas
 
+;; Start rr
+(def rr-sql
+  "SELECT 
+  id,
+  DATE_FORMAT(fecha, '%W ') as dia,
+  DATE_FORMAT(fecha, '%e de %M %Y') as fecha,
+  titulo,
+  detalles,
+  punto_reunion,
+  TIME_FORMAT(salida, '%h:%i %p') as salida,
+  distancia,
+  velocidad,
+  leader,
+  leader_email
+  FROM rodadas ORDER BY fecha,salida")
+
+(defn rr [req]
+  (purge)
+  (repeat-event)
+  (let [title "Rodadas de entrenamiento"
+        ok (get-session-id)
+        js (rr-scripts)
+        rows (Query db rr-sql)
+        content (rr-view rows)]
+    (application title ok js content)))
+;; End rr
+
 ;;Start form-assistir
 (def asistir-sql
   "
@@ -64,13 +93,29 @@
                                "Mi nombre es <strong>" user "</strong> y mi correo electronico es <a href='mailto:" email "'>" email "</a> y estoy confirmando que <strong>"  asistir_desc "</strong> al evento.</br>"
                                "<small><strong>Nota:</strong><i> Si desea contestarle a esta persona, por favor hacer clic en el email arriba!</i></br></br>"
                                "<strong>Comentarios:</strong> " comentarios "</br></br>"
-                               "<small>Esta es un aplicación para todos los ciclistas de Mexicali. se aceptan sugerencias.  <a href='mailto: hectorqlucero@gmail.com'>Clic aquí para mandar sugerencias</a></small>")
+                               "<small>Esta es una aplicación para todos los ciclistas de Mexicali. se aceptan sugerencias.  <a href='mailto: hectorqlucero@gmail.com'>Clic aquí para mandar sugerencias</a></small>")
         body              {:from    "lucero_systems@fastmail.com"
                            :to      leader_email
                            :cc      "hectorqlucero@fastmail.com"
                            :subject (str descripcion_corta " - Confirmar asistencia")
                            :body    [{:type    "text/html;charset=utf-8"
                                       :content content}]}]
+    body))
+
+(defn email-user-body [rodadas_id user email comentarios asistir_desc]
+  (let [row (first (Query db [asistir-sql rodadas_id]))
+        leader (:leader row)
+        leader_email (:leader_email row)
+        descripcion_corta (:titulo row)
+        content (str "<strong>Hola " user ":</strong></br></br>"
+                     "Gracias por confirmar asistencia a este evento.</br></br>"
+                     "<small>Esta es una aplicación para todos los ciclistas de Mexicali.  Se aceptan sugerencias.  <a href='mailto: hectorqlucero@fastmail.com'>Clic aquí para mandar sugerencias.</a></smaill>")
+        body {:from "lucero_systems@fastmail.com"
+              :to email
+              :cc "hectorqlucero@fastmail.com"
+              :subject (str descripcion_corta " - Asistencia Comfirmada!")
+              :body [{:type "text/html;charset=utf-8"
+                      :content content}]}]
     body))
 
 (defn asistir [rodadas_id]
@@ -97,10 +142,12 @@
                         :email       email
                         :asistir     (:asistir params)}
           body         (email-body rodadas_id (:user params) email (:comentarios params) asistir_desc)
+          user-body    (email-user-body rodadas_id (:user params) email (:comentarios params) asistir_desc)
           result       (Save db :rodadas_link postvars ["rodadas_id = ? and email = ?" rodadas_id email])]
       (if (seq result)
         (do
           (send-email host body)
+          (send-email host user-body)
           (generate-string {:success "Correctamente Processado!"}))
         (generate-string {:error "No se pudo processar!"})))
     (catch Exception e (.getMessage e))))

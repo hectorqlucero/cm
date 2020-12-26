@@ -23,7 +23,7 @@
                       labelPosition:'top',
                       required: true,
                       width:'100%'"
-       :validType    "length[0,20]"})
+       :validType    "length[0,100]"})
     (build-text-editor
       {:label "Describir Rodada:"
        :id "texteditor"

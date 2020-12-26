@@ -54,13 +54,12 @@
 
 (defn display-eventos-view [title _ _ rows _]
   (list
-    [:div.container
      [:div.col-12.text-center
       [:h3 {:style "color:#fa981b;text-transform:uppercase;font-weight:bold;"} title]
       [:button.btn.btn-primary {:onclick "window.location.href='/eventos/list'"} "Regresar"]]
     (for [row rows]
       (list
-        [:div.row.col-4
+        [:div.row.col-12
          [:div.col-auto
           [:a {:href "#"}
            [:button.btn.btn-primary.btn-lg (:day row)]]]
@@ -72,7 +71,7 @@
                                              :data-html      "true"
                                              :data-placement "bottom"
                                              :data-content   (:descripcion row)
-                                             :style          "width:100px;"} "Detalles"]]]
+                                             :style          "width:150px;"} "clic para Detalles"]]]
           [:div.row
            [:div.col-auto
             [:img {:src     (str "/uploads/eventos/" (row :imagen) "?t=" (str (UUID/randomUUID)))
@@ -100,7 +99,8 @@
           [:div.row.warning
            [:div.col-auto {:style "color:#127ba3;"}]
            [:span {:style "color:#127ba3;"} (:leader row)]]]]
-        [:div.row [:div.col-auto "&nbsp;"]]))]))
+        [:br]
+        [:div.row [:div.col-auto "&nbsp;"]]))))
 
 (defn display-eventos-scripts [year month]
   (list

@@ -44,9 +44,10 @@
   ;; End eventos
 
   ;; Start rodadas
-  (GET "/rodadas/list" req [] (rodadas/rodadas req))
+  (GET "/rodadas/list" req [] (rodadas/rr req))
   (GET "/rodadas/asistir/:id" [id] (rodadas/asistir id))
   (POST "/rodadas/asistir" req [] (rodadas/asistir! req))
+  (GET "/rr" req [] (rodadas/rr req))
   ;; End rodadas
 
   ;; Start talleres
