@@ -23,7 +23,7 @@
      [:div#collapsibleNavbar.collapse.navbar-collapse
       [:ul.navbar-nav
        [:li.nav-item [:a.nav-link {:href "/eventos/list"} "Eventos"]]
-       [:li.nav-item [:a.nav-link {:href "/rr"} "Rodadas"]]
+       [:li.nav-item [:a.nav-link {:href "/rodadas/list"} "Rodadas"]]
        [:li.nav-item [:a.nav-link {:href "/talleres/list"} "Talleres"]]
        [:li.nav-item [:a.nav-link {:href "/grupos/list"} "Grupos"]]
        [:li.nav-item.dropdown
@@ -45,7 +45,7 @@
      [:div#collapsibleNavbar.collapse.navbar-collapse
       [:ul.navbar-nav
        [:li.nav-item [:a.nav-link {:href "/eventos/list"} "Eventos"]]
-       [:li.nav-item [:a.nav-link {:href "/rr"} "Rodadas"]]
+       [:li.nav-item [:a.nav-link {:href "/rodadas/list"} "Rodadas"]]
        [:li.nav-item [:a.nav-link {:href "/talleres/list"} "Talleres"]]
        [:li.nav-item [:a.nav-link {:href "/grupos/list"} "Grupos"]]
        [:li.nav-item [:a.nav-link {:href "/home/login"} "Entrar"]]
