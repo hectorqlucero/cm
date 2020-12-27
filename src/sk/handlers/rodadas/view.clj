@@ -11,24 +11,24 @@
    [:div.col-xs.8.col-sm-8.col-md-9.col-lg-11 value]])
 
 (defn body-rr [row]
-  (list
-    [:h2 (:titulo row)
-     [:div.card
-      [:div.card-body {:style "font-size:.5em;"}
-       (line-rr "Fecha:" [:strong.text-warning (str (clojure.string/upper-case (:dia row)) (clojure.string/upper-case (:f_fecha row)))])
-       (line-rr "Detalles: " (:detalles row))
-       (line-rr "Punto de reunion: " (:punto_reunion row))
-       (line-rr "Hora: " (:salida row))
-       (line-rr "Distancia: " (:distancia row))
-       (line-rr "Velocidad: " (:velocidad row))
-       (line-rr "Lider: " (:leader row))
-       (line-rr "Lider Email: " (:leader_email row))
-       [:div.card-action
-        [:a {:href (str "/rodadas/asistir/" (:id row))
-             :target "_blank"} [:strong.text-warning "Clic para confirmar asistencia"]]]]]]))
+  [:h2 (:titulo row)
+   [:div.card
+    [:div.card-body {:style "font-size:.5em;"}
+     (line-rr "Fecha:" [:strong.text-warning (str (clojure.string/upper-case (:dia row)) (clojure.string/upper-case (:f_fecha row)))])
+     (line-rr "Detalles: " (:detalles row))
+     (line-rr "Punto de reunion: " (:punto_reunion row))
+     (line-rr "Hora: " (:salida row))
+     (line-rr "Distancia: " (:distancia row))
+     (line-rr "Velocidad: " (:velocidad row))
+     (line-rr "Lider: " (:leader row))
+     (line-rr "Lider Email: " (:leader_email row))
+     [:div.card-action
+      [:a {:href (str "/rodadas/asistir/" (:id row))
+           :target "_blank"} [:strong.text-warning "Clic para confirmar asistencia"]]]]]])
 
 (defn rr-view [rows]
-  (map body-rr rows))
+  (list
+    (map body-rr rows)))
 
 (defn rodadas-view []
   (list
