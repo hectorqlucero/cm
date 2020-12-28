@@ -7,8 +7,8 @@
 
 (defn line-rr [label value]
   [:div.row
-   [:div.col-xs-4.col-sm-4.col-md-3.col-lg-1.text-primary [:strong label]]
-   [:div.col-xs.8.col-sm-8.col-md-9.col-lg-11 value]])
+   [:div.col-xs-4.col-sm-4.col-md-3.col-lg-2.text-primary [:strong label]]
+   [:div.col-xs.8.col-sm-8.col-md-9.col-lg-10 value]])
 
 (defn body-rr [row]
   [:h2 (:titulo row)
@@ -22,9 +22,10 @@
      (line-rr "Velocidad: " (:velocidad row))
      (line-rr "Lider: " (:leader row))
      (line-rr "Lider Email: " (:leader_email row))
-     [:div.card-action
-      [:a {:href (str "/rodadas/asistir/" (:id row))
-           :target "_blank"} [:strong.text-warning "Clic para confirmar asistencia"]]]]]])
+     (line-rr "Confirmar:"
+              [:div.card-action
+               [:a {:href (str "/rodadas/asistir/" (:id row))
+                    :target "_blank"} [:strong.text-warning "Clic para confirmar asistencia"]]])]]])
 
 (defn rr-view [rows]
   (list
