@@ -28,7 +28,8 @@
 
 (defn rr-view [rows]
   (list
-    (map body-rr rows)))
+    [:div.container
+     (map body-rr rows)]))
 
 (defn rodadas-view []
   (list
