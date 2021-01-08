@@ -49,7 +49,6 @@
           (wrap-exception-handling protected-routes)
           app-routes)
         (handler/site)
-        (wrap-session)
         (wrap-multipart-params)
         (reload/wrap-reload)
         (wrap-defaults (-> site-defaults
@@ -57,6 +56,6 @@
                            (assoc-in [:session :store] (cookie-store))
                            (assoc-in [:session :cookie-attrs] {:max-age 28800})
                            (assoc-in [:session :cookie-name] "LS")))
-        (session/wrap-noir-session*)
-        (wrap-session))
+        (wrap-session)
+        (session/wrap-noir-session*))
     {:port (:port config)}))
