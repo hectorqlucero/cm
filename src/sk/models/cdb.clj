@@ -82,6 +82,18 @@
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8")
 ;; End rodadas
 
+;; Start aventuras
+(def aventuras-sql
+  "
+  CREATE TABLE aventuras (
+  id int(11) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  nombre varchar(100) DEFAULT NULL,
+  aventura text,
+  fecha date DEFAULT NULL
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+  ")
+;; End aventuras
+
 ;; Start rodadas_link
 (def rodadas_link-sql
   "
@@ -121,6 +133,7 @@
   (Query! db eventos-sql)
   (Query! db rodadas-sql)
   (Query! db rodadas_link-sql)
+  (Query! db aventuras-sql)
   (Query! db talleres-sql)
   (Query! db users-sql)
   (Query! db "LOCK TABLES users WRITE;")
@@ -133,12 +146,14 @@
   (Query! db "DROP table IF EXISTS eventos")
   (Query! db "DROP table IF EXISTS rodadas_link")
   (Query! db "DROP table IF EXISTS rodadas")
+  (Query! db "DROP table IF EXISTS aventuras")
   (Query! db "DROP table IF EXISTS talleres")
   (Query! db "DROP table IF EXISTS users")
   (Query! db cuadrantes-sql)
   (Query! db eventos-sql)
   (Query! db rodadas-sql)
   (Query! db rodadas_link-sql)
+  (Query! db aventuras-sql)
   (Query! db talleres-sql)
   (Query! db users-sql)
   (Query! db "LOCK TABLES users WRITE;")
@@ -146,4 +161,7 @@
   (Query! db "UNLOCK TABLES;"))
 
 (defn migrate []
-  "Migrate by the seat of my pants")
+  "Migrate by the seat of my pants"
+  (Query! db "DROP TABLE IF EXISTS aventuras")
+  (Query! db aventuras-sql))
+;;(migrate)

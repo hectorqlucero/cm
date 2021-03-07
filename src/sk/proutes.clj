@@ -1,6 +1,7 @@
 (ns sk.proutes
   (:require [compojure.core :refer [defroutes GET POST]]
             [sk.handlers.administrar.rodadas.handler :as rodadas]
+            [sk.handlers.administrar.aventuras.handler :as aventuras]
             [sk.handlers.administrar.eventos.handler :as eventos]
             [sk.handlers.administrar.talleres.handler :as talleres]
             [sk.handlers.administrar.cuadrantes.handler :as cuadrantes]))
@@ -13,6 +14,14 @@
   (POST "/administrar/rodadas/save" req [] (rodadas/rodadas-save req))
   (POST "/administrar/rodadas/delete" req [] (rodadas/rodadas-delete req))
   ;; End rodadas
+
+  ;; Start aventuras
+  (GET "/administrar/aventuras" req [] (aventuras/aventuras req))
+  (POST "/administrar/aventuras" req [] (aventuras/aventuras-grid req))
+  (GET "/administrar/aventuras/edit/:id" [id] (aventuras/aventuras-form id))
+  (POST "/administrar/aventuras/save" req [] (aventuras/aventuras-save req))
+  (POST "/administrar/aventuras/delete" req [] (aventuras/aventuras-delete req))
+  ;; End aventuras
 
   ;; Start eventos
   (GET "/administrar/eventos" req [] (eventos/eventos req))

@@ -6,6 +6,7 @@
             [sk.handlers.tref.handler :as table_ref]
             [sk.handlers.eventos.handler :as eventos]
             [sk.handlers.rodadas.handler :as rodadas]
+            [sk.handlers.aventuras.handler :as aventuras]
             [sk.handlers.talleres.handler :as talleres]
             [sk.handlers.grupos.handler :as grupos]))
 
@@ -48,6 +49,10 @@
   (GET "/rodadas/asistir/:id" [id] (rodadas/asistir id))
   (POST "/rodadas/asistir" req [] (rodadas/asistir! req))
   ;; End rodadas
+
+  ;; Start aventuras
+  (GET "/aventuras/list" req [] (aventuras/aventuras req))
+  ;; End aventuras
 
   ;; Start talleres
   (GET "/talleres/list" req [] (talleres/reporte req))

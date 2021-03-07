@@ -6,6 +6,7 @@
 (defn build-admin []
   (list
     [:a.dropdown-item {:href "/administrar/rodadas"} "Rodadas"]
+    [:a.dropdown-item {:href "/administrar/aventuras"} "Aventuras"]
     (if (= (user-level) "S")
       (list
         [:a.dropdown-item {:href "/administrar/eventos"} "Eventos"]
@@ -24,6 +25,7 @@
       [:ul.navbar-nav
        [:li.nav-item [:a.nav-link {:href "/eventos/list"} "Eventos"]]
        [:li.nav-item [:a.nav-link {:href "/rodadas/list"} "Rodadas"]]
+       [:li.nav-item [:a.nav-link {:href "/aventuras/list"} "Aventuras"]]
        [:li.nav-item [:a.nav-link {:href "/talleres/list"} "Talleres"]]
        [:li.nav-item [:a.nav-link {:href "/grupos/list"} "Grupos"]]
        [:li.nav-item.dropdown
@@ -46,6 +48,7 @@
       [:ul.navbar-nav
        [:li.nav-item [:a.nav-link {:href "/eventos/list"} "Eventos"]]
        [:li.nav-item [:a.nav-link {:href "/rodadas/list"} "Rodadas"]]
+       [:li.nav-item [:a.nav-link {:href "/aventuras/list"} "Aventuras"]]
        [:li.nav-item [:a.nav-link {:href "/talleres/list"} "Talleres"]]
        [:li.nav-item [:a.nav-link {:href "/grupos/list"} "Grupos"]]
        [:li.nav-item [:a.nav-link {:href "/home/login"} "Entrar"]]
