@@ -69,7 +69,6 @@
             [:h3.h3-primary {:style "color:#127ba3;font-weight:bold;"} (:descripcion_corta row)]
             [:button.btn.btn-info.btn-block {:data-toggle    "popover"
                                              :data-html      "true"
-                                             :data-placement "bottom"
                                              :data-content   (:descripcion row)
                                              :style          "width:150px;"} "clic para Detalles"]]]
           [:div.row

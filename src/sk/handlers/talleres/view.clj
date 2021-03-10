@@ -15,7 +15,6 @@
          [:div.row
           [:div.col-auto
            [:button.btn.btn-info.btn.lg.btn-block {:data-toggle    "popover"
-                                                   :data-placement "bottom"
                                                    :data-content   (str (:historia row))} "click para Historia"]]]
          [:div.row
           [:div.col-auto
