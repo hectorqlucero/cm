@@ -36,7 +36,7 @@
   [{params :params}]
   (try
     (let [table "eventos"
-          upload-folder "/eventos"]
+          upload-folder "eventos"]
       (build-form-save params table upload-folder))
     (catch Exception e (.getMessage e))))
 
