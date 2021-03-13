@@ -24,7 +24,7 @@
   (if (= (user-level) "U")
     {:sort-extra "fecha"
      :search-extra (str "leader_email = '" (user-email) "'")}
-    {:sort-extra "fecha,nombre"}))
+    {:sort-extra "fecha"}))
 
 (defn aventuras-grid
   [{params :params}]

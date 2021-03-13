@@ -87,7 +87,6 @@
   "
   CREATE TABLE aventuras (
   id int(11) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  nombre varchar(100) DEFAULT NULL,
   aventura text,
   leader_email varchar(100) DEFAULT NULL,
   fecha date DEFAULT NULL
