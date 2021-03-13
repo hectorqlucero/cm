@@ -85,11 +85,11 @@
      title 
      "/administrar/cuadrantes" 
      (list
-       [:th {:data-options "field:'name',sortable:true,fixed:false,width:100"} "Nombre del Cuadrante"]
-       [:th {:data-options "field:'leader',sortable:true,fixed:false,width:100"} "Lider"]
-       [:th {:data-options "field:'leader_phone',sortable:true,fixed:true,width:100"} "Telefono"]
-       [:th {:data-options "field:'leader_cell',sortable:true,fixed:true,width:100"} "Cel"]
-       [:th {:data-options "field:'leader_email',sortable:true,fixed:false,width:100"} "Email"]))
+       [:th {:data-options "field:'name',sortable:true,fixed:false"} "Nombre del Cuadrante"]
+       [:th {:data-options "field:'leader',sortable:true,fixed:false"} "Lider"]
+       [:th {:data-options "field:'leader_phone',sortable:true,fixed:true"} "Telefono"]
+       [:th {:data-options "field:'leader_cell',sortable:true,fixed:true"} "Cel"]
+       [:th {:data-options "field:'leader_email',sortable:true,fixed:false"} "Email"]))
    (build-toolbar (toolbar-extra))
    (build-dialog title dialog-fields)
    (build-dialog-buttons)))

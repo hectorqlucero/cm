@@ -15,11 +15,13 @@
 (def aventuras-sql
   "
   SELECT
-  nombre,
-  aventura,
-  DATE_FORMAT(fecha, '%W ') as dia,
-  DATE_FORMAT(fecha, '%e de %M %Y') as f_fecha
-  FROM aventuras ORDER BY fecha desc
+  CONCAT(users.firstname,' ', users.lastname) as nombre,
+  aventuras.aventura,
+  DATE_FORMAT(aventuras.fecha, '%W ') as dia,
+  DATE_FORMAT(aventuras.fecha, '%e de %M %Y') as f_fecha
+  FROM aventuras 
+  JOIN users ON users.username = aventuras.leader_email
+  ORDER BY aventuras.fecha desc
   ")
 
 (defn aventuras [_]

@@ -84,7 +84,7 @@
       (list
         [:th {:data-options "field:'nombre',width:23,sortable:true"} "Nombre"]
         [:th {:data-options "field: 'direccion',width:58,sortable:false"} "Direccion"]
-        [:th {:data-options "field: 'telefono',width:14,sortable:false"} "Telefono"]))
+        [:th {:data-options "field: 'telefono',width:14,sortable:false,width:5"} "Telefono"]))
     (build-toolbar (toolbar-extra))
     (build-dialog title dialog-fields)
     (build-dialog-buttons)))

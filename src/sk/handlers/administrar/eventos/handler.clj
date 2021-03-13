@@ -3,7 +3,7 @@
                                     build-form-save
                                     build-form-delete]]
             [sk.models.grid :refer [build-grid]]
-            [sk.models.util :refer [get-session-id]]
+            [sk.models.util :refer [get-session-id current_year]]
             [sk.layout :refer [application]]
             [sk.handlers.administrar.eventos.view :refer [eventos-view eventos-scripts]]))
 
@@ -21,7 +21,8 @@
   [{params :params}]
   (try
     (let [table "eventos"
-          args {:sort-extra "fecha,hora"}]
+          args {:sort-extra "fecha,hora"
+                :search-extra (str "YEAR(fecha) = '" (current_year) "'")}]
       (build-grid params table args))
     (catch Exception e (.getMessage e))))
 

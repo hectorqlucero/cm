@@ -4,6 +4,7 @@
                                     build-form-delete]]
             [sk.models.grid :refer [build-grid]]
             [sk.models.util :refer [get-session-id
+                                    current_year
                                     user-email
                                     user-level]]
             [sk.layout :refer [application]]
@@ -25,8 +26,9 @@
     (let [table "rodadas"
           args (if (= (user-level) "U")
                  {:sort-extra "fecha,salida" 
-                  :search-extra (str "leader_email = '" (user-email) "'")}
-                 {:sort-extra "fecha,salida"})]
+                  :search-extra (str "leader_email = '" (user-email) "' AND YEAR(fecha) = '" (current_year) "'")}
+                 {:sort-extra "fecha,salida"
+                  :search-extra (str "YEAR(fecha) = '" (current_year) "'")})]
       (build-grid params table args))
     (catch Exception e (.getMessage e))))
 

@@ -3,7 +3,10 @@
                                     build-form-save
                                     build-form-delete]]
             [sk.models.grid :refer [build-grid]]
-            [sk.models.util :refer [get-session-id]]
+            [sk.models.util :refer [get-session-id
+                                    current_year
+                                    user-email
+                                    user-level]]
             [sk.layout :refer [application]]
             [sk.handlers.administrar.aventuras.view :refer [aventuras-view aventuras-scripts]]))
 
@@ -12,16 +15,22 @@
   (try
     (let [title "Aventuras de rodadas"
           ok (get-session-id)
-          js (aventuras-scripts)
-          content (aventuras-view title)]
+          js (aventuras-scripts (user-email))
+          content (aventuras-view title (user-email))]
       (application title ok js content))
     (catch Exception e (.getMessage e))))
+
+(defn aventuras-filter []
+  (if (= (user-level) "U")
+    {:sort-extra "fecha"
+     :search-extra (str "leader_email = '" (user-email) "'")}
+    {:sort-extra "fecha,nombre"}))
 
 (defn aventuras-grid
   [{params :params}]
   (try
     (let [table "aventuras"
-          args {:sort-extra "nombre"}]
+          args (aventuras-filter)]
       (build-grid params table args))
     (catch Exception e (.getMessage e))))
 

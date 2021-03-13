@@ -772,8 +772,8 @@
      queryParams: {'__anti-forgery-token':token},
      pagination: false,
      rownumbers: true,
-     nowrap: true,
-     autoRowHeight: false,
+     nowrap: false,
+     autoRowHeight: true,
      fitColumns: true,
      autoSizeColumns: true,
      singleSelect: true")}

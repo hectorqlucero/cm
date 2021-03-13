@@ -52,76 +52,32 @@
         }
        ")]))
 
+(defn line-rr [label value]
+  [:div.row
+   (if-not (nil? label)
+     [:div.col-xs-4.col-sm-4.col-md-3.col-lg-2.text-primary [:strong label]])
+   [:div.col-xs.8.col-sm-8.col-md-9.col-lg-10 value]])
+
+(defn body-rr [row]
+  [:h2 (:descripcion_corta row)
+   [:div.card
+    [:div.card-body {:style "font-size:.5em;"}
+     (line-rr nil [:img.card-img-top.mb-3.w-auto {:src (str "/uploads/eventos/" (:imagen row))
+                                                  :onError "this.src='/images/placeholder_profile.png'"}])
+     (line-rr "Fecha:" (:f_fecha row))
+     (line-rr "Detalles: " (:descripcion row))
+     (line-rr "Lugar: " (:punto_reunion row))
+     (line-rr "Hora: " (:hora row))
+     (line-rr "Organiza: " (:leader row))]]])
+
 (defn display-eventos-view [title _ _ rows _]
   (list
+    [:div.container
      [:div.col-12.text-center
       [:h3 {:style "color:#fa981b;text-transform:uppercase;font-weight:bold;"} title]
       [:button.btn.btn-primary {:onclick "window.location.href='/eventos/list'"} "Regresar"]]
-    (for [row rows]
-      (list
-        [:div.row.col-12
-         [:div.col-auto
-          [:a {:href "#"}
-           [:button.btn.btn-primary.btn-lg (:day row)]]]
-         [:div.col-auto
-          [:div.row
-           [:div.col-auto
-            [:h3.h3-primary {:style "color:#127ba3;font-weight:bold;"} (:descripcion_corta row)]
-            [:button.btn.btn-info.btn-block {:data-toggle    "popover"
-                                             :data-html      "true"
-                                             :data-content   (:descripcion row)
-                                             :style          "width:150px;"} "clic para Detalles"]]]
-          [:div.row
-           [:div.col-auto
-            [:img {:src     (str "/uploads/eventos/" (row :imagen) "?t=" (str (UUID/randomUUID)))
-                   :id      (row :id)
-                   :width   "99"
-                   :height  "80"
-                   :style   "cursor: pointer;"
-                   :onclick (str "resize_image(" (row :id) ")")
-                   :onError "this.src='/images/placeholder_profile.png'"}]]]
-          [:div.row
-           [:div.col-auto
-            [:strong "LUGAR"]
-            [:span.vertical-divider-secondary {:style "color:#fa981b;font-weight:bold"} " | "]
-            (:punto_reunion row)]]
-          [:div.row
-           [:div.col-auto
-            [:strong "FECHA"]
-            [:span.vertical-divider-secondary {:style "color:#fa981b;font-weight:bold;"} " | "]
-            (:fecha row) " (" [:span {:style "color:rgb(18,123,163);"} (:fecha_dow row)] ")"]]
-          [:div.row
-           [:div.col-auto
-            [:strong "HORA"]
-            [:span.vertical-divider-secondary {:style "color:#fa981b;font-weight:bold;"} "&nbsp;&nbsp;| "]
-            (:hora row)]]
-          [:div.row.warning
-           [:div.col-auto {:style "color:#127ba3;"}]
-           [:span {:style "color:#127ba3;"} (:leader row)]]]]
-        [:br]
-        [:div.row [:div.col-auto "&nbsp;"]]))))
+     (map body-rr rows)]))
 
 (defn display-eventos-scripts [year month]
   (list
-    [:script
-     (str
-       "
-       function resize_image(id) {
-          var img = $('#'+id);
-          if(img.width() < 500) {
-          img.animate({width: '500', height: '500'}, 1000);
-          } else {
-          img.animate({width: img.attr(\"width\"), height: img.attr(\"height\")}, 1000);
-          }
-       }
-       $(function() {
-        $('[data-toggle=\"popover\"]').popover()
-       })
-
-       function printPDF() {
-        var year = " year ";
-        var month = " month ";
-        url = '/eventos/print' + year + '/' + month;
-        window.location.href = url;
-       }
-       ")]))
+    [:script nil ]))

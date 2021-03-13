@@ -131,13 +131,13 @@
       title
       "/administrar/rodadas"
       (list
-        [:th {:data-options "field:'titulo',sortable:true,fixed:true,width:100"} "Titulo"]
-        [:th {:data-options "field:'fecha',sortable:true,fixed:true,width:100"} "Fecha"]
+        [:th {:data-options "field:'titulo',sortable:true,fixed:true"} "Titulo"]
+        [:th {:data-options "field:'fecha',sortable:true,fixed:true,width:80"} "Fecha"]
         [:th {:data-options "field:'punto_reunion',sortable:false"} "Punto de Reunión"]
-        [:th {:data-options "field:'salida',sortable:true,fixed:true,width:100"} "Salida"]
-        [:th {:data-options "field:'nivel',sortable:true,fixed:true,width:100"} "Nivel"]
-        [:th {:data-options "field:'distancia',sortable:true,fixed:true,width:100"} "Distancia"]
-        [:th {:data-options "field:'velocidad',sortable:true,fixed:true,width:100"} "Velocidad"]))
+        [:th {:data-options "field:'salida',sortable:true,fixed:true"} "Salida"]
+        [:th {:data-options "field:'nivel',sortable:true,fixed:true"} "Nivel"]
+        [:th {:data-options "field:'distancia',sortable:true,fixed:true"} "Distancia"]
+        [:th {:data-options "field:'velocidad',sortable:true,fixed:true"} "Velocidad"]))
     (build-toolbar (toolbar-extra))
     (build-dialog title (dialog-fields))
     (build-dialog-buttons)))
