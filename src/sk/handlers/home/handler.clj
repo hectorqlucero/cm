@@ -71,4 +71,4 @@
 
 (defn logoff []
   (session/clear!)
-  (redirect "/"))
+  (redirect "https://ciclismomexicali.org"))
