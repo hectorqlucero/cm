@@ -8,25 +8,17 @@
                                     build-field
                                     build-radio-buttons]]))
 
-(defn build-email-options [email]
-  (str
-    "
-    label:'Email:',
-    labelPosition:'top',
-    width:'100%',
-    required:true,
-    valueField:'label',
-    textField:'value',
-    data:[{label:'leader_email',value:'" email "'}]"))
-
 (defn dialog-fields [email]
   (list
     [:input {:type "hidden" :id "id" :name "id"}]
-    (build-field
-      {:id "leader_email"
-       :name "leader_email"
-       :class "easyui-combobox"
-       :data-options (build-email-options email)})
+    [:select {:id "leader_email"
+              :name "leader_email"
+              :class "easyui-combobox"
+              :data-options "label:'Email',
+                            labelPosition:'top',
+                            required:true,
+                            width:'100%'"}
+     [:option {:value email} email]]
     
     (build-field
       {:id           "fecha"
