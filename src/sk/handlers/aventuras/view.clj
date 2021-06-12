@@ -1,4 +1,5 @@
-(ns sk.handlers.aventuras.view)
+(ns sk.handlers.aventuras.view
+  (:require [clojure.string :refer [upper-case]]))
 
 (defn line-rr [label value]
   [:div.row
@@ -9,7 +10,7 @@
   [:h2 (:nombre row )
    [:div.card
     [:div.card-body {:style "font-size:.5em"}
-     (line-rr "Fecha:" [:strong.text-warning (str (clojure.string/upper-case (:dia row)) (clojure.string/upper-case (:f_fecha row)))])
+     (line-rr "Fecha:" [:strong.text-warning (str (upper-case (:dia row)) (upper-case (:f_fecha row)))])
      (line-rr "Aventura:" (:aventura row))]]])
 
 (defn aventuras-view [rows]

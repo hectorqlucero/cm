@@ -1,12 +1,14 @@
 (ns sk.handlers.administrar.cuadrantes.view
-  (:require [ring.util.anti-forgery :refer [anti-forgery-field]]
-            [hiccup.page :refer [include-js]]
-            [sk.models.util :refer [build-table
-                                    build-dialog
-                                    build-dialog-buttons
-                                    build-toolbar
-                                    build-field
-                                    build-radio-buttons]]))
+  (:require [hiccup.page :refer [include-js]]
+            [ring.util.anti-forgery :refer [anti-forgery-field]]
+            [sk.models.util
+             :refer
+             [build-dialog
+              build-dialog-buttons
+              build-field
+              build-radio-buttons
+              build-table
+              build-toolbar]]))
 
 (def dialog-fields
   (list
@@ -83,14 +85,14 @@
   (list
    (anti-forgery-field)
    (build-table
-     title 
-     "/administrar/cuadrantes" 
-     (list
-       [:th {:data-options "field:'name',sortable:true,fixed:false"} "Nombre del Cuadrante"]
-       [:th {:data-options "field:'leader',sortable:true,fixed:false"} "Lider"]
-       [:th {:data-options "field:'leader_phone',sortable:true,fixed:true"} "Telefono"]
-       [:th {:data-options "field:'leader_cell',sortable:true,fixed:true"} "Cel"]
-       [:th {:data-options "field:'leader_email',sortable:true,fixed:false"} "Email"]))
+    title
+    "/administrar/cuadrantes"
+    (list
+     [:th {:data-options "field:'name',sortable:true,fixed:false"} "Nombre del Cuadrante"]
+     [:th {:data-options "field:'leader',sortable:true,fixed:false"} "Lider"]
+     [:th {:data-options "field:'leader_phone',sortable:true,fixed:true"} "Telefono"]
+     [:th {:data-options "field:'leader_cell',sortable:true,fixed:true"} "Cel"]
+     [:th {:data-options "field:'leader_email',sortable:true,fixed:false"} "Email"]))
    (build-toolbar (toolbar-extra))
    (build-dialog title dialog-fields)
    (build-dialog-buttons)))

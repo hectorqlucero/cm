@@ -34,7 +34,7 @@
          :elideSetAutoCommits             true
          :alwaysSendSetIsolation          false
          :enableQueryTimeouts             false
-         :zeroDateTimeBehavior            "CONVERT_TO_NULL"}) ; Database connection
+         :zeroDateTimeBehavior            "ConvertToNull"}) ; Database connection
 
 (def SALT "897sdn9j98u98kj")                                ; encryption salt for DB
 
