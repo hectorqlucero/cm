@@ -49,7 +49,7 @@
       [:div#modalBody.modal-body]
       [:div.modal-footer
        [:button.btn.btn-default {:type         "button"
-                                 :data-dismiss "modal"} "Regresar al Calendario"]
+                                 :data-dismiss "modal"} "Regresar a Rodadas"]
        [:a#eventUrl.btn.btn-primary {:target "_blank"} "Confirmar Asistencia"]]]]]))
 
 (defn rr-scripts []

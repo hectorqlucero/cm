@@ -1,5 +1,6 @@
 (ns sk.proutes
   (:require [compojure.core :refer [defroutes GET POST]]
+            [sk.handlers.administrar.users.handler :as users]
             [sk.handlers.administrar.rodadas.handler :as rodadas]
             [sk.handlers.administrar.aventuras.handler :as aventuras]
             [sk.handlers.administrar.eventos.handler :as eventos]
@@ -7,6 +8,14 @@
             [sk.handlers.administrar.cuadrantes.handler :as cuadrantes]))
 
 (defroutes proutes
+  ;; Start users
+  (GET "/administrar/users"  req [] (users/users req))
+  (POST "/administrar/users" req [] (users/users-grid req))
+  (GET "/administrar/users/edit/:id" [id] (users/users-form id))
+  (POST "/administrar/users/save" req [] (users/users-save req))
+  (POST "/administrar/users/delete" req [] (users/users-delete req))
+  ;; End users
+
   ;; Start rodadas
   (GET "/administrar/rodadas" req [] (rodadas/rodadas req))
   (POST "/administrar/rodadas" req [] (rodadas/rodadas-grid req))

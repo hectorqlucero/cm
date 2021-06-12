@@ -122,7 +122,7 @@
    [:a {:href         "javascript:void(0)"
         :class        "easyui-linkbutton"
         :data-options "iconCls:'icon-back',plain:true"
-        :onclick      "returnItem('/rodadas/list')"} "Regresar al Calendario"]))
+        :onclick      "returnItem('/rodadas/list')"} "Regresar a Rodadas"]))
 
 (defn rodadas-view [title]
   (list

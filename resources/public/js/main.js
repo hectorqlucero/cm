@@ -29,13 +29,13 @@
 //     document.querySelector("body").style.visibility = "visible"; 
 //   } 
 // }; 
-$('body').append('<div style="" id="loadingDiv"><div class="loader">Loading...</div></div>');
-$(window).on('load', function(){
-  setTimeout(removeLoader, 5); //wait for page load PLUS two seconds.
-});
-function removeLoader(){
-    $( "#loadingDiv" ).fadeOut(5, function() {
-      // fadeOut complete. Remove the loading div
-      $( "#loadingDiv" ).remove(); //makes page more lightweight 
-  });  
-}
+// $('body').append('<div class="br-secondary" style="" id="loadingDiv"><div class="loader">Loading...</div></div>');
+// $(window).on('load', function(){
+//   setTimeout(removeLoader, 3); //wait for page load PLUS two seconds.
+// });
+// function removeLoader(){
+//     $( "#loadingDiv" ).fadeOut(3, function() {
+//       // fadeOut complete. Remove the loading div
+//       $( "#loadingDiv" ).remove(); //makes page more lightweight 
+//   });  
+// }

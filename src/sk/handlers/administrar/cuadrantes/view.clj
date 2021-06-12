@@ -37,6 +37,7 @@
     {:id           "leader_cell"
      :name         "leader_cell"
      :class        "easyui-maskedbox"
+     :mask         "(999) 999-9999"
      :data-options "label:'Cell:',
                     labelPosition:'top',
                     width:'100%',required: false"})

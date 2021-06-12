@@ -11,11 +11,12 @@
       (list
         [:a.dropdown-item {:href "/administrar/eventos"} "Eventos"]
         [:a.dropdown-item {:href "/administrar/talleres"} "Talleres"]
-        [:a.dropdown-item {:href "/administrar/cuadrantes"} "Grupos"]))))
+        [:a.dropdown-item {:href "/administrar/cuadrantes"} "Grupos"]
+        [:a.dropdown-item {:href "/administrar/users"} "Usuarios"]))))
 
 (defn menus-private []
   (list
-    [:nav.navbar.navbar-expand-sm.navbar-dark.bg-primary.fixed-top
+    [:nav.navbar.navbar-expand-sm.navbar-light.bg-secondary.fixed-top
      [:a.navbar-brand {:href "/"} (:site-name config)]
      [:button.navbar-toggler {:type "button"
                               :data-toggle "collapse"
@@ -38,7 +39,7 @@
 
 (defn menus-public []
   (list
-    [:nav.navbar.navbar-expand-sm.navbar-dark.bg-primary.fixed-top
+    [:nav.navbar.navbar-expand-sm.navbar-light.bg-secondary.fixed-top
      [:a.navbar-brand {:href "/"} (:site-name config)]
      [:button.navbar-toggler {:type "button"
                               :data-toggle "collapse"
@@ -78,8 +79,7 @@
     (include-js "/easyui/datagrid-scrollview.js")
     (include-js "/easyui/datagrid-filter.js")
     (include-js "/easyui/locale/easyui-lang-es.js")
-    (include-js "/RichText/src/jquery.richtext.min.js")
-    (include-js "/js/main.js")))
+    (include-js "/RichText/src/jquery.richtext.min.js")))
 
 (defn application [title ok js & content]
   (html5 {:ng-app "Ciclismo Mexicali" :lang "es"}
@@ -98,10 +98,13 @@
             (= ok 0) (menus-public)
             (> ok 0) (menus-private))
           [:div#content.container-fluid.easyui-panel {:style "margin-top:75px;border:none;"
-                                              :data-options "closed:false"} 
+                                                      :data-options "closed:false"} 
            content]
           (app-js)
-          js]))
+          js]
+         [:footer.p-5.bg-white.text-mutted.text-center.position-relative
+          [:div.container
+           [:p.lead "Copyright &copy; 2020 Lucero Systems"]]]))
 
 (defn error-404 [error return-url]
   [:div

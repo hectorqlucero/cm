@@ -47,11 +47,46 @@
           [:div.col-auto
            "&nbsp;"]]]])]))
 
-(defn reporte-scripts []
+(defn reporte-view [title rows]
   (list
-    [:script
-     "
-     $(function() {
-      $('[data-toggle=\"popover\"]').popover();
-     });
-      "]))
+    (for [row rows]
+      [:section.p-5
+       [:div.container
+        [:div.card.bg-secondary.text-secondary
+         [:div.card-body.text-center
+          [:h3.card-title.mb-3.text-primary (upper-case (:nombre row))]
+          [:p.card-text.text-uppercase.text-justify (:historia row)]
+          [:p.card-text.text-uppercase
+           [:div.row
+            [:div.col-auto.text-left
+             [:strong "SITIO"]]
+            [:div.col.text-left
+             [:a.text-primary {:href (str (:sitio row))
+                                 :target "_blank"} "Click aqui para ir al sitio"]]]]
+          [:p.card-text.text-uppercase
+           [:div.row
+            [:div.col-auto.text-left
+             [:strong "DIRECCIÓN"]]
+            [:div.col.text-left
+             (str (:direccion row))]]]
+          [:p.card-text.text-uppercase
+           [:div.row
+            [:div.col-auto.text-left
+             [:strong "HORARIOS"]] 
+            [:div.col.text-left
+             (str (:horarios row))]]]
+          [:p.card-text.text-uppercase
+           [:div.row
+            [:div.col-auto.text-left
+             [:strong "TELEFONO"]]
+            [:div.col.text-left
+             (str (:telefono row))]]]
+          [:p.card-text.text-uppercase
+           [:div.row
+            [:div.col-auto.text-left
+             [:strong "MAPA"]]
+            [:div.col.text-left
+             [:a.text-primary {:href (str (:direcciones row))
+                                 :target "_blank"} "Cómo Llegar"]]]]]]]])))
+
+(defn reporte-scripts [])

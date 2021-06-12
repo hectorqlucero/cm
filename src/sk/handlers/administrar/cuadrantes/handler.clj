@@ -10,7 +10,7 @@
 (defn cuadrantes
   [_]
   (try
-    (let [title "Talleres de bicicleta"
+    (let [title "Grupos de Ciclistas"
           ok (get-session-id)
           js (cuadrantes-scripts)
           content (cuadrantes-view title)]
