@@ -1,13 +1,13 @@
 (ns sk.models.util
-  (:require [sk.models.crud :refer :all]
+  (:require [clj-jwt.core :refer :all]
+            [clj-time.coerce :as c]
             [clj-time.core :as t]
             [clj-time.format :as f]
-            [clj-time.coerce :as c]
-            [clj-jwt.core :refer :all]
-            [clojure.string :refer [join]]
             [clojure.java.io :as io]
+            [clojure.string :refer [join]]
             [date-clj :as d]
-            [noir.session :as session])
+            [noir.session :as session]
+            [sk.models.crud :refer :all])
   (:import java.text.SimpleDateFormat
            [java.util Calendar UUID]))
 
@@ -76,9 +76,9 @@
 
 (defn check-token [t]
   "Checks if token verifes and it's not expired, returns id or nil"
-  (let [token (decode-token t)
-        exp (:exp token)
-        cexp (c/to-epoch (t/now))
+  (let [token    (decode-token t)
+        exp      (:exp token)
+        cexp     (c/to-epoch (t/now))
         token-id (:iss token)]
     (if (and (verify-token t) (> exp cexp))
       token-id
@@ -291,9 +291,9 @@
     (try
       (do
         (.format
-          (SimpleDateFormat. "yyyy-MM-dd")
-          (.parse
-            (SimpleDateFormat. "MM/dd/yyyy") s)))
+         (SimpleDateFormat. "yyyy-MM-dd")
+         (.parse
+          (SimpleDateFormat. "MM/dd/yyyy") s)))
       (catch Exception e nil))
     nil))
 
@@ -304,9 +304,9 @@
     (try
       (do
         (.format
-          (SimpleDateFormat. "MM/dd/yyyy")
-          (.parse
-            (SimpleDateFormat. "yyyy-MM-dd") s)))
+         (SimpleDateFormat. "MM/dd/yyyy")
+         (.parse
+          (SimpleDateFormat. "yyyy-MM-dd") s)))
       (catch Exception e nil))
     nil))
 
@@ -317,9 +317,9 @@
     (try
       (do
         (.format
-          (SimpleDateFormat. "dd/MM/yyyy")
-          (.parse
-            (SimpleDateFormat. "yyyy-MM-dd") s)))
+         (SimpleDateFormat. "dd/MM/yyyy")
+         (.parse
+          (SimpleDateFormat. "yyyy-MM-dd") s)))
       (catch Exception e nil))
     nil))
 
@@ -434,8 +434,8 @@
 
 (defn audit [username ip controller function args]
   (if (and
-        (not-empty controller)
-        (not-empty function))
+       (not-empty controller)
+       (not-empty function))
     (let [postvars {:username   username
                     :date       (today-internal)
                     :time       (today-time)
@@ -467,17 +467,17 @@
 
 (defn get-photo-val [table-name field-name id-name id-value]
   (if (or
-        (nil? table-name)
-        (nil? field-name)
-        (nil? id-name)
-        (nil? id-value))
+       (nil? table-name)
+       (nil? field-name)
+       (nil? id-name)
+       (nil? id-value))
     nil
     ((keyword field-name) (first (Query db (str "SELECT " field-name " FROM " table-name " WHERE " id-name " = " id-value))))))
 
 (defn build-photo-html [photo-val uuid]
   (if (or
-        (nil? photo-val)
-        (nil? uuid))
+       (nil? photo-val)
+       (nil? uuid))
     nil
     (str "<img src='" (:path config)  photo-val "?t=" uuid "' onError=\"this.src='/images/placeholder_profile.png'\" width='95' height='71'></img>")))
 
@@ -503,26 +503,26 @@
 
 (defn get-month-name [month]
   (cond
-    (= month 1) "Enero"
-    (= month 2) "Febrero"
-    (= month 3) "Marzo"
-    (= month 4) "Abril"
-    (= month 5) "Mayo"
-    (= month 6) "Junio"
-    (= month 7) "Julio"
-    (= month 8) "Agosto 4"
-    (= month 9) "Septiembre"
+    (= month 1)  "Enero"
+    (= month 2)  "Febrero"
+    (= month 3)  "Marzo"
+    (= month 4)  "Abril"
+    (= month 5)  "Mayo"
+    (= month 6)  "Junio"
+    (= month 7)  "Julio"
+    (= month 8)  "Agosto 4"
+    (= month 9)  "Septiembre"
     (= month 10) "Octubre"
     (= month 11) "Noviembre"
     (= month 12) "Diciembre"))
 
 (defn get-counter []
-  (let [row (first (Query db "select numero_registro from contador where id = 'C'"))
+  (let [row             (first (Query db "select numero_registro from contador where id = 'C'"))
         numero-registro (:numero_registro row)
-        next-numero (parse-int (inc numero-registro))
-        values {:id "C"
-                :numero_registro (str next-numero)}
-        result (Update db :contador values ["id = ?" "C"])]
+        next-numero     (parse-int (inc numero-registro))
+        values          {:id              "C"
+                         :numero_registro (str next-numero)}
+        result          (Update db :contador values ["id = ?" "C"])]
     next-numero))
 
 (defn deep-merge [& maps]
@@ -553,9 +553,9 @@
 
 (defn create-categorias [rows]
   (map (fn [cid]
-         {:carreras_id cid
+         {:carreras_id   cid
           :categorias_id cid
-          :categoria (get-description "categorias" "descripcion" "id" cid)}) (into '() (into #{} (map #(str (:categorias_id %)) rows)))))
+          :categoria     (get-description "categorias" "descripcion" "id" cid)}) (into '() (into #{} (map #(str (:categorias_id %)) rows)))))
 
 (defn calculate-speed [distance seconds]
   (let [hours (/ (parse-int seconds) 3600.0)
@@ -572,10 +572,10 @@
             crow          (first (Query db ["SELECT * FROM carreras_categorias WHERE carreras_id = ? AND categorias_id = ?" carreras_id categorias_id]))
             id            (:id crow)
             postvars      (if (seq crow)
-                            {:id (str id)
-                             :carreras_id (str (:carreras_id crow))
+                            {:id            (str id)
+                             :carreras_id   (str (:carreras_id crow))
                              :categorias_id (str (:categorias_id crow))
-                             :status (str (:status crow))}
+                             :status        (str (:status crow))}
                             {:id            (str id)
                              :carreras_id   carreras_id
                              :categorias_id categorias_id
@@ -608,35 +608,35 @@
   (first (Query db [productos-row-sql producto_id])))
 
 (defn get-inventory-inicio [producto_id]
-  (let [row (get-productos-row producto_id)
+  (let [row        (get-productos-row producto_id)
         inv_inicio (or
-                     (parse-int
-                       (:inv_inicio row)) 0)]
+                    (parse-int
+                     (:inv_inicio row)) 0)]
     inv_inicio))
 
 (defn get-inventory-recibido [producto_id]
   (or
-    (parse-int
-      (:total
-        (first
-          (Query db [recibido-sql producto_id])))) 0))
+   (parse-int
+    (:total
+     (first
+      (Query db [recibido-sql producto_id])))) 0))
 
 (defn get-inventory-enviado [producto_id]
   (or
-    (parse-int
-      (:total
-        (first
-          (Query db [enviado-sql producto_id])))) 0))
+   (parse-int
+    (:total
+     (first
+      (Query db [enviado-sql producto_id])))) 0))
 
 (defn update-inventory [producto_id]
   (if-not (nil? producto_id)
-    (let [inv_inicio (get-inventory-inicio producto_id)
-          recibido (get-inventory-recibido producto_id)
-          enviado (get-inventory-enviado producto_id)
+    (let [inv_inicio  (get-inventory-inicio producto_id)
+          recibido    (get-inventory-recibido producto_id)
+          enviado     (get-inventory-enviado producto_id)
           inv_en_mano (- (+ inv_inicio recibido) enviado)
-          postvars {:inv_recibido (str recibido)
-                    :inv_enviado (str enviado)
-                    :inv_en_mano (str inv_en_mano)}]
+          postvars    {:inv_recibido (str recibido)
+                       :inv_enviado  (str enviado)
+                       :inv_en_mano  (str inv_en_mano)}]
       (Update db :productos postvars ["id =?" (str producto_id)]))))
 
 (defn update-all-inventory []
@@ -689,19 +689,19 @@
 ;; Start hiccup stuff
 (defn build-image-field []
   (list
-    [:input {:id "imagen" :name "imagen" :type "hidden"}]
-    [:div {:style "margin-bottom:10px;width:100%;max-width:400px;"}
-     [:div {:style "width:99%;max-width:398px;display:flex;overflow:none;vertical-align:middle;"}
+   [:input {:id "imagen" :name "imagen" :type "hidden"}]
+   [:div {:style "margin-bottom:10px;width:100%;max-width:400px;"}
+    [:div {:style "width:99%;max-width:398px;display:flex;overflow:none;vertical-align:middle;"}
      [:div {:style "float:left;margin-right:2px;"}
       [:img#image1 {:width  "95"
                     :height "71"
                     :style  "margin-right:2px;cursor:pointer;"}]]
      [:div {:style "float:right;margin-left:2px;vertical-align:middle;"}
-        [:input {:id           "file"
-                :name         "file"
-                :class        "easyui-filebox"
-                :style        "width:300px;"
-                :data-options "prompt:'Escoge imagen...',
+      [:input {:id           "file"
+               :name         "file"
+               :class        "easyui-filebox"
+               :style        "width:300px;"
+               :data-options "prompt:'Escoge imagen...',
                               buttonText:'Escoge imagen...',
                               onChange: function(value) {
                                 var f = $(this).next().find('input[type=file]')[0];
@@ -808,16 +808,16 @@
      [:div {:style "margin-bottom:5px;"} [:input option]])])
 
 (defn build-form [title token fields buttons & options]
-  [:div.easyui-panel {:style "width:100%;
+  [:div.easyui-panel {:style        "width:100%;
                               max-width:600px;
                               padding:30px 60px;"
-                      :title title
+                      :title        title
                       :data-options "style:{margin:'0 auto'}"}
-   [:form.fm (or 
-               (first options) 
-               {:method "post"
-                :enctype "multipart/form-data"
-                :data-options "novalidate:true"})
+   [:form.fm (or
+              (first options)
+              {:method       "post"
+               :enctype      "multipart/form-data"
+               :data-options "novalidate:true"})
     token
     fields]
    buttons
@@ -835,6 +835,6 @@
                                  padding:10px 20px"}
     [:form.fm (or (first options) {:method "post"
                                    :enctype "multipart/form-data"
-                                   :data-options "novalidate:true"}) 
+                                   :data-options "novalidate:true"})
      fields]]])
 ;; End hiccup stuff

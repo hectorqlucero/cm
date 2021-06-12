@@ -1,15 +1,14 @@
 (ns sk.handlers.home.handler
   (:require [cheshire.core :refer [generate-string]]
             [hiccup.page :refer [html5]]
-            [ring.util.anti-forgery :refer [anti-forgery-field]]
-            [sk.models.crud :refer [db
-                                    Query]]
-            [sk.models.util :refer [get-session-id]]
-            [sk.layout :refer :all]
-            [sk.handlers.home.view :refer [login-view login-script]]
+            [noir.response :refer [redirect]]
             [noir.session :as session]
             [noir.util.crypt :as crypt]
-            [noir.response :refer [redirect]]))
+            [ring.util.anti-forgery :refer [anti-forgery-field]]
+            [sk.handlers.home.view :refer [login-script login-view]]
+            [sk.layout :refer :all]
+            [sk.models.crud :refer [db Query]]
+            [sk.models.util :refer [get-session-id]]))
 
 ;; Start Main
 (def main-sql
@@ -37,8 +36,8 @@
      [:hr]
      [:p "Si itenes alguna sugerencia o necesitas ayuda, estamos para ayudarte"]
      [:p [:a.easyui-linkbutton.bg-secondary {:data-options "plain:true"
-                                :style "background:#fafafa;text-color:#0000"
-                                :href "mailto:lucero_systems@fastmail.com"} "Mandame un Correo"]]]]))
+                                             :style "background:#fafafa;text-color:#0000"
+                                             :href "mailto:lucero_systems@fastmail.com"} "Mandame un Correo"]]]]))
 
 (defn main [_]
   (let [title   (get-main-title)
@@ -49,8 +48,8 @@
 
 ;; Start Login
 (defn login [_]
-  (let [title "Accesar al Sitio"
-        ok (get-session-id)
+  (let [title   "Accesar al Sitio"
+        ok      (get-session-id)
         content (login-view (anti-forgery-field))
         scripts (login-script)]
     (if-not (= (get-session-id) 0)
@@ -58,7 +57,7 @@
       (application title ok scripts content))))
 
 (defn login! [username password]
-  (let [row (first (Query db ["SELECT * FROM users WHERE username = ?" username]))
+  (let [row    (first (Query db ["SELECT * FROM users WHERE username = ?" username]))
         active (:active row)]
     (if (= active "T")
       (do

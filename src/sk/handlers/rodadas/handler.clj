@@ -1,19 +1,19 @@
 (ns sk.handlers.rodadas.handler
   (:require [cheshire.core :refer [generate-string]]
             [clojure.string :refer [blank?]]
-            [sk.models.crud :refer [db Delete Query Query! Save]]
-            [sk.models.email :refer [host send-email]]
-            [sk.models.util :refer [fix-id get-session-id]]
-            [sk.layout :refer [application]]
+            [ring.util.anti-forgery :refer [anti-forgery-field]]
             [sk.handlers.rodadas.view
              :refer
-             [asistir-scripts 
-              asistir-view 
-              rr-view
+             [asistir-scripts
+              asistir-view
+              rodadas-scripts
+              rodadas-view
               rr-scripts
-              rodadas-scripts 
-              rodadas-view]]
-            [ring.util.anti-forgery :refer [anti-forgery-field]]))
+              rr-view]]
+            [sk.layout :refer [application]]
+            [sk.models.crud :refer [db Delete Query Query! Save]]
+            [sk.models.email :refer [host send-email]]
+            [sk.models.util :refer [fix-id get-session-id]]))
 
 ;; Start rodadas
 (defn purge []
@@ -65,10 +65,10 @@
 (defn rr [req]
   (purge)
   (repeat-event)
-  (let [title "Rodadas de entrenamiento"
-        ok (get-session-id)
-        js (rr-scripts)
-        rows (Query db rr-sql)
+  (let [title   "Rodadas de entrenamiento"
+        ok      (get-session-id)
+        js      (rr-scripts)
+        rows    (Query db rr-sql)
         content (rr-view rows)]
     (application title ok js content)))
 ;; End rr
@@ -104,19 +104,19 @@
     body))
 
 (defn email-user-body [rodadas_id user email comentarios asistir_desc]
-  (let [row (first (Query db [asistir-sql rodadas_id]))
-        leader (:leader row)
-        leader_email (:leader_email row)
+  (let [row               (first (Query db [asistir-sql rodadas_id]))
+        leader            (:leader row)
+        leader_email      (:leader_email row)
         descripcion_corta (:titulo row)
-        content (str "<strong>Hola " user ":</strong></br></br>"
-                     "Gracias por confirmar asistencia a este evento.</br></br>"
-                     "<small>Esta es una aplicación para todos los ciclistas de Mexicali.  Se aceptan sugerencias.  <a href='mailto: hectorqlucero@fastmail.com'>Clic aquí para mandar sugerencias.</a></smaill>")
-        body {:from "lucero_systems@fastmail.com"
-              :to email
-              :cc "hectorqlucero@fastmail.com"
-              :subject (str descripcion_corta " - Asistencia Comfirmada!")
-              :body [{:type "text/html;charset=utf-8"
-                      :content content}]}]
+        content           (str "<strong>Hola " user ":</strong></br></br>"
+                               "Gracias por confirmar asistencia a este evento.</br></br>"
+                               "<small>Esta es una aplicación para todos los ciclistas de Mexicali.  Se aceptan sugerencias.  <a href='mailto: hectorqlucero@fastmail.com'>Clic aquí para mandar sugerencias.</a></smaill>")
+        body              {:from    "lucero_systems@fastmail.com"
+                           :to      email
+                           :cc      "hectorqlucero@fastmail.com"
+                           :subject (str descripcion_corta " - Asistencia Comfirmada!")
+                           :body    [{:type    "text/html;charset=utf-8"
+                                      :content content}]}]
     body))
 
 (defn asistir [rodadas_id]

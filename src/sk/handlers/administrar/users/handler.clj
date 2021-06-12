@@ -1,25 +1,24 @@
 (ns sk.handlers.administrar.users.handler
-  (:require [sk.models.crud :refer [build-form-row
-                                    build-form-save
-                                    build-form-delete]]
-            [sk.models.grid :refer [build-grid]]
-            [sk.models.util :refer [get-session-id
-                                    user-level]]
+  (:require [sk.handlers.administrar.users.view :refer [users-scripts users-view]]
             [sk.layout :refer [application]]
-            [sk.handlers.administrar.users.view :refer [users-view users-scripts]]))
+            [sk.models.crud
+             :refer
+             [build-form-delete build-form-row build-form-save]]
+            [sk.models.grid :refer [build-grid]]
+            [sk.models.util :refer [get-session-id user-level]]))
 
 (defn users
   [_]
   (try
-    (let [title "Usuarios"
-          ok (get-session-id)
-          js (users-scripts)
+    (let [title   "Usuarios"
+          ok      (get-session-id)
+          js      (users-scripts)
           content (users-view title)
-          level (user-level)]
+          level   (user-level)]
       (if
-        (or
-          (= (user-level) "A")
-          (= (user-level) "S"))
+       (or
+        (= (user-level) "A")
+        (= (user-level) "S"))
         (application title ok js content)
         (application title ok nil "Solo <strong>administradores</strong> pueden accesar esta opción!!!")))
     (catch Exception e (.getMessage e))))
@@ -28,7 +27,7 @@
   [{params :params}]
   (try
     (let [table "users"
-          args {:sort-extra "lastname,firstname"}]
+          args  {:sort-extra "lastname,firstname"}]
       (build-grid params table args))
     (catch Exception e (.getMessage e))))
 

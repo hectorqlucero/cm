@@ -1,8 +1,8 @@
 (ns sk.handlers.talleres.handler
-  (:require [sk.models.crud :refer [db Query]]
-            [sk.models.util :refer [get-session-id]]
+  (:require [sk.handlers.talleres.view :refer [reporte-scripts reporte-view]]
             [sk.layout :refer [application]]
-            [sk.handlers.talleres.view :refer [reporte-scripts reporte-view]]))
+            [sk.models.crud :refer [db Query]]
+            [sk.models.util :refer [get-session-id]]))
 
 (defn reporte [_]
   (let [title   "Talleres de bicicletas"

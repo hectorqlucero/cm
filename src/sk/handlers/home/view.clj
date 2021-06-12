@@ -1,36 +1,32 @@
 (ns sk.handlers.home.view
-  (:require [hiccup.page :refer [include-js]]
-            [sk.models.util :refer [build-form
-                                    build-field
-                                    build-button]]))
+  (:require [sk.models.util :refer [build-button build-field build-form]]))
 
 (defn login-view [token]
   (build-form
-    "Ciclismo Mexicali"
-    token
-    (list
-      (build-field
-        {:id "username"
-         :name "username"
-         :class "easyui-textbox easyui-validatebox"
-         :data-options "label:'Email:',labelPosition:'top',required:true,width:'100%'"})
-      (build-field
-        {:id "password"
-         :name "password"
-         :class "easyui-passwordbox"
-         :data-options "label:'Contraseña:',labelPosition:'top',required:true,width:'100%'"})
-      (build-button
-        {:href "javascript:void(0)"
-         :id "submit"
-         :text "Acceder al Sitio"
-         :class "easyui-linkbutton c6"
-         :onClick "submitForm(this)"})
-      )
-    (list
-      [:div {:style "margin-bottom:10px;"}
-       [:a {:href "/registrar"} "Click para requistrarse"]]
-      [:div {:style "margin-bottom:10px;"}
-       [:a {:href "/rpaswd"} "Click para resetear su contraseña"]])))
+   "Ciclismo Mexicali"
+   token
+   (list
+    (build-field
+     {:id "username"
+      :name "username"
+      :class "easyui-textbox easyui-validatebox"
+      :data-options "label:'Email:',labelPosition:'top',required:true,width:'100%'"})
+    (build-field
+     {:id "password"
+      :name "password"
+      :class "easyui-passwordbox"
+      :data-options "label:'Contraseña:',labelPosition:'top',required:true,width:'100%'"})
+    (build-button
+     {:href "javascript:void(0)"
+      :id "submit"
+      :text "Acceder al Sitio"
+      :class "easyui-linkbutton c6"
+      :onClick "submitForm(this)"}))
+   (list
+    [:div {:style "margin-bottom:10px;"}
+     [:a {:href "/registrar"} "Click para requistrarse"]]
+    [:div {:style "margin-bottom:10px;"}
+     [:a {:href "/rpaswd"} "Click para resetear su contraseña"]])))
 
 (defn login-script []
   [:script

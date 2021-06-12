@@ -7,7 +7,7 @@
    [:div.col-xs.8.col-sm-8.col-md-9.col-lg-10 value]])
 
 (defn body-rr [row]
-  [:h2 (:nombre row )
+  [:h2 (:nombre row)
    [:div.card
     [:div.card-body {:style "font-size:.5em"}
      (line-rr "Fecha:" [:strong.text-warning (str (upper-case (:dia row)) (upper-case (:f_fecha row)))])
@@ -15,8 +15,8 @@
 
 (defn aventuras-view [rows]
   (list
-    [:div.container
-     (map body-rr rows)]))
+   [:div.container
+    (map body-rr rows)]))
 
 (defn aventuras-scripts []
   [:script])

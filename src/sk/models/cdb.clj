@@ -1,8 +1,6 @@
 (ns sk.models.cdb
-  (:require
-            [noir.util.crypt :as crypt]
-            [sk.models.crud :refer [Insert-multi Query! db]]))
-
+  (:require [noir.util.crypt :as crypt]
+            [sk.models.crud :refer [db Insert-multi Query!]]))
 
 ;; Start users table
 (def users-sql
@@ -127,7 +125,7 @@
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8")
 ;; End talleres
 
-(defn create-database 
+(defn create-database
   "Create database tables and default admin users
   Note: First create the database on MySQL with any client"
   []

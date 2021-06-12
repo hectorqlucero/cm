@@ -1,9 +1,8 @@
 (ns sk.handlers.rodadas.view
   (:require [hiccup.page :refer [include-css include-js]]
-            [sk.models.util :refer [build-form
-                                    build-field
-                                    build-radio-buttons
-                                    build-button]]))
+            [sk.models.util
+             :refer
+             [build-button build-field build-form build-radio-buttons]]))
 
 (defn line-rr [label value]
   [:div.row
@@ -29,8 +28,8 @@
 
 (defn rr-view [rows]
   (list
-    [:div.container
-     (map body-rr rows)]))
+   [:div.container
+    (map body-rr rows)]))
 
 (defn rodadas-view []
   (list
@@ -57,12 +56,12 @@
 
 (defn rodadas-scripts []
   (list
-    (include-js "/font/js/all.min.js")
-    (include-js "/fullcalendar/lib/moment.min.js")
-    (include-js "/fullcalendar/fullcalendar.min.js")
-    (include-js "/fullcalendar/locale-all.js")
-    [:script
-     "
+   (include-js "/font/js/all.min.js")
+   (include-js "/fullcalendar/lib/moment.min.js")
+   (include-js "/fullcalendar/fullcalendar.min.js")
+   (include-js "/fullcalendar/locale-all.js")
+   [:script
+    "
     $(document).ready(function() {
       $('#calendar').fullCalendar({
         themeSystem: 'bootstrap4',
@@ -121,71 +120,70 @@
         events: '/table_ref/calendar',
       });
     });
-     "]
-    ))
+     "]))
 
 (defn asistir-view [title rodadas_id token]
   (build-form
-    title
-    token
-    (list
-      (build-field
-        {:id "rodadas_id"
-         :name "rodadas_id"
-         :type "hidden"
-         :value (str rodadas_id)})
-      (build-field
-        {:id "user"
-         :name "user"
-         :class "easyui-textbox"
-         :data-options "label:'Nombre:',labelPosition:'top',
+   title
+   token
+   (list
+    (build-field
+     {:id "rodadas_id"
+      :name "rodadas_id"
+      :type "hidden"
+      :value (str rodadas_id)})
+    (build-field
+     {:id "user"
+      :name "user"
+      :class "easyui-textbox"
+      :data-options "label:'Nombre:',labelPosition:'top',
                        required:true,width:'100%'"})
-      (build-field
-        {:id "comentarios"
-         :name "comentarios"
-         :class "easyui-textbox"
-         :data-options "label:'Comentarios:',labelPosition:'top',
+    (build-field
+     {:id "comentarios"
+      :name "comentarios"
+      :class "easyui-textbox"
+      :data-options "label:'Comentarios:',labelPosition:'top',
                        width:'100%',height:'120px',required:true,
                        multiline:true"})
-      (build-field
-        {:id "email"
-         :name "email"
-         :class "easyui-textbox easyui-validatebox"
-         :validType "email"
-         :data-options "label:'Email:',labelPosition:'top',
+    (build-field
+     {:id "email"
+      :name "email"
+      :class "easyui-textbox easyui-validatebox"
+      :validType "email"
+      :data-options "label:'Email:',labelPosition:'top',
                        width:'100%',required:true"})
-      (build-radio-buttons
-        "Asistire?"
-        (list
-          {:id "asistir_si"
-           :name "asistir"
-           :class "easyui-radiobutton"
-           :value "T"
-           :label "Si"
-           :data-options "checked:true"}
-          {:id "asistir_no"
-           :name "asistir"
-           :class "easyui-radiobutton"
-           :label "No"
-           :value "F"
-           :data-options "checked:false"})))
-    (list
-      (build-button
-        (list
-          {:text "Postear"
-           :id "submitbtn"
-           :class "easyui-linkbutton c6"
-           :style "margin-right:5px;margin-bottom:5px;"
-           :data-options "iconCls:'icon-ok'"
-           :href "javascript:void(0)"
-           :onclick "saveData()"}
-          {:text "Regresar"
-           :id "regresar"
-           :class "easyui-linkbutton"
-           :style "margin-bottom:5px;"
-           :data-options "iconCls:'icon-back'"
-           :href "javascript:void(0)"
-           :onclick "goBack()"})))))
+    (build-radio-buttons
+     "Asistire?"
+     (list
+      {:id "asistir_si"
+       :name "asistir"
+       :class "easyui-radiobutton"
+       :value "T"
+       :label "Si"
+       :data-options "checked:true"}
+      {:id "asistir_no"
+       :name "asistir"
+       :class "easyui-radiobutton"
+       :label "No"
+       :value "F"
+       :data-options "checked:false"})))
+   (list
+    (build-button
+     (list
+      {:text "Postear"
+       :id "submitbtn"
+       :class "easyui-linkbutton c6"
+       :style "margin-right:5px;margin-bottom:5px;"
+       :data-options "iconCls:'icon-ok'"
+       :href "javascript:void(0)"
+       :onclick "saveData()"}
+      {:text "Regresar"
+       :id "regresar"
+       :class "easyui-linkbutton"
+       :style "margin-bottom:5px;"
+       :data-options "iconCls:'icon-back'"
+       :href "javascript:void(0)"
+       :onclick "goBack()"})))))
 
 (defn asistir-scripts []
   [:script

@@ -1,18 +1,20 @@
 (ns sk.handlers.administrar.eventos.handler
-  (:require [sk.models.crud :refer [build-form-row
-                                    build-form-save
-                                    build-form-delete]]
-            [sk.models.grid :refer [build-grid]]
-            [sk.models.util :refer [get-session-id current_year]]
+  (:require [sk.handlers.administrar.eventos.view
+             :refer
+             [eventos-scripts eventos-view]]
             [sk.layout :refer [application]]
-            [sk.handlers.administrar.eventos.view :refer [eventos-view eventos-scripts]]))
+            [sk.models.crud
+             :refer
+             [build-form-delete build-form-row build-form-save]]
+            [sk.models.grid :refer [build-grid]]
+            [sk.models.util :refer [current_year get-session-id]]))
 
 (defn eventos
   [_]
   (try
-    (let [title "Calendario - Eventos"
-          ok (get-session-id)
-          js (eventos-scripts)
+    (let [title   "Calendario - Eventos"
+          ok      (get-session-id)
+          js      (eventos-scripts)
           content (eventos-view title)]
       (application title ok js content))
     (catch Exception e (.getMessage e))))
@@ -21,8 +23,8 @@
   [{params :params}]
   (try
     (let [table "eventos"
-          args {:sort-extra "fecha,hora"
-                :search-extra (str "YEAR(fecha) = '" (current_year) "'")}]
+          args  {:sort-extra   "fecha,hora"
+                 :search-extra (str "YEAR(fecha) = '" (current_year) "'")}]
       (build-grid params table args))
     (catch Exception e (.getMessage e))))
 
@@ -36,7 +38,7 @@
 (defn eventos-save
   [{params :params}]
   (try
-    (let [table "eventos"
+    (let [table         "eventos"
           upload-folder "eventos"]
       (build-form-save params table upload-folder))
     (catch Exception e (.getMessage e))))

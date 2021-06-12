@@ -72,13 +72,13 @@
   [params table & args]
   (try
     (let [aliases (build-grid-columns table)
-          join (:join args)
-          search nil
-          search (get-search-extra search args)
-          order (grid-sort (:sort params nil) (:order params nil))
-          order (get-sort-extra order args)
-          offset (grid-offset (parse-int (:rows params)) (parse-int (:page params)))
-          rows (grid-rows table aliases join search order offset)]
+          join    (:join args)
+          search  nil
+          search  (get-search-extra search args)
+          order   (grid-sort (:sort params nil) (:order params nil))
+          order   (get-sort-extra order args)
+          offset  (grid-offset (parse-int (:rows params)) (parse-int (:page params)))
+          rows    (grid-rows table aliases join search order offset)]
       (generate-string rows))
     (catch Exception e (.getMessge e))))
 ;; End build-grid

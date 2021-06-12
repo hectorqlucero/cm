@@ -1,11 +1,9 @@
 (ns sk.handlers.administrar.users.view
-  (:require [ring.util.anti-forgery :refer [anti-forgery-field]]
-            [hiccup.page :refer [include-js]]
-            [sk.models.crud :refer [config]]
-            [sk.models.util :refer [build-table
-                                    build-dialog
-                                    build-field
-                                    build-radio-buttons]]))
+  (:require [hiccup.page :refer [include-js]]
+            [ring.util.anti-forgery :refer [anti-forgery-field]]
+            [sk.models.util
+             :refer
+             [build-dialog build-field build-radio-buttons build-table]]))
 
 (def dialog-fields
   (list
@@ -105,10 +103,10 @@
 
 (defn users-scripts []
   (list
-  (include-js "/js/grid.js")
-  [:script
-  (str
-  "
+   (include-js "/js/grid.js")
+   [:script
+    (str
+     "
   function levelDesc(val, row, index) {
     if(row.level == 'A') {
       return 'Administrador';
@@ -126,5 +124,4 @@
       return 'No';
     }
   }
-  ")]
-  ))
+  ")]))

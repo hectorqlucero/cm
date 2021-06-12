@@ -1,11 +1,13 @@
 (ns sk.handlers.administrar.talleres.view
-  (:require [ring.util.anti-forgery :refer [anti-forgery-field]]
-            [hiccup.page :refer [include-js]]
-            [sk.models.util :refer [build-table
-                                    build-dialog
-                                    build-dialog-buttons
-                                    build-toolbar
-                                    build-field]]))
+  (:require [hiccup.page :refer [include-js]]
+            [ring.util.anti-forgery :refer [anti-forgery-field]]
+            [sk.models.util
+             :refer
+             [build-dialog
+              build-dialog-buttons
+              build-field
+              build-table
+              build-toolbar]]))
 
 (def dialog-fields
   (list
@@ -77,17 +79,17 @@
 
 (defn talleres-view [title]
   (list
-    (anti-forgery-field)
-    (build-table 
-      title 
-      "/administrar/talleres"
-      (list
-        [:th {:data-options "field:'nombre',width:23,sortable:true"} "Nombre"]
-        [:th {:data-options "field: 'direccion',width:58,sortable:false"} "Direccion"]
-        [:th {:data-options "field: 'telefono',width:14,sortable:false,width:5"} "Telefono"]))
-    (build-toolbar (toolbar-extra))
-    (build-dialog title dialog-fields)
-    (build-dialog-buttons)))
+   (anti-forgery-field)
+   (build-table
+    title
+    "/administrar/talleres"
+    (list
+     [:th {:data-options "field:'nombre',width:23,sortable:true"} "Nombre"]
+     [:th {:data-options "field: 'direccion',width:58,sortable:false"} "Direccion"]
+     [:th {:data-options "field: 'telefono',width:14,sortable:false,width:5"} "Telefono"]))
+   (build-toolbar (toolbar-extra))
+   (build-dialog title dialog-fields)
+   (build-dialog-buttons)))
 
 (defn talleres-scripts []
   (include-js "/js/grid.js"))
