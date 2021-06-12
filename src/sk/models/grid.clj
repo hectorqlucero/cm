@@ -1,8 +1,6 @@
 (ns sk.models.grid
   (:require [cheshire.core :refer [generate-string]]
-            [sk.models.crud :refer [db 
-                                    Query
-                                    build-grid-columns]]
+            [sk.models.crud :refer [build-grid-columns db Query]]
             [sk.models.util :refer [parse-int]]))
 
 (defn convert-search-columns [fields]
@@ -53,7 +51,7 @@
    :rows  (Query db [(grid-sql table aliases join search order offset)])})
 
 ;; Start build grid
-(defn get-search-extra 
+(defn get-search-extra
   [search args]
   (try
     (let [search-extra (:search-extra (first args))]
@@ -61,7 +59,7 @@
         (grid-search-extra search search-extra)))
     (catch Exception e (.getMessage e))))
 
-(defn get-sort-extra 
+(defn get-sort-extra
   [order args]
   (try
     (let [sort-extra (:sort-extra (first args))]

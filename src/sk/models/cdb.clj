@@ -1,6 +1,7 @@
 (ns sk.models.cdb
-  (:require [sk.models.crud :refer :all]
-            [noir.util.crypt :as crypt]))
+  (:require
+            [noir.util.crypt :as crypt]
+            [sk.models.crud :refer [Insert-multi Query! db]]))
 
 
 ;; Start users table
@@ -126,9 +127,10 @@
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8")
 ;; End talleres
 
-(defn create-database []
+(defn create-database 
   "Create database tables and default admin users
   Note: First create the database on MySQL with any client"
+  []
   (Query! db cuadrantes-sql)
   (Query! db eventos-sql)
   (Query! db rodadas-sql)
@@ -140,8 +142,9 @@
   (Insert-multi db :users users-rows)
   (Query! db "UNLOCK TABLES;"))
 
-(defn reset-database []
+(defn reset-database
   "Removes existing tables and re-creates them"
+  []
   (Query! db "DROP table IF EXISTS cuadrantes")
   (Query! db "DROP table IF EXISTS eventos")
   (Query! db "DROP table IF EXISTS rodadas_link")
@@ -160,8 +163,9 @@
   (Insert-multi db :users users-rows)
   (Query! db "UNLOCK TABLES;"))
 
-(defn migrate []
+(defn migrate
   "Migrate by the seat of my pants"
+  []
   (Query! db "DROP TABLE IF EXISTS aventuras")
   (Query! db aventuras-sql))
 ;;(migrate)

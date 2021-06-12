@@ -1,15 +1,11 @@
 (ns sk.handlers.aventuras.handler
-  (:require [cheshire.core :refer [generate-string]]
-            [clojure.string :refer [blank?]]
-            [sk.models.crud :refer [db Delete Query Query! Save]]
-            [sk.models.email :refer [host send-email]]
-            [sk.models.util :refer [fix-id get-session-id]]
-            [sk.layout :refer [application]]
-            [sk.handlers.aventuras.view
-             :refer
-             [aventuras-scripts 
-              aventuras-view]]
-            [ring.util.anti-forgery :refer [anti-forgery-field]]))
+  (:require
+   [sk.handlers.aventuras.view
+    :refer
+    [aventuras-scripts aventuras-view]]
+   [sk.layout :refer [application]]
+   [sk.models.crud :refer [Query db]]
+   [sk.models.util :refer [get-session-id]]))
 
 ;; Start aventuras
 (def aventuras-sql
