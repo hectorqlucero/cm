@@ -11,41 +11,31 @@
 
 (defn eventos
   [_]
-  (try
-    (let [title   "Calendario - Eventos"
-          ok      (get-session-id)
-          js      (eventos-scripts)
-          content (eventos-view title)]
-      (application title ok js content))
-    (catch Exception e (.getMessage e))))
+  (let [title   "Calendario - Eventos"
+        ok      (get-session-id)
+        js      (eventos-scripts)
+        content (eventos-view title)]
+    (application title ok js content)))
 
 (defn eventos-grid
   [{params :params}]
-  (try
-    (let [table "eventos"
-          args  {:sort-extra   "fecha,hora"
-                 :search-extra (str "YEAR(fecha) = '" (current_year) "'")}]
-      (build-grid params table args))
-    (catch Exception e (.getMessage e))))
+  (let [table "eventos"
+        args  {:sort-extra   "fecha,hora"
+               :search-extra (str "YEAR(fecha) = '" (current_year) "'")}]
+    (build-grid params table args)))
 
 (defn eventos-form
   [id]
-  (try
-    (let [table "eventos"]
-      (build-form-row table id))
-    (catch Exception e (.getMessage e))))
+  (let [table "eventos"]
+    (build-form-row table id)))
 
 (defn eventos-save
   [{params :params}]
-  (try
-    (let [table         "eventos"
-          upload-folder "eventos"]
-      (build-form-save params table upload-folder))
-    (catch Exception e (.getMessage e))))
+  (let [table         "eventos"
+        upload-folder "eventos"]
+    (build-form-save params table upload-folder)))
 
 (defn eventos-delete
   [{params :params}]
-  (try
-    (let [table "eventos"]
-      (build-form-delete params table))
-    (catch Exception e (.getMessage e))))
+  (let [table "eventos"]
+    (build-form-delete params table)))

@@ -12,13 +12,11 @@
 
 (defn aventuras
   [_]
-  (try
-    (let [title "Aventuras de rodadas"
-          ok (get-session-id)
-          js (aventuras-scripts (user-email))
-          content (aventuras-view title (user-email))]
-      (application title ok js content))
-    (catch Exception e (.getMessage e))))
+  (let [title "Aventuras de rodadas"
+        ok (get-session-id)
+        js (aventuras-scripts (user-email))
+        content (aventuras-view title (user-email))]
+    (application title ok js content)))
 
 (defn aventuras-filter []
   (if (= (user-level) "U")
@@ -28,29 +26,21 @@
 
 (defn aventuras-grid
   [{params :params}]
-  (try
-    (let [table "aventuras"
-          args (aventuras-filter)]
-      (build-grid params table args))
-    (catch Exception e (.getMessage e))))
+  (let [table "aventuras"
+        args (aventuras-filter)]
+    (build-grid params table args)))
 
 (defn aventuras-form
   [id]
-  (try
-    (let [table "aventuras"]
-      (build-form-row table id))
-    (catch Exception e (.getMessage e))))
+  (let [table "aventuras"]
+    (build-form-row table id)))
 
 (defn aventuras-save
   [{params :params}]
-  (try
-    (let [table "aventuras"]
-      (build-form-save params table))
-    (catch Exception e (.getMessage e))))
+  (let [table "aventuras"]
+    (build-form-save params table)))
 
 (defn aventuras-delete
   [{params :params}]
-  (try
-    (let [table "aventuras"]
-      (build-form-delete params table))
-    (catch Exception e (.getMessage e))))
+  (let [table "aventuras"]
+    (build-form-delete params table)))
