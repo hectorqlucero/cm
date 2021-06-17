@@ -97,6 +97,7 @@
       (generate-string {:error "No se pudo resetear su contraseña"}))))
 ;; End reset-password
 
+;; Start reset-jwt
 (defn reset-jwt [token]
   (let [title      "Resetear Contrasseña"
         csrf       (anti-forgery-field)
@@ -118,5 +119,4 @@
     (if (seq result)
       (generate-string {:url "/"})
       (generate-string {:error "No se pudo cambiar su contraseña!"}))))
-;; End reset-password
-
+;; End reset-jwt
