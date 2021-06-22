@@ -8,7 +8,8 @@
             [sk.handlers.registrar.handler :as registrar]
             [sk.handlers.rodadas.handler :as rodadas]
             [sk.handlers.talleres.handler :as talleres]
-            [sk.handlers.tref.handler :as table_ref]))
+            [sk.handlers.tref.handler :as table_ref]
+            [sk.handlers.fotos.handler :as fotos]))
 
 (defroutes open-routes
   ;; Start table_ref
@@ -61,4 +62,8 @@
   ;; Start cuadrantes
   (GET "/grupos/list" req [] (grupos/reporte req))
   ;; End cuadrantes
+
+  ;; Start fotos
+  (GET "/fotos/list" req [] (fotos/fotos req))
+  ;; End fotos
   )

@@ -5,7 +5,8 @@
             [sk.handlers.administrar.eventos.handler :as eventos]
             [sk.handlers.administrar.rodadas.handler :as rodadas]
             [sk.handlers.administrar.talleres.handler :as talleres]
-            [sk.handlers.administrar.users.handler :as users]))
+            [sk.handlers.administrar.users.handler :as users]
+            [sk.handlers.administrar.fotos.handler :as fotos]))
 
 (defroutes proutes
   ;; Start users
@@ -55,4 +56,12 @@
   (POST "/administrar/cuadrantes/save" req [] (cuadrantes/cuadrantes-save req))
   (POST "/administrar/cuadrantes/delete" req [] (cuadrantes/cuadrantes-delete req))
   ;; End cuadrantes
+
+  ;; Start fotos
+  (GET "/administrar/fotos" req [] (fotos/fotos req))
+  (POST "/administrar/fotos" req [] (fotos/fotos-grid req))
+  (GET "/administrar/fotos/edit/:id" [id] (fotos/fotos-form id))
+  (POST "/administrar/fotos/save" req [] (fotos/fotos-save req))
+  (POST "/administrar/fotos/delete" req [] (fotos/fotos-delete req))
+  ;; End fotos
   )

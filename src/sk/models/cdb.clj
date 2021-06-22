@@ -125,6 +125,17 @@
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8")
 ;; End talleres
 
+;; Start fotos
+(def fotos-sql
+  "
+  CREATE TABLE `fotos` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `fecha` date DEFAULT NULL,
+  `enlace` text,
+  PRIMARY KEY (`id`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8")
+;; End fotos
+
 (defn create-database
   "Create database tables and default admin users
   Note: First create the database on MySQL with any client"
@@ -135,6 +146,7 @@
   (Query! db rodadas_link-sql)
   (Query! db aventuras-sql)
   (Query! db talleres-sql)
+  (Query! db fotos-sql)
   (Query! db users-sql)
   (Query! db "LOCK TABLES users WRITE;")
   (Insert-multi db :users users-rows)
@@ -149,6 +161,7 @@
   (Query! db "DROP table IF EXISTS rodadas")
   (Query! db "DROP table IF EXISTS aventuras")
   (Query! db "DROP table IF EXISTS talleres")
+  (Query! db "DROP table IF EXISTS fotos")
   (Query! db "DROP table IF EXISTS users")
   (Query! db cuadrantes-sql)
   (Query! db eventos-sql)
