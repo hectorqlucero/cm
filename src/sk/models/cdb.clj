@@ -157,7 +157,7 @@
     :autor "Scott Stoll"}
    {:frase "Las bicicletas son las especies indicadoras de una comunidad, como los mariscos en una bahia."
     :autor "P. Martin Scott"}
-   {:frase "Para mi no importa si está lloviendo o si brilla el sol o lo que sea: mientras consuzca una bicicleta, sé que soy el tipo más afortunado del mundo."
+   {:frase "Para mi no importa si está lloviendo o si brilla el sol o lo que sea: mientras conduzca una bicicleta, sé que soy el tipo más afortunado del mundo."
     :autor "Mark Cavendish"}
    {:frase "Las bicicletas pueden cambiar, pero el ciclismo es intemporal."
     :autor "Zapata Espinoza"}
