@@ -9,7 +9,8 @@
             [sk.handlers.rodadas.handler :as rodadas]
             [sk.handlers.talleres.handler :as talleres]
             [sk.handlers.tref.handler :as table_ref]
-            [sk.handlers.fotos.handler :as fotos]))
+            [sk.handlers.fotos.handler :as fotos]
+            [sk.handlers.frases.handler :as frases]))
 
 (defroutes open-routes
   ;; Start table_ref
@@ -66,4 +67,8 @@
   ;; Start fotos
   (GET "/fotos/list" req [] (fotos/fotos req))
   ;; End fotos
+
+  ;; Start frases
+  (GET "/frases/list" req [] (frases/frases req))
+  ;; End frases
   )
