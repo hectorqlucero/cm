@@ -136,13 +136,25 @@
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8")
 ;; End fotos
 
+;; Start videos
+(def videos-sql
+  "
+  CREATE TABLE `videos` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `fecha` date DEFAULT NULL,
+  `titulo` varchar(200) DEFAULT NULL,
+  `enlace` text,
+  PRIMARY KEY (`id`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8")
+;; End videos
+
 ;; Start frases
 (def frases-sql
   "
   CREATE TABLE `frases` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `frase` text DEFAULT NULL,
-  `autor` varchar(200),
+  `autor` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8")
 
@@ -256,6 +268,7 @@
   (Query! db aventuras-sql)
   (Query! db talleres-sql)
   (Query! db fotos-sql)
+  (Query! db videos-sql)
   (Query! db frases-sql)
   (Query! db users-sql)
   (Query! db "LOCK TABLES frases WRITE;")
@@ -275,6 +288,7 @@
   (Query! db "DROP table IF EXISTS aventuras")
   (Query! db "DROP table IF EXISTS talleres")
   (Query! db "DROP table IF EXISTS fotos")
+  (Query! db "DROP table IF EXISTS videos")
   (Query! db "DROP table IF EXISTS frases")
   (Query! db "DROP table IF EXISTS users")
   (Query! db cuadrantes-sql)
@@ -295,9 +309,6 @@
 (defn migrate
   "Migrate by the seat of my pants"
   []
-  (Query! db "DROP TABLE IF EXISTS frases")
-  (Query! db frases-sql)
-  (Query! db "LOCK TABLES frases WRITE;")
-  (Insert-multi db :frases frases-rows)
-  (Query! db "UNLOCK TABLES;"))
+  (Query! db "DROP table IF EXISTS videos")
+  (Query! db videos-sql))
 ;;(migrate)

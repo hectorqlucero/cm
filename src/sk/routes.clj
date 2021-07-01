@@ -10,6 +10,7 @@
             [sk.handlers.talleres.handler :as talleres]
             [sk.handlers.tref.handler :as table_ref]
             [sk.handlers.fotos.handler :as fotos]
+            [sk.handlers.videos.handler :as videos]
             [sk.handlers.frases.handler :as frases]))
 
 (defroutes open-routes
@@ -66,6 +67,10 @@
 
   ;; Start fotos
   (GET "/fotos/list" req [] (fotos/fotos req))
+  ;; End fotos
+
+  ;; Start fotos
+  (GET "/videos/list" req [] (videos/videos req))
   ;; End fotos
 
   ;; Start frases

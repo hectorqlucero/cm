@@ -6,7 +6,8 @@
             [sk.handlers.administrar.rodadas.handler :as rodadas]
             [sk.handlers.administrar.talleres.handler :as talleres]
             [sk.handlers.administrar.users.handler :as users]
-            [sk.handlers.administrar.fotos.handler :as fotos]))
+            [sk.handlers.administrar.fotos.handler :as fotos]
+            [sk.handlers.administrar.videos.handler :as videos]))
 
 (defroutes proutes
   ;; Start users
@@ -64,4 +65,12 @@
   (POST "/administrar/fotos/save" req [] (fotos/fotos-save req))
   (POST "/administrar/fotos/delete" req [] (fotos/fotos-delete req))
   ;; End fotos
+
+  ;; Start videos
+  (GET "/administrar/videos" req [] (videos/videos req))
+  (POST "/administrar/videos" req [] (videos/videos-grid req))
+  (GET "/administrar/videos/edit/:id" [id] (videos/videos-form id))
+  (POST "/administrar/videos/save" req [] (videos/videos-save req))
+  (POST "/administrar/videos/delete" req [] (videos/videos-delete req))
+  ;; End videos
   )

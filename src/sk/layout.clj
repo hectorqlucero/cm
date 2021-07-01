@@ -13,6 +13,7 @@
       [:a.dropdown-item {:href "/administrar/talleres"} "Talleres"]
       [:a.dropdown-item {:href "/administrar/cuadrantes"} "Grupos"]
       [:a.dropdown-item {:href "/administrar/fotos"} "Fotos"]
+      [:a.dropdown-item {:href "/administrar/videos"} "Videos"]
       [:a.dropdown-item {:href "/administrar/frases"} "Frases"]
       [:a.dropdown-item {:href "/administrar/users"} "Usuarios"]))))
 
@@ -32,6 +33,7 @@
       [:li.nav-item [:a.nav-link {:href "/talleres/list"} "Talleres"]]
       [:li.nav-item [:a.nav-link {:href "/grupos/list"} "Grupos"]]
       [:li.nav-item [:a.nav-link {:href "/fotos/list"} "Fotos"]]
+      [:li.nav-item [:a.nav-link {:href "/videos/list"} "Videos"]]
       [:li.nav-item [:a.nav-link {:href "/frases/list"} "Frases de Ciclistas"]]
       [:li.nav-item.dropdown
        [:a.nav-link.dropdown-toggle {:href "#"
@@ -57,6 +59,7 @@
       [:li.nav-item [:a.nav-link {:href "/talleres/list"} "Talleres"]]
       [:li.nav-item [:a.nav-link {:href "/grupos/list"} "Grupos"]]
       [:li.nav-item [:a.nav-link {:href "/fotos/list"} "Fotos"]]
+      [:li.nav-item [:a.nav-link {:href "/videos/list"} "Videos"]]
       [:li.nav-item [:a.nav-link {:href "/frases/list"} "Frases de Ciclistas"]]
       [:li.nav-item [:a.nav-link {:href "/home/login"} "Entrar"]]]]]))
 
