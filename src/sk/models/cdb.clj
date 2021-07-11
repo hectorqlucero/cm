@@ -234,7 +234,7 @@
    {:frase "Me parece que comprar una bicicleta es una buena manera de mantenerse en contacto con la gente."
     :autor "Jan Chipchase"}
    {:frase "Abraza tu sudor. Es tu esencia y tu emancipación."
-    :autor "Kristin Armstron"}
+    :autor "Kristin Armstrong"}
    {:frase "La tolerancia requiere el mismo esfuerzo del cerebro que mantener el equilibrio sobre una bicicleta."
     :autor "Helen Keller"}
    {:frase "Cada carrera es una guerra. Cada carrera es una pelea. Si no acudes a cada evento con esa creencia, nunca podrás alcanzar tus metas."

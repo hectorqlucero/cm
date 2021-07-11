@@ -18,10 +18,13 @@
                          :onmouseout "this.start();"}
    [:a {:href "#"} frase]])
 
+(defn format-frase [row]
+  (str "[&nbsp;" (:frase row) " - " (:autor row) "&nbsp;]" "&nbsp;&nbsp;"))
+
 (defn handle-body []
   (let [rows (get-rows)
         frase (->> (get-rows)
-                   (map #(str "[&nbsp;" (:frase %) " - " (:autor %) "&nbsp;]" "&nbsp;&nbsp;"))
+                   (map format-frase)
                    (apply str))]
     (process-row frase)))
 
@@ -31,7 +34,7 @@
     [:div.row
      [:div.col-md-12
       [:div.d-flex.justify-content-between.align-items-center.breaking-news.bg-white
-       [:div.d-flex.flex-row.flex-grow-q.flex-fill.justify-content.center.bg-danger.py-2.text-white.px-1.news
+       [:div.d-flex.flex-row.flex-grow-q.flex-fill.justify-content.center.bg-warning.py-2.text-white.px-1.news
         [:span.d-flex.align-items-center "&nbsp;Frases: "]]
        (handle-body)]]]]))
 

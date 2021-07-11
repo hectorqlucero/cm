@@ -24,7 +24,7 @@
      (line-rr "Confirmar:"
               [:div.card-action
                [:a {:href (str "/rodadas/asistir/" (:id row))
-                    :target "_blank"} [:strong.text-warning "Clic para confirmar asistencia"]]])]]])
+                    :target "_blank"} [:strong.text-primary "Clic para confirmar asistencia"]]])]]])
 
 (defn rr-view [rows]
   (list

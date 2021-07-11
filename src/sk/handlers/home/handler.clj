@@ -30,7 +30,7 @@
      [:li [:strong "Talleres: "] "Talleres de reparación/venta de bicicletas"]
      [:li [:strong "Grupos: "] "Grupos ciclistas ej. Cuadrante Rosita, Sector Ciclista Azul etc..."]
      [:li [:strong "Fotos: "] "Aqui puedes ver las fotos de las rodadas de Ciclismo Mexicali"]
-     [:li [:strong "Videos: "] "Aqui puedes ver los videos de las rodadas de Ciclismo Mexicali"]
+     [:li [:strong "Videos: "] "Aqui puedes ver los de las rodadas de Ciclismo Mexicali"]
      [:li [:strong "Frases de ciclistas: "] "Aqui puedes ver frases de ciclistas"]
      [:li [:strong "Entrar: "] "Aquí podrás registrarte como miembro y así crear rodadas para invitar a otros ciclistas.  Las rodadas que hayas creado saldrán en el calendario de rodadas y ciclistas podrán confirmar asistencia y recibirás un correo electronico.  Si cancelas la rodada todos los que confirmaron serán notificados con un correo electrónico que la rodada se canceló"]]
     [:br] [:br]

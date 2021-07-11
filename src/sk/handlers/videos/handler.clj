@@ -31,7 +31,7 @@
   (html5
    [:div.container
     [:div.list-group
-     [:a.list-group-item.list-group-item-action {:style "text-align:center;"} "Clic abajo para ver videos"]
+     [:a.list-group-item.list-group-item-action {:style "text-align:center;"} [:h2 [:strong.text-warning "Clic abajo para ver videos"]]]
      (handle-body)]]))
 
 (defn videos [_]
