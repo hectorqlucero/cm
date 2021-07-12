@@ -30,7 +30,7 @@
 
 (defn get-frases []
   (html5
-   [:div.container.mt-5
+   [:div.container.mb-5.mt-5
     [:div.row
      [:div.col-md-12
       [:div.d-flex.justify-content-between.align-items-center.breaking-news.bg-white
