@@ -110,9 +110,10 @@
            content]
           (app-js)
           js]
-         [:footer.p-5.bg-white.text-mutted.text-center.position-relative
-          [:div.container
-           [:p.lead "Copyright &copy; 2020 Lucero Systems"]]]))
+         (if-not (= ok 99)
+           [:footer.p-5.bg-white.text-mutted.text-center.position-relative
+            [:div.container
+             [:p.lead "Copyright &copy; 2020 Lucero Systems"]]])))
 
 (defn error-404 [error return-url]
   [:div

@@ -1,5 +1,5 @@
 (ns sk.handlers.frases.handler
-  (:require [hiccup.page :refer [html5]]
+  (:require [hiccup.page :refer [html5 include-js]]
             [sk.layout :refer [application]]
             [sk.models.crud :refer [db Query]]
             [sk.models.util :refer [get-session-id]]))
@@ -11,35 +11,24 @@
 (defn get-rows []
   (Query db frases-sql))
 
-(defn process-row [frase]
-  [:marquee.news-scroll {:behavior "scroll"
-                         :direction "left"
-                         :onmouseover "this.stop();"
-                         :onmouseout "this.start();"}
-   [:a {:href "#"} frase]])
-
-(defn format-frase [row]
-  (str "[&nbsp;" (:frase row) " - " (:autor row) "&nbsp;]" "&nbsp;&nbsp;"))
-
-(defn handle-body []
-  (let [rows (get-rows)
-        frase (->> (get-rows)
-                   (map format-frase)
-                   (apply str))]
-    (process-row frase)))
+(defn build-frase [row]
+  [:p.text-primary  (str (:frase row) " - " (:autor row))])
 
 (defn get-frases []
-  (html5
-   [:div.container.mb-5.mt-5
-    [:div.row
-     [:div.col-md-12
-      [:div.d-flex.justify-content-between.align-items-center.breaking-news.bg-white
-       [:div.d-flex.flex-row.flex-grow-q.flex-fill.justify-content.center.bg-warning.py-2.text-white.px-1.news
-        [:span.d-flex.align-items-center "&nbsp;Frases: "]]
-       (handle-body)]]]]))
+  (let [rows (get-rows)]
+    (html5
+     [:body {:style "background-color:black;"}
+      [:canvas#canvas.stretch]
+      [:div#crawl-container.stretch
+       [:div#crawl
+        [:div#crawl-content
+         [:h1 "Frases"]
+         [:h2 "De Ciclistas"]
+         (map build-frase rows)]]]])))
 
 (defn frases [_]
   (let [title "Frases de Ciclistas"
-        ok (get-session-id)
+        ok 99
+        js (include-js "/js/stars.js")
         content (get-frases)]
-    (application title ok nil content)))
+    (application title ok js content)))
