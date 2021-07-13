@@ -17,7 +17,15 @@
 (defn get-frases []
   (let [rows (get-rows)]
     (html5
-     [:body {:style "background-color:black;"}
+     [:body {:style "background-color:black;
+                    position: fixed;
+                    left: 0px;
+                    right: 0px;
+                    top: 0px;
+                    bottom: 0px;
+                    overflow: hidden;
+                    margin: 0;
+                    padding: 0"}
       [:canvas#canvas.stretch]
       [:div#crawl-container.stretch
        [:div#crawl

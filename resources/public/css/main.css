@@ -63,17 +63,6 @@
   border-radius: 50%;
   display: inline-block;
 }
-/* #75CAEB */
-body {
-  position: fixed;
-  left: 0px;
-  right: 0px;
-  top: 0px;
-  bottom: 0px;
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
-}
 .stretch {
   width: 100%;
   height: 100%;
@@ -140,4 +129,4 @@ body {
 #crawl h1,
 #crawl h2 {
   text-align: center;
-}gba
+}
