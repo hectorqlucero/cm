@@ -15,7 +15,7 @@
        (line-rr "Fotos:" [:a.list-group-item.list-group-item-action.list-group-item-secondary
                           {:href (:enlace row)
                            :data-options "plain:true"
-                           :target "_blank"} "Clic aqui pare ver fotos!"]))
+                           :target "_blank"} "Clic aqui para ver fotos!"]))
      (line-rr "Aventura:" (:aventura row))]]])
 
 (defn aventuras-view [rows]
