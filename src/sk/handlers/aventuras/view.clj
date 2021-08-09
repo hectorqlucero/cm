@@ -11,6 +11,11 @@
    [:div.card
     [:div.card-body {:style "font-size:.5em"}
      (line-rr "Fecha:" [:strong.text-warning (str (upper-case (:dia row)) (upper-case (:f_fecha row)))])
+     (when (:enlace row)
+       (line-rr "Fotos:" [:a.list-group-item.list-group-item-action.list-group-item-secondary
+                          {:href (:enlace row)
+                           :data-options "plain:true"
+                           :target "_blank"} "Clic aqui pare ver fotos!"]))
      (line-rr "Aventura:" (:aventura row))]]])
 
 (defn aventuras-view [rows]

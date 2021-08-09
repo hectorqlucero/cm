@@ -11,7 +11,8 @@
   CONCAT(users.firstname,' ', users.lastname) as nombre,
   aventuras.aventura,
   DATE_FORMAT(aventuras.fecha, '%W ') as dia,
-  DATE_FORMAT(aventuras.fecha, '%e de %M %Y') as f_fecha
+  DATE_FORMAT(aventuras.fecha, '%e de %M %Y') as f_fecha,
+  enlace
   FROM aventuras 
   JOIN users ON users.username = aventuras.leader_email
   ORDER BY aventuras.fecha desc

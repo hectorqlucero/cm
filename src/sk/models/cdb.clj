@@ -88,7 +88,8 @@
   id int(11) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
   aventura text,
   leader_email varchar(100) DEFAULT NULL,
-  fecha date DEFAULT NULL
+  fecha date DEFAULT NULL,
+  enlace text,
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8
   ")
 ;; End aventuras
