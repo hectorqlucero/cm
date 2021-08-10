@@ -16,6 +16,7 @@
 (defroutes open-routes
   ;; Start table_ref
   (GET "/table_ref/get_users" [] (generate-string (table_ref/get-users)))
+  (GET "/table_ref/levels" [] (generate-string (table_ref/level-options)))
   (GET "/table_ref/validate_email/:email" [email] (generate-string (table_ref/get-users-email email)))
   (GET "/table_ref/months" [] (generate-string (table_ref/months)))
   (GET "/table_ref/years/:pyears/:nyears" [pyears nyears] (generate-string (table_ref/years pyears nyears)))

@@ -24,6 +24,12 @@
   FROM users
   WHERE email = ?")
 
+(defn level-options []
+  (list
+   {:value "U" :text "Usuarios"}
+   {:value "A" :text "Administrador"}
+   {:value "S" :text "Systema"}))
+
 (defn get-users-email [email]
   "Regresa el correo del usuario o nulo"
   (first (Query db [get-users-email-sql email])))
