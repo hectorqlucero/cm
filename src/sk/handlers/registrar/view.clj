@@ -167,12 +167,12 @@
     $(document).ready(function() {
       $('#email').textbox({
         onChange: function(value) {
-          var url = '/table_ref/validate_email/' + value;
+          var url = '/table_ref/validate_email/' + value.toLowerCase();
           $.get(url, function(data) {
             try {
               var dta = JSON.parse(data);
               if(dta.hasOwnProperty('email')) {
-                if(value !== dta.email) {
+                if(value.toLowerCase() !== dta.email) {
                   give_error();
                 }
               } else {

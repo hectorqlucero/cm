@@ -1,5 +1,6 @@
 (ns sk.handlers.tref.handler
   (:require [hiccup.page :refer [html5]]
+            [clojure.string :as st]
             [sk.models.crud :refer [db Query]]
             [sk.models.util :refer [current_year get-image parse-int zpl]]))
 
@@ -20,7 +21,7 @@
 ;; Start get-users-email
 (def get-users-email-sql
   "SELECT
-  email
+  LOWER(email) as email
   FROM users
   WHERE email = ?")
 
@@ -32,7 +33,7 @@
 
 (defn get-users-email [email]
   "Regresa el correo del usuario o nulo"
-  (first (Query db [get-users-email-sql email])))
+  (first (Query db [get-users-email-sql (st/lower-case email)])))
 ;; End get-users-email
 
 (defn months []

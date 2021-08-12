@@ -2,6 +2,7 @@
   (:require [cheshire.core :refer [generate-string]]
             [noir.util.crypt :as crypt]
             [ring.util.anti-forgery :refer [anti-forgery-field]]
+            [clojure.string :as st]
             [sk.handlers.registrar.view
              :refer
              [registrar-scripts
@@ -63,7 +64,7 @@
       (application title ok js content))))
 
 (defn get-username-row [username]
-  (first (Query db ["SELECT * FROM users WHERE username = ?" username])))
+  (first (Query db ["SELECT * FROM users WHERE LOWER(username) = ?" (st/lower-case username)])))
 
 (defn email-body [row url]
   "Crear el cuerpo del email"
