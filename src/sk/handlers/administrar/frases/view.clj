@@ -1,4 +1,4 @@
-(ns sk.handlers.administrar.fotos.view
+(ns sk.handlers.administrar.frases.view
   (:require [hiccup.page :refer [include-js]]
             [ring.util.anti-forgery :refer [anti-forgery-field]]
             [sk.models.util :refer [build-table
@@ -11,40 +11,42 @@
   (list
    [:input {:type "hidden" :id "id" :name "id"}]
    (build-field
-    {:id "fecha"
-     :name "fecha"
-     :class "easyui-datebox"
-     :prompt "mm/dd/aaaa ex. 02/07/1957 es: Febrero 2 de 1957"
-     :data-options "label:'Fecha:',
-                     labelPosition:'top',
-                     required:true,
-                     width:'100%'"})
-   (build-field
-    {:id "enlace"
-     :name "enlace"
+    {:id "frase"
+     :name "frase"
      :class "easyui-textbox"
-     :prompt "enlace"
-     :data-options "label:'Enlace:',
+     :prompt "Aqui la frase del ciclista"
+     :data-options "label:'Frase:',
+                    labelPosition:'top',
+                    required:true,
+                    multiline:true,
+                    width:'100%',
+                    height:120"})
+   (build-field
+    {:id "autor"
+     :name "autor"
+     :class "easyui-textbox"
+     :prompt "Autor aqui"
+     :data-options "label:'Autor:',
                      labelPosition:'top',
                      required:true,
                      width:'100%'"})))
 
-(defn fotos-view
-  "Esto crea el grid y la forma en una ventana - Cambiar fotos por el nombre correcto"
+(defn frases-view
+  "Esto crea el grid y la forma en una ventana - Cambiar frases por el nombre correcto"
   [title]
   (list
    (anti-forgery-field)
    (build-table
     title
-    "/administrar/fotos"
+    "/administrar/frases"
     (list ;; Aqui los campos del grid
-     [:th {:data-options "field:'fecha',sortable:true"} "Fecha"]
-     [:th {:data-options "field:'enlace',sortable:true"} "Enlace"]))
+     [:th {:data-options "field:'frase',sortable:true"} "Frase"]
+     [:th {:data-options "field:'autor',sortable:true"} "Autor"]))
    (build-toolbar)
    (build-dialog title dialog-fields)
    (build-dialog-buttons)))
 
-(defn fotos-scripts
-  "Esto crea el javascript necesario - Cambiar fotos por el nombre correcto"
+(defn frases-scripts
+  "Esto crea el javascript necesario - Cambiar frases por el nombre correcto"
   []
   (include-js "/js/grid.js"))
