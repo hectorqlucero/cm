@@ -20,8 +20,9 @@
 (defn fotos-grid
   [{params :params}]
   (try
-    (let [table "fotos"]
-      (build-grid params table))
+    (let [table "fotos"
+          args {:sort-extra "fecha desc"}]
+      (build-grid params table args))
     (catch Exception e (.getMessage e))))
 
 (defn fotos-form

@@ -38,7 +38,7 @@
     title
     "/administrar/fotos"
     (list ;; Aqui los campos del grid
-     [:th {:data-options "field:'fecha',sortable:true"} "Fecha"]
+     [:th {:data-options "field:'fecha_formatted',sortable:true"} "Fecha"]
      [:th {:data-options "field:'enlace',sortable:true"} "Enlace"]))
    (build-toolbar)
    (build-dialog title dialog-fields)
