@@ -78,8 +78,8 @@
     title
     "/administrar/eventos"
     (list
-     [:th {:data-options "field:'fecha',sortable:true"} "Fecha"]
-     [:th {:data-options "field:'hora',sortable:true"} "Hora"]
+     [:th {:data-options "field:'fecha_formatted',sortable:true"} "Fecha"]
+     [:th {:data-options "field:'hora_formatted',sortable:true"} "Hora"]
      [:th {:data-options "field:'titulo',sortable:true"} "Evento"]
      [:th {:data-options "field:'lugar',sortable:false"} "Punto de Reunión"]
      [:th {:data-options "field:'organiza',sortable:true"} "Quién Organiza"]))

@@ -20,7 +20,7 @@
 (defn eventos-grid
   [{params :params}]
   (let [table "eventos"
-        args  {:sort-extra   "fecha,hora"
+        args  {:sort-extra   "fecha desc,hora"
                :search-extra (str "YEAR(fecha) = '" (current_year) "'")}]
     (build-grid params table args)))
 
