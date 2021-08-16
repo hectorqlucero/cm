@@ -50,7 +50,7 @@
     title
     "/administrar/videos"
     (list ;; Aqui los campos del grid
-     [:th {:data-options "field:'fecha',sortable:true"} "Fecha"]
+     [:th {:data-options "field:'fecha_formatted',sortable:true"} "Fecha"]
      [:th {:data-options "field:'titulo',sortable:true"} "Titulo"]
      [:th {:data-options "field:'enlace',sortable:true"} "Enlace"]))
    (build-toolbar)

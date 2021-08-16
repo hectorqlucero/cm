@@ -20,8 +20,9 @@
 (defn videos-grid
   [{params :params}]
   (try
-    (let [table "videos"]
-      (build-grid params table))
+    (let [table "videos"
+          args {:sort-extra "fecha desc"}]
+      (build-grid params table args))
     (catch Exception e (.getMessage e))))
 
 (defn videos-form
