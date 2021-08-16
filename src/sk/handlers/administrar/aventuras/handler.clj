@@ -20,9 +20,9 @@
 
 (defn aventuras-filter []
   (if (= (user-level) "U")
-    {:sort-extra "fecha"
+    {:sort-extra "fecha desc"
      :search-extra (str "leader_email = '" (user-email) "'")}
-    {:sort-extra "fecha"}))
+    {:sort-extra "fecha desc"}))
 
 (defn aventuras-grid
   [{params :params}]

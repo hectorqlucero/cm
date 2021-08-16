@@ -60,7 +60,7 @@
     (list
      [:th {:data-options "field:'leader_email',sortable:true,fixed:false"} "Email"]
      [:th {:data-options "field:'enlace',sortable:true"} "Enlace"]
-     [:th {:data-options "field:'fecha',sortable:true,fixed:false"} "Fecha"]
+     [:th {:data-options "field:'fecha_formatted',sortable:true,fixed:false"} "Fecha"]
      [:th {:data-options "field:'aventura',sortable:true,fixed:true"} "Aventura"]))
    (build-toolbar (toolbar-extra))
    (build-dialog title (dialog-fields email))
