@@ -25,9 +25,9 @@
   [{params :params}]
   (let [table "rodadas"
         args  (if (= (user-level) "U")
-                {:sort-extra   "fecha,salida"
+                {:sort-extra   "fecha desc,salida"
                  :search-extra (str "leader_email = '" (user-email) "' AND YEAR(fecha) = '" (current_year) "'")}
-                {:sort-extra   "fecha,salida"
+                {:sort-extra   "fecha desc,salida"
                  :search-extra (str "YEAR(fecha) = '" (current_year) "'")})]
     (build-grid params table args)))
 
