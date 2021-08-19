@@ -110,7 +110,7 @@
            content]
           (app-js)
           js]
-         (if-not (= ok 99)
+         (if-not  (= title "Frases de Ciclistas")
            [:footer.p-5.bg-white.text-mutted.text-center.position-relative
             [:div.container
              [:p.lead "Copyright &copy; 2020 Lucero Systems"]]])))

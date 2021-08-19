@@ -36,7 +36,7 @@
 
 (defn frases [_]
   (let [title "Frases de Ciclistas"
-        ok 99
+        ok (get-session-id)
         js (include-js "/js/stars.js")
         content (get-frases)]
     (application title ok js content)))
