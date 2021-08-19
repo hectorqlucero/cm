@@ -74,4 +74,7 @@
 
 (defn logoff []
   (session/clear!)
-  (redirect "https://ciclismomexicali.org"))
+  (let [title (get-main-title)
+        ok (get-session-id)
+        content [:div [:span {:style "margin-left:20px;"} title]]]
+    (application "CM" ok nil content)))
