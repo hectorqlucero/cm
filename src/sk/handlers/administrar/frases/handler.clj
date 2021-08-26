@@ -1,12 +1,9 @@
 (ns sk.handlers.administrar.frases.handler
-  (:require [sk.models.crud :refer [build-form-row
-                                    build-form-save
-                                    build-form-delete]]
-            [sk.models.grid :refer [build-grid]]
+  (:require [sk.handlers.administrar.frases.view :refer [frases-scripts frases-view]]
             [sk.layout :refer [application]]
-            [sk.models.util :refer [get-session-id]]
-            [sk.handlers.administrar.frases.view :refer [frases-view
-                                                         frases-scripts]]))
+            [sk.models.crud :refer [build-form-delete build-form-row build-form-save]]
+            [sk.models.grid :refer [build-grid]]
+            [sk.models.util :refer [get-session-id]]))
 (defn frases
   [_]
   (try

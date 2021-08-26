@@ -1,7 +1,7 @@
 (ns sk.handlers.talleres.view
   (:require [clojure.string :refer [upper-case]]))
 
-(defn reporte-view [title rows]
+(defn reporte-view [_ rows]
   (list
    (for [row rows]
      [:section.p-5

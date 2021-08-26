@@ -1,12 +1,9 @@
 (ns sk.handlers.administrar.videos.handler
-  (:require [sk.models.crud :refer [build-form-row
-                                    build-form-save
-                                    build-form-delete]]
-            [sk.models.grid :refer [build-grid]]
+  (:require [sk.handlers.administrar.videos.view :refer [videos-scripts videos-view]]
             [sk.layout :refer [application]]
-            [sk.models.util :refer [get-session-id]]
-            [sk.handlers.administrar.videos.view :refer [videos-view
-                                                         videos-scripts]]))
+            [sk.models.crud :refer [build-form-delete build-form-row build-form-save]]
+            [sk.models.grid :refer [build-grid]]
+            [sk.models.util :refer [get-session-id]]))
 (defn videos
   [_]
   (try

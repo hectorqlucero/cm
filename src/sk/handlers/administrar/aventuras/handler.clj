@@ -1,14 +1,9 @@
 (ns sk.handlers.administrar.aventuras.handler
-  (:require [sk.models.crud :refer [build-form-row
-                                    build-form-save
-                                    build-form-delete]]
-            [sk.models.grid :refer [build-grid]]
-            [sk.models.util :refer [get-session-id
-                                    current_year
-                                    user-email
-                                    user-level]]
+  (:require [sk.handlers.administrar.aventuras.view :refer [aventuras-scripts aventuras-view]]
             [sk.layout :refer [application]]
-            [sk.handlers.administrar.aventuras.view :refer [aventuras-view aventuras-scripts]]))
+            [sk.models.crud :refer [build-form-delete build-form-row build-form-save]]
+            [sk.models.grid :refer [build-grid]]
+            [sk.models.util :refer [get-session-id user-email user-level]]))
 
 (defn aventuras
   [_]

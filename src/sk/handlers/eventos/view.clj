@@ -1,9 +1,4 @@
-(ns sk.handlers.eventos.view
-  (:require [clojure.java.io :as io]))
-
-(defn read-image [source]
-  (let [bin (io/file source)]
-    (io/reader bin)))
+(ns sk.handlers.eventos.view)
 
 (defn build-options [month-name year month]
   {:width   152
@@ -104,6 +99,6 @@
      [:button.btn.btn-primary {:onclick "window.location.href='/eventos/list'"} "Regresar"]]
     (map body-rr rows)]))
 
-(defn display-eventos-scripts [year month]
+(defn display-eventos-scripts [_ _]
   (list
    [:script nil]))

@@ -10,7 +10,7 @@
             [ring.middleware.reload :as reload]
             [ring.middleware.session :refer [wrap-session]]
             [ring.middleware.session.cookie :refer [cookie-store]]
-            [sk.models.crud :refer [config KEY]]
+            [sk.models.crud :refer [KEY config]]
             [sk.proutes :refer [proutes]]
             [sk.routes :refer [open-routes]]))
 

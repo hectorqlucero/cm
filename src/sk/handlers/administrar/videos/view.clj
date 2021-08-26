@@ -1,14 +1,7 @@
 (ns sk.handlers.administrar.videos.view
   (:require [hiccup.page :refer [include-js]]
             [ring.util.anti-forgery :refer [anti-forgery-field]]
-            [sk.models.util :refer [build-table
-                                    build-dialog
-                                    build-dialog-buttons
-                                    build-toolbar
-                                    build-image-field
-                                    build-text-editor
-                                    build-image-field-script
-                                    build-field]]))
+            [sk.models.util :refer [build-dialog build-dialog-buttons build-field build-table build-toolbar]]))
 
 (def dialog-fields
   (list

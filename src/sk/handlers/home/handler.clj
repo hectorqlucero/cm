@@ -6,8 +6,8 @@
             [noir.util.crypt :as crypt]
             [ring.util.anti-forgery :refer [anti-forgery-field]]
             [sk.handlers.home.view :refer [login-script login-view]]
-            [sk.layout :refer :all]
-            [sk.models.crud :refer [db Query]]
+            [sk.layout :refer [application]]
+            [sk.models.crud :refer [Query db]]
             [sk.models.util :refer [get-session-id]]))
 
 ;; Start Main
@@ -63,12 +63,11 @@
   (let [row    (first (Query db ["SELECT * FROM users WHERE username = ?" username]))
         active (:active row)]
     (if (= active "T")
-      (do
-        (if (crypt/compare password (:password row))
-          (do
-            (session/put! :user_id (:id row))
-            (generate-string {:url "/"}))
-          (generate-string {:error "Hay problemas para accesar el sitio!"})))
+      (if (crypt/compare password (:password row))
+        (do
+          (session/put! :user_id (:id row))
+          (generate-string {:url "/"}))
+        (generate-string {:error "Hay problemas para accesar el sitio!"}))
       (generate-string {:error "El usuario esta inactivo!"}))))
 ;; End login
 

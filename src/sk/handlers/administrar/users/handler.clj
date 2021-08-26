@@ -16,8 +16,8 @@
         level   (user-level)]
     (if
      (or
-      (= (user-level) "A")
-      (= (user-level) "S"))
+      (= level "A")
+      (= level "S"))
       (application title ok js content)
       (application title ok nil "Solo <strong>administradores</strong> pueden accesar esta opción!!!"))))
 

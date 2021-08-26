@@ -1,5 +1,5 @@
 (ns sk.handlers.rodadas.view
-  (:require [hiccup.page :refer [include-css include-js]]
+  (:require [clojure.string :as string]
             [sk.models.util
              :refer
              [build-button build-field build-form build-radio-buttons]]))
@@ -13,7 +13,7 @@
   [:h2 (:titulo row)
    [:div.card
     [:div.card-body {:style "font-size:.5em;"}
-     (line-rr "Fecha:" [:strong.text-warning (str (clojure.string/upper-case (:dia row)) (clojure.string/upper-case (:f_fecha row)))])
+     (line-rr "Fecha:" [:strong.text-warning (str (string/upper-case (:dia row)) (string/upper-case (:f_fecha row)))])
      (line-rr "Detalles: " (:detalles row))
      (line-rr "Punto de reunion: " (:punto_reunion row))
      (line-rr "Hora: " (:salida row))
@@ -31,96 +31,10 @@
    [:div.container
     (map body-rr rows)]))
 
-(defn rodadas-view []
-  (list
-   (include-css "/font/css/all.min.css")
-   (include-css "/fullcalendar/fullcalendar.min.css")
-   [:div#calendar]
-   [:div#fullCalModal.modal.fade
-    [:div.modal-dialog
-     [:div.modal-content
-      [:div.modal-header
-       [:h4#modalTitle.model-title]
-       [:button.close {:type         "button"
-                       :data-dismiss "modal"}
-        [:span {:aria-hidden "true"} "x"]
-        [:span.sr-only "Cerrar"]]]
-      [:div#modalBody.modal-body]
-      [:div.modal-footer
-       [:button.btn.btn-default {:type         "button"
-                                 :data-dismiss "modal"} "Regresar a Rodadas"]
-       [:a#eventUrl.btn.btn-primary {:target "_blank"} "Confirmar Asistencia"]]]]]))
 
 (defn rr-scripts []
   [:script])
 
-(defn rodadas-scripts []
-  (list
-   (include-js "/font/js/all.min.js")
-   (include-js "/fullcalendar/lib/moment.min.js")
-   (include-js "/fullcalendar/fullcalendar.min.js")
-   (include-js "/fullcalendar/locale-all.js")
-   [:script
-    "
-    $(document).ready(function() {
-      $('#calendar').fullCalendar({
-        themeSystem: 'bootstrap4',
-        eventLimit: true,
-        displayEventTime: true,
-        timeFormat: 'h(:mm) t',
-        header: {
-          left: 'prev,next today',
-            center: 'title',
-            right: ''
-        },
-        locale: 'es',
-        eventClick: function(event, jsEvent, view) {
-          $('#modalTitle').html(event.title);
-          $('#modalBody').html(event.description);
-          $('#eventUrl').attr('href', event.url);
-          $('#fullCalModal').modal();
-          return false;
-        },
-        eventMouseover: function(calEvent, jsEvent) {
-          var tdesc = calEvent.email || '';
-          var tooltip = '<div class=\"tooltipevent\" style=\"z-index:100001;border;1px solid #F1D031;color:#444;background:#FFFFA3;box-shadow:0 2px 3px #999;position:absolute;padding:5px;text-align:left;border=radius:5px;moz-border-radius:5px;-webkit-border-radius:5px;\"><p><strong>Click para ver detalles o confirmar asistencia</p></div>';
-          var $tooltip = $(tooltip).appendTo('body');
-          $(this).mouseover(function(e) {
-            $tooltip.fadeIn('500');
-            $tooltip.fadeTo('10', 1.9);
-          }).mousemove(function(e) {
-            var pLeft;
-            var pTop;
-            var offset = 10;
-            var CursorX = e.pageX;
-            var CursorY = e.pageY;
-            var WindowWidth = $(window).width();
-            var WindowHeight = $(window).height();
-            var toolTip = $('.tooltipevent');
-            var TTWidth = toolTip.width();
-            var TTHeight = toolTip.height();
-            if(CursorX-offset >= (WindowWidth/4)*3) {
-              pLeft = CursorX - TTWidth - offset;
-            } else {
-              pLeft = CursorX + offset;
-            }
-            if(CursorY-offset >= (WindowHeight/4)*3) {
-              pTop = CursorY - TTHeight - offset;
-            } else {
-              pTop = CursorY + offset;
-            }
-            $tooltip.css('top', pTop);
-            $tooltip.css('left', pLeft);
-          });
-        },
-        eventMouseout: function(calEvent, jsEvent) {
-          $(this).css('z-index', 8);
-          $('.tooltipevent').remove();
-        },
-        events: '/table_ref/calendar',
-      });
-    });
-     "]))
 
 (defn asistir-view [title rodadas_id token]
   (build-form

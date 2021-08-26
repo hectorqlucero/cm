@@ -203,11 +203,10 @@
   [s]
   (if (not-empty s)
     (try
-      (do
-        (.format
-         (SimpleDateFormat. "yyyy-MM-dd")
-         (.parse
-          (SimpleDateFormat. "MM/dd/yyyy") s)))
+      (.format
+       (SimpleDateFormat. "yyyy-MM-dd")
+       (.parse
+        (SimpleDateFormat. "MM/dd/yyyy") s))
       (catch Exception e (.getMessage e)))
     nil))
 

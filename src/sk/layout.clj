@@ -7,7 +7,7 @@
   (list
    [:a.dropdown-item {:href "/administrar/rodadas"} "Rodadas"]
    [:a.dropdown-item {:href "/administrar/aventuras"} "Aventuras"]
-   (if (= (user-level) "S")
+   (when (= (user-level) "S")
      (list
       [:a.dropdown-item {:href "/administrar/eventos"} "Eventos"]
       [:a.dropdown-item {:href "/administrar/talleres"} "Talleres"]

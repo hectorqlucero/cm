@@ -1,7 +1,7 @@
 (ns sk.handlers.fotos.handler
   (:require [hiccup.page :refer [html5]]
             [sk.layout :refer [application]]
-            [sk.models.crud :refer [db Query]]
+            [sk.models.crud :refer [Query db]]
             [sk.models.util :refer [get-session-id]]))
 
 (def fotos-sql
@@ -23,7 +23,7 @@
     :target "_blank"} (str (:dia row) " " (:f_fecha row))])
 
 (defn handle-body []
-  (let [rows (Query db fotos-sql)]
+  (let [rows (get-rows)]
     (map process-row rows)))
 
 (defn get-fotos []

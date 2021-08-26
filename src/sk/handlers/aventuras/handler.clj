@@ -1,7 +1,7 @@
 (ns sk.handlers.aventuras.handler
   (:require [sk.handlers.aventuras.view :refer [aventuras-scripts aventuras-view]]
             [sk.layout :refer [application]]
-            [sk.models.crud :refer [db Query]]
+            [sk.models.crud :refer [Query db]]
             [sk.models.util :refer [get-session-id]]))
 
 ;; Start aventuras

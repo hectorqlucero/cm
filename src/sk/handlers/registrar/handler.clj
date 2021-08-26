@@ -1,25 +1,20 @@
 (ns sk.handlers.registrar.handler
   (:require [cheshire.core :refer [generate-string]]
+            [clojure.string :as st]
             [noir.util.crypt :as crypt]
             [ring.util.anti-forgery :refer [anti-forgery-field]]
-            [clojure.string :as st]
             [sk.handlers.registrar.view
              :refer
-             [registrar-scripts
-              registrar-view
-              reset-jwt-scripts
-              reset-jwt-view
-              reset-password-scripts
-              reset-password-view]]
-            [sk.layout :refer :all]
-            [sk.models.crud :refer [build-postvars db Query Save Update]]
+             [registrar-scripts registrar-view reset-jwt-scripts reset-jwt-view reset-password-scripts reset-password-view]]
+            [sk.layout :refer [application error-404]]
+            [sk.models.crud :refer [Query Save Update build-postvars db]]
             [sk.models.email :refer [host send-email]]
             [sk.models.util
              :refer
              [check-token create-token get-reset-url get-session-id]]))
 
 ;; Start registrar
-(defn registrar [request]
+(defn registrar [_]
   (let [title      "Registro de usuarios"
         token      (anti-forgery-field)
         ok         (get-session-id)
@@ -31,8 +26,9 @@
       (error-404 error-text return-url)
       (application title ok js content))))
 
-(defn registrar! [{params :params}]
+(defn registrar!
   "Postear los datos de registro de un nuevo cliente el la tabla usuarios"
+  [{params :params}]
   (let [email    (clojure.string/lower-case (or (:email params) "0"))
         password (:password params)
         params   (assoc params
@@ -51,7 +47,7 @@
 ;; End registrar
 
 ;; Start reset-password
-(defn reset-password [request]
+(defn reset-password [_]
   (let [title      "Resetear Contraseña"
         token      (anti-forgery-field)
         ok         (get-session-id)
@@ -66,8 +62,9 @@
 (defn get-username-row [username]
   (first (Query db ["SELECT * FROM users WHERE LOWER(username) = ?" (st/lower-case username)])))
 
-(defn email-body [row url]
+(defn email-body
   "Crear el cuerpo del email"
+  [row url]
   (let [nombre  (str (:firstname row) " " (:lastname row))
         email   (:email row)
         subject "Resetear tu contraseña"

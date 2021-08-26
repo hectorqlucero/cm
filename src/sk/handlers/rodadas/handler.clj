@@ -4,14 +4,9 @@
             [ring.util.anti-forgery :refer [anti-forgery-field]]
             [sk.handlers.rodadas.view
              :refer
-             [asistir-scripts
-              asistir-view
-              rodadas-scripts
-              rodadas-view
-              rr-scripts
-              rr-view]]
+             [asistir-scripts asistir-view rr-scripts rr-view]]
             [sk.layout :refer [application]]
-            [sk.models.crud :refer [db Delete Query Query! Save]]
+            [sk.models.crud :refer [Delete Query Query! Save db]]
             [sk.models.email :refer [host send-email]]
             [sk.models.util :refer [fix-id get-session-id]]))
 
@@ -27,22 +22,6 @@
       (Query! db sql)
       nil)
     (Query! db "UPDATE rodadas SET fecha = DATE_ADD(fecha,INTERVAL 7 DAY) WHERE fecha < CURRENT_DATE()")))
-
-(defn process-confirmados [rodadas_id]
-  (let [rows (Query db ["select email from rodadas_link where rodadas_id = ? and asistir = ?" rodadas_id "T"])
-        data (if (seq rows)
-               (subs (clojure.string/triml (apply str (map #(str ", " (:email %)) rows))) 2)
-               "ninguno")]
-    data))
-
-(defn rodadas [_]
-  (purge)
-  (repeat-event)
-  (let [title   "Rodadas"
-        ok      (get-session-id)
-        js      (rodadas-scripts)
-        content (rodadas-view)]
-    (application title ok js content)))
 ;; End rodadas
 
 ;; Start rr
@@ -62,7 +41,7 @@
   leader_email
   FROM rodadas ORDER BY fecha,salida")
 
-(defn rr [req]
+(defn rr [_]
   (purge)
   (repeat-event)
   (let [title   "Rodadas de entrenamiento"
@@ -103,10 +82,8 @@
                                       :content content}]}]
     body))
 
-(defn email-user-body [rodadas_id user email comentarios asistir_desc]
+(defn email-user-body [rodadas_id user email _ _]
   (let [row               (first (Query db [asistir-sql rodadas_id]))
-        leader            (:leader row)
-        leader_email      (:leader_email row)
         descripcion_corta (:titulo row)
         content           (str "<strong>Hola " user ":</strong></br></br>"
                                "Gracias por confirmar asistencia a este evento.</br></br>"

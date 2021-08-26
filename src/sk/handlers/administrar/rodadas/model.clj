@@ -1,5 +1,5 @@
 (ns sk.handlers.administrar.rodadas.model
-  (:require [sk.models.crud :refer [db Query]]
+  (:require [sk.models.crud :refer [Query db]]
             [sk.models.email :refer [host send-email]]
             [sk.models.util :refer [capitalize-words]]))
 

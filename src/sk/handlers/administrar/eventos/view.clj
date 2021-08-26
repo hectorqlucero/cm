@@ -3,14 +3,7 @@
             [ring.util.anti-forgery :refer [anti-forgery-field]]
             [sk.models.util
              :refer
-             [build-dialog
-              build-dialog-buttons
-              build-field
-              build-image-field
-              build-image-field-script
-              build-table
-              build-text-editor
-              build-toolbar]]))
+             [build-dialog build-dialog-buttons build-field build-image-field build-image-field-script build-table build-text-editor build-toolbar]]))
 
 (def dialog-fields
   (list

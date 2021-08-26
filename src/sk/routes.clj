@@ -1,17 +1,17 @@
 (ns sk.routes
   (:require [cheshire.core :refer [generate-string]]
-            [compojure.core :refer [defroutes GET POST]]
+            [compojure.core :refer [GET POST defroutes]]
             [sk.handlers.aventuras.handler :as aventuras]
             [sk.handlers.eventos.handler :as eventos]
+            [sk.handlers.fotos.handler :as fotos]
+            [sk.handlers.frases.handler :as frases]
             [sk.handlers.grupos.handler :as grupos]
             [sk.handlers.home.handler :as home]
             [sk.handlers.registrar.handler :as registrar]
             [sk.handlers.rodadas.handler :as rodadas]
             [sk.handlers.talleres.handler :as talleres]
             [sk.handlers.tref.handler :as table_ref]
-            [sk.handlers.fotos.handler :as fotos]
-            [sk.handlers.videos.handler :as videos]
-            [sk.handlers.frases.handler :as frases]))
+            [sk.handlers.videos.handler :as videos]))
 
 (defroutes open-routes
   ;; Start table_ref

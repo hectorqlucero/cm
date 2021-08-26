@@ -1,7 +1,7 @@
 (ns sk.handlers.videos.handler
   (:require [hiccup.page :refer [html5]]
             [sk.layout :refer [application]]
-            [sk.models.crud :refer [db Query]]
+            [sk.models.crud :refer [Query db]]
             [sk.models.util :refer [get-session-id]]))
 
 (def videos-sql

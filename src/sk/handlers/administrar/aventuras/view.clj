@@ -1,12 +1,7 @@
 (ns sk.handlers.administrar.aventuras.view
-  (:require [ring.util.anti-forgery :refer [anti-forgery-field]]
-            [hiccup.page :refer [include-js]]
-            [sk.models.util :refer [build-table
-                                    build-dialog
-                                    build-dialog-buttons
-                                    build-toolbar
-                                    build-field
-                                    build-radio-buttons]]))
+  (:require [hiccup.page :refer [include-js]]
+            [ring.util.anti-forgery :refer [anti-forgery-field]]
+            [sk.models.util :refer [build-dialog build-dialog-buttons build-field build-table build-toolbar]]))
 
 (defn dialog-fields [email]
   (list
@@ -26,7 +21,7 @@
      :prompt "enlace"
      :data-options "label:'Enlace:',
                      labelPosition:'top',
-                     required:true,
+                     required:false,
                      width:'100%'"})
    (build-field
     {:id           "fecha"
@@ -66,5 +61,5 @@
    (build-dialog title (dialog-fields email))
    (build-dialog-buttons)))
 
-(defn aventuras-scripts [email]
+(defn aventuras-scripts [_]
   (include-js "/js/grid.js"))

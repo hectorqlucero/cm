@@ -1,12 +1,9 @@
 (ns sk.handlers.administrar.fotos.handler
-  (:require [sk.models.crud :refer [build-form-row
-                                    build-form-save
-                                    build-form-delete]]
-            [sk.models.grid :refer [build-grid]]
+  (:require [sk.handlers.administrar.fotos.view :refer [fotos-scripts fotos-view]]
             [sk.layout :refer [application]]
-            [sk.models.util :refer [get-session-id]]
-            [sk.handlers.administrar.fotos.view :refer [fotos-view
-                                                        fotos-scripts]]))
+            [sk.models.crud :refer [build-form-delete build-form-row build-form-save]]
+            [sk.models.grid :refer [build-grid]]
+            [sk.models.util :refer [get-session-id]]))
 (defn fotos
   [_]
   (try

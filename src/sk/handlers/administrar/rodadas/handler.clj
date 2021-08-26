@@ -7,7 +7,7 @@
             [sk.layout :refer [application]]
             [sk.models.crud
              :refer
-             [db Delete build-form-delete build-form-row build-form-save]]
+             [Delete build-form-row build-form-save db]]
             [sk.models.grid :refer [build-grid]]
             [sk.models.util
              :refer
@@ -49,5 +49,7 @@
         eresult (if-not (nil? id) (doall (process-email id)) nil)
         result  (if-not (nil? id) (Delete db (keyword table) ["id = ?" id]) nil)]
     (if (seq result)
-      (generate-string {:success "Removido appropiadamente!"})
+      (if-not (nil? eresult)
+        (generate-string {:success "Se mando email de cancelación a todos los que confirmaron asistencia. Removido appropiadamente!"})
+        (generate-string {:success "No se pudo mandar mesaje de cancelación. Removido appropiadamente!"}))
       (generate-string {:error "No se pudo remover!"}))))

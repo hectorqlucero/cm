@@ -3,11 +3,7 @@
             [ring.util.anti-forgery :refer [anti-forgery-field]]
             [sk.models.util
              :refer
-             [build-dialog
-              build-dialog-buttons
-              build-field
-              build-radio-buttons
-              build-table]]))
+             [build-dialog build-dialog-buttons build-field build-radio-buttons build-table]]))
 
 (def dialog-fields
   (list

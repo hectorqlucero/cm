@@ -1,14 +1,14 @@
 (ns sk.proutes
-  (:require [compojure.core :refer [defroutes GET POST]]
+  (:require [compojure.core :refer [GET POST defroutes]]
             [sk.handlers.administrar.aventuras.handler :as aventuras]
             [sk.handlers.administrar.cuadrantes.handler :as cuadrantes]
             [sk.handlers.administrar.eventos.handler :as eventos]
+            [sk.handlers.administrar.fotos.handler :as fotos]
+            [sk.handlers.administrar.frases.handler :as frases]
             [sk.handlers.administrar.rodadas.handler :as rodadas]
             [sk.handlers.administrar.talleres.handler :as talleres]
             [sk.handlers.administrar.users.handler :as users]
-            [sk.handlers.administrar.fotos.handler :as fotos]
-            [sk.handlers.administrar.videos.handler :as videos]
-            [sk.handlers.administrar.frases.handler :as frases]))
+            [sk.handlers.administrar.videos.handler :as videos]))
 
 (defroutes proutes
   ;; Start users

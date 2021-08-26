@@ -1,7 +1,7 @@
 (ns sk.handlers.talleres.handler
   (:require [sk.handlers.talleres.view :refer [reporte-scripts reporte-view]]
             [sk.layout :refer [application]]
-            [sk.models.crud :refer [db Query]]
+            [sk.models.crud :refer [Query db]]
             [sk.models.util :refer [get-session-id]]))
 
 (defn reporte [_]

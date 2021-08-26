@@ -1,7 +1,7 @@
 (ns sk.handlers.frases.handler
   (:require [hiccup.page :refer [html5 include-js]]
             [sk.layout :refer [application]]
-            [sk.models.crud :refer [db Query]]
+            [sk.models.crud :refer [Query db]]
             [sk.models.util :refer [get-session-id]]))
 
 (def frases-sql
