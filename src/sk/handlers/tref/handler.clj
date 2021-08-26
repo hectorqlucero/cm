@@ -121,6 +121,11 @@
    {:value "A" :text "Avanzado"}
    {:value "T" :text "TODOS"}))
 
+(defn get-nivel [nivel]
+  (let [rows (nivel-options)
+        result (first (remove nil? (map (fn [row] (when (= (:value row) nivel) (:text row))) rows)))]
+    result))
+
 (defn imagen [table field idname value & extra-folder]
   (get-image table field idname value (first extra-folder)))
 

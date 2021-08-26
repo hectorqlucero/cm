@@ -76,6 +76,12 @@
       s)))
 
 ;; Start jwt token
+(defn get-base-url [request]
+  (str  "https://" (:server-name request) ":" 443))
+
+(defn get-reset-url [request token]
+  (str (get-base-url request) "/reset_password/" token))
+
 (defn create-token
   "Creates jwt token with 10 minutes expiration time"
   [k]

@@ -137,7 +137,8 @@
      [:th {:data-options "field:'fecha_formatted',sortable:true,fixed:true,width:80"} "Fecha"]
      [:th {:data-options "field:'punto_reunion',sortable:false"} "Punto de Reunión"]
      [:th {:data-options "field:'salida_formatted',sortable:true,fixed:true"} "Salida"]
-     [:th {:data-options "field:'nivel',sortable:true,fixed:true"} "Nivel"]
+     [:th {:data-options "field:'nivel',sortable:true,fixed:true"
+           :formatter "nivelDesc"} "Nivel"]
      [:th {:data-options "field:'distancia',sortable:true,fixed:true"} "Distancia"]
      [:th {:data-options "field:'velocidad',sortable:true,fixed:true"} "Velocidad"]))
    (build-toolbar (toolbar-extra))
@@ -149,7 +150,22 @@
    (include-js "/js/grid.js")
    [:script
     "
-   $(function() {
+     function nivelDesc(val, row, index) {
+       var result = null;
+       var scriptUrl = '/table_ref/get-nivel/' + val;
+       $.ajax({
+         url: scriptUrl,
+         type: 'get',
+         dataType: 'html',
+         async: false,
+         success: function(data) {
+           result = data;
+         }
+       });
+       return result;
+     }
+             
+    $(function() {
       $('#texteditor').richText();
     });
     $('.dlg').dialog({
