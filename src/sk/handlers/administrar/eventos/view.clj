@@ -71,6 +71,7 @@
     title
     "/administrar/eventos"
     (list
+     [:th {:data-options "field:'id',sortable:true"} "ID"]
      [:th {:data-options "field:'fecha_formatted',sortable:true"} "Fecha"]
      [:th {:data-options "field:'hora_formatted',sortable:true"} "Hora"]
      [:th {:data-options "field:'titulo',sortable:true"} "Evento"]

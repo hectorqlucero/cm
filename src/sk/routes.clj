@@ -22,7 +22,7 @@
   (GET "/table_ref/years/:pyears/:nyears" [pyears nyears] (generate-string (table_ref/years pyears nyears)))
   (GET "/table_ref/calendar" [] (generate-string (table_ref/calendar-events)))
   (GET "/table_ref/nivel_options" [] (generate-string (table_ref/nivel-options)))
-  (GET "/table_ref/get_imagen/:id" [id] (table_ref/imagen "eventos" "imagen" "id" id "eventos/"))
+  (GET "/table_ref/get_imagen/:id" [id] (table_ref/imagen "eventos" "imagen" "id" id))
   (GET "/table_ref/get-item/:table/:field/:fname/:fval" [table field fname fval] (table_ref/get-item table field fname fval))
   (GET "/table_ref/get-time" [] (generate-string (table_ref/build-time)))
   (GET "/table_ref/get-nivel/:nivel" [nivel] (table_ref/get-nivel nivel))

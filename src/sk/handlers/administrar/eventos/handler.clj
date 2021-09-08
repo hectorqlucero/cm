@@ -32,7 +32,7 @@
 (defn eventos-save
   [{params :params}]
   (let [table         "eventos"
-        upload-folder "eventos"]
+        upload-folder nil]
     (build-form-save params table upload-folder)))
 
 (defn eventos-delete
