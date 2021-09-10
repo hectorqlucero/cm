@@ -10,13 +10,6 @@
             [sk.models.crud :refer [Query db]]
             [sk.models.util :refer [get-session-id]]))
 
-;; Start Main
-(def main-sql
-  "SELECT
-   username
-   FROM users
-   WHERE id = ?")
-
 (defn get-main-title []
   (html5
    [:div {:style "margin-left:20px;
