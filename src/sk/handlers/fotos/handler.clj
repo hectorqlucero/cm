@@ -4,6 +4,8 @@
             [sk.models.crud :refer [Query db]]
             [sk.models.util :refer [get-session-id]]))
 
+(def cnt (atom 0))
+
 (def fotos-sql
   "
   SELECT
@@ -20,7 +22,7 @@
   [:a.list-group-item.list-group-item-action.list-group-item-secondary
    {:href (:enlace row)
     :data-options "plain:true"
-    :target "_blank"} (str (:dia row) " " (:f_fecha row))])
+    :target "_blank"} (str (swap! cnt inc) ". " (:dia row) " " (:f_fecha row))])
 
 (defn handle-body []
   (let [rows (get-rows)]
@@ -28,6 +30,7 @@
 
 (defn get-fotos []
   (html5
+   (reset! cnt 0)
    [:div.container
     [:div.list-group
      [:a.list-group-item.list-group-item-action {:style "text-align:center;"} [:h2 [:strong.text-warning "Clic abajo para ver fotos"]]]
