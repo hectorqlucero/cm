@@ -42,7 +42,7 @@
                         :username email)
         result   (Save db :users postvars ["username = ?" email])]
     (if (seq result)
-      (generate-string {:url "/login"})
+      (generate-string {:url "/home/login"})
       (generate-string {:error "No se pudo registrar el usuario"}))))
 ;; End registrar
 
