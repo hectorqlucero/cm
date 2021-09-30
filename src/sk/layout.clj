@@ -102,12 +102,12 @@
                   :type "image/x-icon"
                   :href "data:image/x-icon;"}]]
          [:body.easyui-layout
-          [:div {:data-options "region:'north'" :style "width:100%;height:6%;text-align:center;"}
+          [:div {:data-options "region:'north'" :style "width:100%;height:6%;text-align:center;margin-bottom:10px;"}
            (cond
              (= ok -1) nil
              (= ok 0) (menus-public)
              (> ok 0) (menus-private))]
-          [:div {:data-options "region:'center'" :style "width:100%;height:auto;"}
+          [:div {:data-options "region:'center'" :style "width:100%;height:auto"}
            content]
           [:div {:data-options "region:'south'" :style "width:100%;height:5%;text-align:center;"}
            (app-js)

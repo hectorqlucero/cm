@@ -17,7 +17,7 @@
 
 (defn get-fotos [title]
   [:div.container
-   [:table.easyui-datagrid {:style "width:100%;height:500px;"
+   [:table.easyui-datagrid {:style "width:100%;height:500px"
                             :title title
                             :data-options "pagination:false,
                                           remoteFilter:false,
