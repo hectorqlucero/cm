@@ -15,9 +15,10 @@
 (defn get-rows []
   (Query db fotos-sql))
 
-(defn get-fotos []
+(defn get-fotos [title]
   [:div.container
    [:table.easyui-datagrid {:style "width:100%;height:500px;"
+                            :title title
                             :data-options "pagination:false,
                                           remoteFilter:false,
                                           remoteSort:false,
@@ -41,7 +42,7 @@
         [:td [:a.btn.btn-info {:href (:enlace row) :target "_blank"} [:span.float-right "Ver Fotos"]]]])]]])
 
 (defn fotos [_]
-  (let [title "Fotos - Rodadas"
+  (let [title "Fotos - Ciclismo Mexicali"
         ok (get-session-id)
-        content (get-fotos)]
+        content (get-fotos title)]
     (application title ok nil content)))

@@ -4,8 +4,6 @@
             [sk.models.crud :refer [Query db]]
             [sk.models.util :refer [get-session-id]]))
 
-(def cnt (atom 0))
-
 (def videos-sql
   "
   SELECT
@@ -19,9 +17,10 @@
 (defn get-rows []
   (Query db videos-sql))
 
-(defn get-videos []
+(defn get-videos [title]
   [:div.container
    [:table.easyui-datagrid {:style "width:100%;height:500px;"
+                            :title title
                             :data-options "pagination:false,
                                           remoteFilter:false,
                                           remoteSort:false,
@@ -44,10 +43,10 @@
         [:td (:dia row)]
         [:td (:f_fecha row)]
         [:td (:titulo row)]
-        [:td [:a.btn.btn-info {:href (:enlace row) :target "_blank"} [:span.float-right "Ver Fotos"]]]])]]])
+        [:td [:a.btn.btn-info {:href (:enlace row) :target "_blank"} [:span.float-right "Ver Videos"]]]])]]])
 
 (defn videos [_]
-  (let [title "Videos - Rodadas"
+  (let [title "Videos - Ciclismo Mexicali"
         ok (get-session-id)
-        content (get-videos)]
+        content (get-videos title)]
     (application title ok nil content)))
