@@ -5,7 +5,7 @@
             [clojure.java.io :as io]
             [clojure.string :as string]
             [noir.session :as session]
-            [sk.models.crud :refer [Query config db]]) 
+            [sk.models.crud :refer [Query config db]])
   (:import java.util.UUID))
 
 (def tz (t/time-zone-for-id (:tz config)))
@@ -44,7 +44,6 @@
   (try
     (if (session/get :user_id) (session/get :user_id) 0)
     (catch Exception e (.getMessage e))))
-
 
 (defn user-level []
   (let [id   (get-session-id)
@@ -226,7 +225,7 @@
 
 (defn build-table [title url fields]
   [:table.dg
-   {:style "width: 100%;height:500px;"
+   {:style "width: 100%;height:auto;"
     :title title
     :data-options
     (str

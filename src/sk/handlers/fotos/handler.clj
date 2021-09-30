@@ -1,10 +1,7 @@
 (ns sk.handlers.fotos.handler
-  (:require [hiccup.page :refer [html5]]
-            [sk.layout :refer [application]]
+  (:require [sk.layout :refer [application]]
             [sk.models.crud :refer [Query db]]
             [sk.models.util :refer [get-session-id]]))
-
-(def cnt (atom 0))
 
 (def fotos-sql
   "
@@ -18,23 +15,30 @@
 (defn get-rows []
   (Query db fotos-sql))
 
-(defn process-row [row]
-  [:a.list-group-item.list-group-item-action.list-group-item-secondary
-   {:href (:enlace row)
-    :data-options "plain:true"
-    :target "_blank"} (str (swap! cnt inc) ". " (:dia row) " " (:f_fecha row))])
-
-(defn handle-body []
-  (let [rows (get-rows)]
-    (map process-row rows)))
-
 (defn get-fotos []
-  (html5
-   (reset! cnt 0)
-   [:div.container
-    [:div.list-group
-     [:a.list-group-item.list-group-item-action {:style "text-align:center;"} [:h2 [:strong.text-warning "Clic abajo para ver fotos"]]]
-     (handle-body)]]))
+  [:div.container
+   [:table.easyui-datagrid {:style "width:100%;height:500px;"
+                            :data-options "pagination:false,
+                                          remoteFilter:false,
+                                          remoteSort:false,
+                                          rownumbers:true,
+                                          nowrap:true,
+                                          resizeEdge:5,
+                                          autoRowHeight:true,
+                                          fitColumns:true,
+                                          autoSizeColumns:true,
+                                          singleSelect:true"}
+    [:thead
+     [:tr
+      [:th {:data-options "field:'dia'"} "DIA"]
+      [:th {:data-options "field:'f_fecha'"} "FECHA"]
+      [:th {:data-options "field:'enlace'" :style "text-align:center;"} "PROCESAR"]]]
+    [:tbody
+     (for [row (get-rows)]
+       [:tr
+        [:td (:dia row)]
+        [:td (:f_fecha row)]
+        [:td [:a.btn.btn-info {:href (:enlace row) :target "_blank"} [:span.float-right "Ver Fotos"]]]])]]])
 
 (defn fotos [_]
   (let [title "Fotos - Rodadas"
