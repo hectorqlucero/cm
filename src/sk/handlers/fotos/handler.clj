@@ -31,15 +31,15 @@
                                           singleSelect:true"}
     [:thead
      [:tr
+      [:th {:data-options "field:'enlace'" :style "text-align:center;"} "PROCESAR"]
       [:th {:data-options "field:'dia'"} "DIA"]
-      [:th {:data-options "field:'f_fecha'"} "FECHA"]
-      [:th {:data-options "field:'enlace'" :style "text-align:center;"} "PROCESAR"]]]
+      [:th {:data-options "field:'f_fecha'"} "FECHA"]]]
     [:tbody
      (for [row (get-rows)]
        [:tr
+        [:td [:a.btn.btn-info {:href (:enlace row) :target "_blank"} [:span.float-right "Ver Fotos"]]]
         [:td (:dia row)]
-        [:td (:f_fecha row)]
-        [:td [:a.btn.btn-info {:href (:enlace row) :target "_blank"} [:span.float-right "Ver Fotos"]]]])]]])
+        [:td (:f_fecha row)]])]]])
 
 (defn fotos [_]
   (let [title "Fotos - Ciclismo Mexicali"

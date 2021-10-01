@@ -26,24 +26,23 @@
                                           remoteSort:false,
                                           rownumbers:true,
                                           nowrap:true,
-                                          resizeEdge:5,
                                           autoRowHeight:true,
                                           fitColumns:true,
                                           autoSizeColumns:true,
                                           singleSelect:true"}
     [:thead
      [:tr
+      [:th {:data-options "field:'enlace'" :style "text-align:center;"} "PROCESAR"]
       [:th {:data-options "field:'dia'"} "DIA"]
       [:th {:data-options "field:'f_fecha'"} "FECHA"]
-      [:th {:data-options "field:'titulo'"} "TITULO"]
-      [:th {:data-options "field:'enlace'" :style "text-align:center;"} "PROCESAR"]]]
+      [:th {:data-options "field:'titulo'"} "TITULO"]]]
     [:tbody
      (for [row (get-rows)]
        [:tr
+        [:td [:a.btn.btn-info {:href (:enlace row) :target "_blank"} [:span.float-right "Ver Videos"]]]
         [:td (:dia row)]
         [:td (:f_fecha row)]
-        [:td (:titulo row)]
-        [:td [:a.btn.btn-info {:href (:enlace row) :target "_blank"} [:span.float-right "Ver Videos"]]]])]]])
+        [:td (:titulo row)]])]]])
 
 (defn videos [_]
   (let [title "Videos - Ciclismo Mexicali"
