@@ -21,7 +21,10 @@
 (defn menus-private []
   (list
    [:nav.navbar.navbar-expand-sm.navbar-light.bg-secondary.fixed-top
-    [:a.navbar-brand {:href "/"} (:site-name config)]
+    [:a.navbar-brand {:href "/"}
+     [:img.rounded-circle {:src "/images/logo.png"
+                           :alt (:site-name config)
+                           :style "width:40px;"}]]
     [:button.navbar-toggler {:type "button"
                              :data-toggle "collapse"
                              :data-target "#collapsibleNavbar"}
@@ -47,7 +50,10 @@
 (defn menus-public []
   (list
    [:nav.navbar.navbar-expand-sm.navbar-light.bg-secondary.fixed-top
-    [:a.navbar-brand {:href "/"} (:site-name config)]
+    [:a.navbar-brand {:href "/"}
+     [:img.rounded-circle {:src "/images/logo.png"
+                           :alt (:site-name config)
+                           :style "width:40px;"}]]
     [:button.navbar-toggler {:type "button"
                              :data-toggle "collapse"
                              :data-target "#collapsibleNavbar"}

@@ -28,6 +28,9 @@
      [:li [:strong "Entrar: "] "Aquí podrás registrarte como miembro y así crear rodadas para invitar a otros ciclistas.  Las rodadas que hayas creado saldrán en el calendario de rodadas y ciclistas podrán confirmar asistencia y recibirás un correo electronico.  Si cancelas la rodada todos los que confirmaron serán notificados con un correo electrónico que la rodada se canceló"]]
     [:br] [:br]
     [:div {:style "margin-left:20px;margin-right:20px;margin-bottom:20px;"}
+     [:p [:a.easyui-linkbutton.bg-secondary {:href "https://www.facebook.com/ciclismourbanomexicali"
+                                             :data-options "plain:true"
+                                             :style "background:#fafafa;text-color:#0000"} "Clic aqui para ir a la pagina de facebook."]]
      [:p "Este sitio es para todos los ciclistas ya sea de Mexicali o cualquiera que venga a Mexicali por causas de trabajo o vacaciones."]
      [:hr]
      [:p "Si itenes alguna sugerencia o necesitas ayuda, estamos para ayudarte"]
