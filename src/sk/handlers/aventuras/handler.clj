@@ -19,7 +19,7 @@
   ")
 
 (defn aventuras [_]
-  (let [title   "Rodadas"
+  (let [title   "Aventuras"
         ok      (get-session-id)
         js      (aventuras-scripts)
         rows    (Query db aventuras-sql)
