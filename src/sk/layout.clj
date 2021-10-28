@@ -2,7 +2,7 @@
   (:require [hiccup.page :refer [html5 include-css include-js]]
             [clj-time.core :as t]
             [sk.models.crud :refer [config]]
-            [sk.models.util :refer [user-level]]))
+            [sk.models.util :refer [user-level user-name]]))
 
 (defn build-admin []
   (list
@@ -45,7 +45,7 @@
                                      :data-toggle "dropdown"} "Administrar"]
        [:div.dropdown-menu
         (build-admin)]]
-      [:li.nav-item [:a.nav-link {:href "/home/logoff"} "Salir"]]]]]))
+      [:li.nav-item [:a.nav-link {:href "/home/logoff"} (str "Salir [" (user-name) "]")]]]]]))
 
 (defn menus-public []
   (list
