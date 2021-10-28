@@ -17,19 +17,9 @@
 
 (defn get-fotos [title]
   [:div.container
-   [:table.easyui-datagrid {:style "width:100%;height:500px"
-                            :title title
-                            :data-options "pagination:false,
-                                          remoteFilter:false,
-                                          remoteSort:false,
-                                          rownumbers:true,
-                                          nowrap:true,
-                                          resizeEdge:5,
-                                          autoRowHeight:true,
-                                          fitColumns:true,
-                                          autoSizeColumns:true,
-                                          singleSelect:true"}
-    [:thead
+   [:table.table.table-hover.table-bordered
+    [:caption {:style "caption-side:top;"} title]
+    [:thead.table-info
      [:tr
       [:th {:data-options "field:'enlace'" :style "text-align:center;"} "PROCESAR"]
       [:th {:data-options "field:'dia'"} "DIA"]

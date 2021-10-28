@@ -70,6 +70,16 @@
       [:li.nav-item [:a.nav-link {:href "/grupos/list"} "Grupos"]]
       [:li.nav-item [:a.nav-link {:href "/home/login"} "Entrar"]]]]]))
 
+(defn menus-none []
+  (list
+   [:nav.navbar.navbar-expand-sm.navbar-light.bg-secondary.fixed-top
+    [:a.navbar-brand {:href "#"} (:site-name config)]
+    [:button.navbar-toggler {:type "button"
+                             :data-toggle "collapse"
+                             :data-target "#collapsibleNavbar"}
+     [:span.navbar-toggler-icon]]
+    [:div#collapsibleNavbar.collapse.navbar-collapse]]))
+
 (defn app-css []
   (list
    (include-css "/bootstrap/css/bootstrap.min.css")
@@ -97,28 +107,52 @@
    (include-js "/RichText/src/jquery.richtext.min.js")))
 
 (defn application [title ok js & content]
-  (html5 {:ng-app (:sitename config) :lang "en"}
+  (html5 {:ng-app (:site-name config) :lang "es"}
          [:head
           [:title (if title title (:site-name config))]
           [:meta {:charset "UTF-8"}]
           [:meta {:name "viewport"
                   :content "width=device-width, initial-scale=1"}]
-          (app-css)
-          [:link {:rel "shortcut icon"
-                  :type "image/x-icon"
-                  :href "data:image/x-icon;"}]]
+          (app-css)]
          [:body.easyui-layout
-          [:div {:data-options "region:'north'" :style "width:100%;height:6%;text-align:center;margin-bottom:10px;"}
-           (cond
-             (= ok -1) nil
-             (= ok 0) (menus-public)
-             (> ok 0) (menus-private))]
-          [:div {:data-options "region:'center'" :style "width:100%;height:auto"}
+          [:div#p {:data-options "region:'north'"
+                   :style "height:60px;"}]
+          (cond
+            (= ok -1) (menus-none)
+            (= ok 0) (menus-public)
+            (> ok 0) (menus-private))
+          [:div#q {:data-options "region:'center'"
+                   :style "padding:5px;background:#eee;"}
            content]
-          [:div {:data-options "region:'south'" :style "width:100%;height:5%;text-align:center;"}
-           (app-js)
-           js
-           [:span "Copyright @" (t/year (t/now))]]]))
+          (app-js)
+          js
+          [:div#r {:data-options "region:'south'"
+                   :style "height:25px;text-align:center;"}
+           [:span "Copyright &copy" (t/year (t/now)) " Lucero Systems - All Rights Reserved"]]]))
+;
+; (defn application [title ok js & content]
+;   (html5 {:ng-app (:sitename config) :lang "es"}
+;          [:head
+;           [:title (if title title (:site-name config))]
+;           [:meta {:charset "UTF-8"}]
+;           [:meta {:name "viewport"
+;                   :content "width=device-width, initial-scale=1"}]
+;           (app-css)
+;           [:link {:rel "shortcut icon"
+;                   :type "image/x-icon"
+;                   :href "data:image/x-icon;"}]]
+;          [:body.easyui-layout
+;           [:div {:data-options "region:'north'" :style "width:100%;height:6%;text-align:center;margin-bottom:10px;"}
+;            (cond
+;              (= ok -1) nil
+;              (= ok 0) (menus-public)
+;              (> ok 0) (menus-private))]
+;           [:div {:data-options "region:'center'" :style "width:100%;height:auto"}
+;            content]
+;           [:div {:data-options "region:'south'" :style "width:100%;height:5%;text-align:center;"}
+;            (app-js)
+;            js
+;            [:span "Copyright @" (t/year (t/now))]]]))
 
 (defn error-404 [error return-url]
   [:div
