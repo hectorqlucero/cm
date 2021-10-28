@@ -15,51 +15,51 @@
      [:h2.text-center.text-secondary title]
      [:div.row.g-4
       [:div.col-md-6.col-lg-3
-       [:div.card.bg-secondary
+       [:div.card.bg-active
         [:div.card-body.text-center
          [:img.rounded-circle.mb-3 (build-options "enero" year 1)]]]]
       [:div.col-md-6.col-lg-3
-       [:div.card.bg-secondary
+       [:div.card.bg-active
         [:div.card-body.text-center
          [:img.rounded-circle.mb-3 (build-options "febrero" year 2)]]]]
       [:div.col-md-6.col-lg-3
-       [:div.card.bg-secondary
+       [:div.card.bg-active
         [:div.card-body.text-center
          [:img.rounded-circle.mb-3 (build-options "marzo" year 3)]]]]
       [:div.col-md-6.col-lg-3
-       [:div.card.bg-secondary
+       [:div.card.bg-active
         [:div.card-body.text-center
          [:img.rounded-circle.mb-3 (build-options "abril" year 4)]]]]
       [:div.col-md-6.col-lg-3
-       [:div.card.bg-secondary
+       [:div.card.bg-active
         [:div.card-body.text-center
          [:img.rounded-circle.mb-3 (build-options "mayo" year 5)]]]]
       [:div.col-md-6.col-lg-3
-       [:div.card.bg-secondary
+       [:div.card.bg-active
         [:div.card-body.text-center
          [:img.rounded-circle.mb-3 (build-options "junio" year 6)]]]]
       [:div.col-md-6.col-lg-3
-       [:div.card.bg-secondary
+       [:div.card.bg-active
         [:div.card-body.text-center
          [:img.rounded-circle.mb-3 (build-options "julio" year 7)]]]]
       [:div.col-md-6.col-lg-3
-       [:div.card.bg-secondary
+       [:div.card.bg-active
         [:div.card-body.text-center
          [:img.rounded-circle.mb-3 (build-options "agosto" year 8)]]]]
       [:div.col-md-6.col-lg-3
-       [:div.card.bg-secondary
+       [:div.card.bg-active
         [:div.card-body.text-center
          [:img.rounded-circle.mb-3 (build-options "septiembre" year 9)]]]]
       [:div.col-md-6.col-lg-3
-       [:div.card.bg-secondary
+       [:div.card.bg-active
         [:div.card-body.text-center
          [:img.rounded-circle.mb-3 (build-options "octubre" year 10)]]]]
       [:div.col-md-6.col-lg-3
-       [:div.card.bg-secondary
+       [:div.card.bg-active
         [:div.card-body.text-center
          [:img.rounded-circle.mb-3 (build-options "noviembre" year 11)]]]]
       [:div.col-md-6.col-lg-3
-       [:div.card.bg-secondary
+       [:div.card.bg-active
         [:div.card-body.text-center
          [:img.rounded-circle.mb-3 (build-options "diciembre" year 12)]]]]]]]))
 
@@ -96,8 +96,8 @@
   (list
    [:div.container
     [:div.col-12.text-center
-     [:h3 {:style "color:#fa981b;text-transform:uppercase;font-weight:bold;"} title]
-     [:button.btn.btn-primary {:onclick "window.location.href='/eventos/list'"} "Regresar"]]
+     [:h3.text-secondary  title]
+     [:button.btn.btn-info {:onclick "window.location.href='/eventos/list'"} "Regresar"]]
     (map body-rr rows)]))
 
 (defn display-eventos-scripts [_ _]

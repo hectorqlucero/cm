@@ -6,7 +6,7 @@
    (for [row rows]
      [:section.p-5
       [:div.container
-       [:div.card.bg-secondary.text-secondary
+       [:div.card.bg-active.text-secondary
         [:div.card-body.text-center
          [:h3.card-title.mb-3.text-warning (upper-case (:name row))]
          [:p.card-text.text-uppercase.text-justify (:notes row)]
