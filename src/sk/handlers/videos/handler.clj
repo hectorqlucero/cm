@@ -27,7 +27,7 @@
       [:th {:data-options "field:'dia'"} "DIA"]
       [:th {:data-options "field:'f_fecha'"} "FECHA"]
       [:th {:data-options "field:'titulo'"} "TITULO"]]]
-    [:tbody
+    [:tbody.bg-white
      (for [row (get-rows)]
        [:tr
         [:td [:a.btn.btn-info {:href (:enlace row) :target "_blank"} [:span.float-right "Ver Videos"]]]

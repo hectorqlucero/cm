@@ -24,7 +24,7 @@
       [:th {:data-options "field:'enlace'" :style "text-align:center;"} "PROCESAR"]
       [:th {:data-options "field:'dia'"} "DIA"]
       [:th {:data-options "field:'f_fecha'"} "FECHA"]]]
-    [:tbody
+    [:tbody.bg-white
      (for [row (get-rows)]
        [:tr
         [:td [:a.btn.btn-info {:href (:enlace row) :target "_blank"} [:span.float-right "Ver Fotos"]]]
