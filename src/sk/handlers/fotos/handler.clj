@@ -25,14 +25,33 @@
       [:th {:data-options "field:'dia'"} "DIA"]
       [:th {:data-options "field:'f_fecha'"} "FECHA"]]]
     [:tbody.bg-white
-     (for [row (get-rows)]
-       [:tr
-        [:td [:a.btn.btn-info {:href (:enlace row) :target "_blank"} [:span.float-right "Ver Fotos"]]]
-        [:td (:dia row)]
-        [:td (:f_fecha row)]])]]])
+     (let [cnt (atom 0)]
+       (for [row (get-rows)]
+         (let [button-id (str "button_" (swap! cnt inc))]
+           [:tr
+            [:td [:a.btn.btn-info {:id button-id :href (:enlace row) :target "_blank" :onclick (str "setColor('" button-id "','#000000');")} [:span.float-right "Ver Fotos"]]]
+            [:td (:dia row)]
+            [:td (:f_fecha row)]])))]]])
+
+(defn fotos-scripts []
+  [:script
+   "
+   var count = 1;
+   function setColor(btn, color) {
+    var property = document.getElementById(btn);
+    if (count == 0) {
+      property.style.color = color;
+      count = 1;
+    } else {
+      property.style.color = color;
+      count = 0
+    }
+   }
+   "])
 
 (defn fotos [_]
   (let [title "Fotos - Ciclismo Mexicali"
         ok (get-session-id)
+        js (fotos-scripts)
         content (get-fotos title)]
-    (application title ok nil content)))
+    (application title ok js content)))
