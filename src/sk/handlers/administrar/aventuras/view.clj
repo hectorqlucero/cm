@@ -37,7 +37,7 @@
      :class        "easyui-textbox"
      :data-options "label:'Aventura:',
                      labelPosition:'top',
-                     width:'100%',required: false,multiline:true,height:100"})))
+                     width:'100%',required: false,multiline:true,height:200"})))
 
 (defn toolbar-extra []
   (list

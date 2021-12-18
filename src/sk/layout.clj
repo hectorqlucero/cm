@@ -116,7 +116,7 @@
           (app-css)]
          [:body.easyui-layout
           [:div#p {:data-options "region:'north'"
-                   :style "height:60px;"}]
+                   :style "height:60px;margin-top:8px;"}]
           (cond
             (= ok -1) (menus-none)
             (= ok 0) (menus-public)
@@ -129,30 +129,6 @@
           [:div#r {:data-options "region:'south'"
                    :style "height:25px;text-align:center;"}
            [:span "Copyright &copy" (t/year (t/now)) " Lucero Systems - All Rights Reserved"]]]))
-;
-; (defn application [title ok js & content]
-;   (html5 {:ng-app (:sitename config) :lang "es"}
-;          [:head
-;           [:title (if title title (:site-name config))]
-;           [:meta {:charset "UTF-8"}]
-;           [:meta {:name "viewport"
-;                   :content "width=device-width, initial-scale=1"}]
-;           (app-css)
-;           [:link {:rel "shortcut icon"
-;                   :type "image/x-icon"
-;                   :href "data:image/x-icon;"}]]
-;          [:body.easyui-layout
-;           [:div {:data-options "region:'north'" :style "width:100%;height:6%;text-align:center;margin-bottom:10px;"}
-;            (cond
-;              (= ok -1) nil
-;              (= ok 0) (menus-public)
-;              (> ok 0) (menus-private))]
-;           [:div {:data-options "region:'center'" :style "width:100%;height:auto"}
-;            content]
-;           [:div {:data-options "region:'south'" :style "width:100%;height:5%;text-align:center;"}
-;            (app-js)
-;            js
-;            [:span "Copyright @" (t/year (t/now))]]]))
 
 (defn error-404 [error return-url]
   [:div
