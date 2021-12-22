@@ -124,8 +124,8 @@
             (= ok -1) (menus-none)
             (= ok 0) (menus-public)
             (> ok 0) (menus-private))
-          [:div#content.container-fluid.easyui-panel {:style "margin-top:75px;border:none;"
-                                                      :data-options "closed:false"}
+          [:div#content.container-fluid.easyui-panel.bg-secondary {:style "margin-top:75px;border:none;"
+                                                                   :data-options "closed:false"}
            content]
           (app-js)
           js]
