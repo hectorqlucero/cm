@@ -107,28 +107,30 @@
    (include-js "/RichText/src/jquery.richtext.min.js")))
 
 (defn application [title ok js & content]
-  (html5 {:ng-app (:site-name config) :lang "es"}
+  (html5 {:ng-app (:site-name config) :lang "en"}
          [:head
-          [:title (if title title (:site-name config))]
+          [:title (if title
+                    title
+                    (:site-name config))]
           [:meta {:charset "UTF-8"}]
           [:meta {:name "viewport"
                   :content "width=device-width, initial-scale=1"}]
-          (app-css)]
-         [:body.easyui-layout
-          [:div#p {:data-options "region:'north'"
-                   :style "padding:5px;height:10px;margin-top:50px;margin-bottom:10px;"}
-           (cond
-             (= ok -1) (menus-none)
-             (= ok 0) (menus-public)
-             (> ok 0) (menus-private))]
-          [:div#q {:data-options "region:'center'"
-                   :style "padding:5px;background:#eee;"}
+          (app-css)
+          [:link {:rel "shortcut icon"
+                  :type "image/x-icon"
+                  :href "data:image/x-icon;,"}]]
+         [:body.bg-secondary
+          (cond
+            (= ok -1) (menus-none)
+            (= ok 0) (menus-public)
+            (> ok 0) (menus-private))
+          [:div#content.container-fluid.easyui-panel {:style "margin-top:75px;border:none;"
+                                                      :data-options "closed:false"}
            content]
           (app-js)
-          js
-          [:div#r {:data-options "region:'south'"
-                   :style "height:25px;text-align:center;"}
-           [:span "Copyright &copy" (t/year (t/now)) " Lucero Systems - All Rights Reserved"]]]))
+          js]
+         [:footer.bg-secondary.text-center
+          [:span  "Copyright &copy" (t/year (t/now)) " Lucero Systems - All Rights Reserved"]]))
 
 (defn error-404 [error return-url]
   [:div
