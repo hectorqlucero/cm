@@ -5,36 +5,36 @@
              [build-button build-field build-form build-radio-buttons]]))
 
 (defn line-rr [label value]
-  [:div.row
-   [:div.col-xs-4.col-sm-4.col-md-3.col-lg-2.text-primary [:strong label]]
-   [:div.col-xs.8.col-sm-8.col-md-9.col-lg-10 value]])
+  (list
+   [:div.row
+    [:div.col-xs.col-sm-4.col-md-3.col-lg-2.text-primary [:strong label]]
+    [:div.col-xs.8.col-sm-8.col-md-9.col-lg-10 value]]))
 
 (defn body-rr [row]
-  [:h2 (:titulo row)
-   [:div.card
-    [:div.card-body {:style "font-size:.5em;"}
-     (line-rr "Fecha:" [:strong.text-warning (str (string/upper-case (:dia row)) (string/upper-case (:f_fecha row)))])
-     (line-rr "Detalles: " (:detalles row))
-     (line-rr "Punto de reunion: " (:punto_reunion row))
-     (line-rr "Hora: " (:salida row))
-     (line-rr "Distancia: " (:distancia row))
-     (line-rr "Velocidad: " (:velocidad row))
-     (line-rr "Lider: " (:leader row))
-     (line-rr "Lider Email: " (:leader_email row))
-     (line-rr "Confirmar:"
-              [:div.card-action
-               [:a {:href (str "/rodadas/asistir/" (:id row))
-                    :target "_blank"} [:strong.text-primary "Clic para confirmar asistencia"]]])]]])
+  (list
+   [:div.container.border.border-dark.rounded {:style "margin-bottom:10px;"}
+    [:h2.card-title (:titulo row)]
+    (line-rr "Fecha:" [:strong.text-warning (str (string/upper-case (:dia row)) (string/upper-case (:f_fecha row)))])
+    (line-rr "Detalles: " (:detalles row))
+    (line-rr "Punto de reunion: " (:punto_reunion row))
+    (line-rr "Hora: " (:salida row))
+    (line-rr "Distancia: " (:distancia row))
+    (line-rr "Velocidad: " (:velocidad row))
+    (line-rr "Lider: " (:leader row))
+    (line-rr "Lider Email: " (:leader_email row))
+    (line-rr "Confirmar:"
+             [:div.card-action
+              [:a.btn.btn-secondary {:href (str "/rodadas/asistir/" (:id row))
+                                     :target "_blank"} [:strong.text-secondary "Clic para confirmar asistencia"]]]) [:br]]))
 
 (defn rr-view [rows]
-  (list
-   [:div.container
-    (map body-rr rows)]))
-
+  [:div.row
+   [:div.col
+    [:div.card
+     (map body-rr rows)]]])
 
 (defn rr-scripts []
   [:script])
-
 
 (defn asistir-view [title rodadas_id token]
   (build-form

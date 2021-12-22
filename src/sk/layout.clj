@@ -20,7 +20,7 @@
 
 (defn menus-private []
   (list
-   [:nav.navbar.navbar-expand-sm.navbar-light.bg-secondary.fixed-top
+   [:nav.navbar.navbar-expand-sm.navbar-dark.bg-dark.fixed-top
     [:a.navbar-brand {:href "/"}
      [:img.rounded-circle {:src "/images/logo.png"
                            :alt (:site-name config)
@@ -49,7 +49,7 @@
 
 (defn menus-public []
   (list
-   [:nav.navbar.navbar-expand-sm.navbar-light.bg-secondary.fixed-top
+   [:nav.navbar.navbar-expand-sm.navbar-dark.bg-dark.fixed-top
     [:a.navbar-brand {:href "/"}
      [:img.rounded-circle {:src "/images/logo.png"
                            :alt (:site-name config)
@@ -72,7 +72,7 @@
 
 (defn menus-none []
   (list
-   [:nav.navbar.navbar-expand-sm.navbar-light.bg-secondary.fixed-top
+   [:nav.navbar.navbar-expand-sm.navbar-dark.bg-dark.fixed-top
     [:a.navbar-brand {:href "#"} (:site-name config)]
     [:button.navbar-toggler {:type "button"
                              :data-toggle "collapse"
@@ -116,11 +116,11 @@
           (app-css)]
          [:body.easyui-layout
           [:div#p {:data-options "region:'north'"
-                   :style "height:60px;margin-top:8px;"}]
-          (cond
-            (= ok -1) (menus-none)
-            (= ok 0) (menus-public)
-            (> ok 0) (menus-private))
+                   :style "padding:5px;height:10px;margin-top:50px;margin-bottom:10px;"}
+           (cond
+             (= ok -1) (menus-none)
+             (= ok 0) (menus-public)
+             (> ok 0) (menus-private))]
           [:div#q {:data-options "region:'center'"
                    :style "padding:5px;background:#eee;"}
            content]

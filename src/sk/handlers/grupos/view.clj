@@ -1,40 +1,25 @@
 (ns sk.handlers.grupos.view
-  (:require [clojure.string :refer [upper-case]]))
+  (:require [sk.models.util :refer [capitalize-words]]))
+
+(defn line-rr [label value]
+  (list
+   [:div.row
+    [:div.col-xs.col-sm-4.col-md-3.col-lg-2.text-primary [:strong label]]
+    [:div.col-xs.8.col-sm-8.col-md-9.col-lg-10 value]]))
+
+(defn body-rr [row]
+  (list
+   [:div.container.border.border-dark.rounded {:style "margin-bottom:10px;"}
+    [:h2.card-title (capitalize-words (:name row))]
+    (line-rr "Leader:" (:leader row))
+    (line-rr "Telefono:" (:leader_telefono row))
+    (line-rr "Celular:" (:leader_cell row))
+    (line-rr "Email:" (:leader_email row))
+    (line-rr "Status:" (:status row))]))
 
 (defn reporte-view [_ rows]
-  (list
-   (for [row rows]
-     [:section.p-5
-      [:div.container
-       [:div.card.bg-active.text-secondary
-        [:div.card-body.text-center
-         [:h3.card-title.mb-3.text-warning (upper-case (:name row))]
-         [:p.card-text.text-uppercase.text-justify (:notes row)]
-         [:p.card-text.text-uppercase
-          [:div.row
-           [:div.col-auto.text-left.text-primary
-            [:strong "LEADER"]]
-           [:div.col.text-left
-            (str (:leader row))]]]
-         [:div.row
-          [:div.col-auto.text-left.text-primary
-           [:strong "TELEFONO"]]
-          [:div.col.text-left
-           (str (:leader_phone row))]]
-         [:div.row
-          [:div.col-auto.text-left.text-primary
-           [:strong "CELULAR"]]
-          [:div.col.text-left
-           (str (:leader_cell row))]]
-         [:div.row
-          [:div.col-auto.text-left.text-primary
-           [:strong "EMAIL"]]
-          [:div.col.text-left
-           (str (:leader_email row))]]
-         [:div.row
-          [:div.col-auto.text-left.text-primary
-           [:strong "STATUS"]]
-          [:div.col.text-left
-           (str (:status row))]]]]]])))
-
+  [:div.row
+   [:div.col
+    [:div.card
+     (map body-rr rows)]]])
 (defn reporte-scripts [])

@@ -7,21 +7,21 @@
    [:div.col-xs.8.col-sm-8.col-md-9.col-lg-10 value]])
 
 (defn body-rr [row]
-  [:h2 (:nombre row)
-   [:div.card
-    [:div.card-body {:style "font-size:.5em"}
-     (line-rr "Fecha:" [:strong.text-warning (str (upper-case (:dia row)) (upper-case (:f_fecha row)))])
-     (when (:enlace row)
-       (line-rr "Fotos:" [:a.list-group-item.list-group-item-action.list-group-item-secondary
-                          {:href (:enlace row)
-                           :data-options "plain:true"
-                           :target "_blank"} "Clic aqui para ver fotos!"]))
-     (line-rr "Aventura:" (:aventura row))]]])
+  [:div.container.border.border-dark.rounded {:style "margin-bottom:10px;"}
+   [:h2.card-title (:nombre row)]
+   (line-rr "Fecha:" [:strong.text-warning (str (upper-case (:dia row)) (upper-case (:f_fecha row)))])
+   (when (:enlace row)
+     (line-rr "Fotos:" [:a.btn.btn-secondary
+                        {:href (:enlace row)
+                         :data-options "plain:true"
+                         :target "_blank"} [:strong.text-secondary "Clic aqui para ver fotos!"]]))
+   (line-rr "Aventura:" (:aventura row)) [:br]])
 
 (defn aventuras-view [rows]
-  (list
-   [:div.container
-    (map body-rr rows)]))
+  [:div.row
+   [:div.col
+    [:div.card
+     (map body-rr rows)]]])
 
 (defn aventuras-scripts []
   [:script])

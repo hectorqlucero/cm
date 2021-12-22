@@ -1,46 +1,34 @@
 (ns sk.handlers.talleres.view
-  (:require [clojure.string :refer [upper-case]]))
+  (:require [sk.models.util :refer [capitalize-words]]))
+
+(defn line-rr [label value]
+  (list
+   [:div.row
+    [:div.col-xs.col-sm-4.col-md-3.col-lg-2.text-primary [:strong label]]
+    [:div.col-xs.8.col-sm-8.col-md-9.col-lg-10 value]]))
+
+(defn body-rr [row]
+  (list
+   [:div.container.border.border-dark.rounded {:style "margin-bottom:10px;"}
+    [:h2.card-title (capitalize-words (:nombre row))]
+    (line-rr "Sitio:"
+             [:div.card-action
+              (if-not (clojure.string/blank? (:sitio row))
+                [:a.btn.btn-secondary {:href (str (:sitio row))
+                                       :target "_blank"} [:strong.text-secondary "Click aqui para ir al sitio"]]
+                [:strong.text-secondary "No hay facebook o pagina disponible"])])
+    (line-rr "Dirección:" (:direccion row))
+    (line-rr "Horarios:" (:horarios row))
+    (line-rr "Telefono:" (:telefono row))
+    (line-rr "Mapa:"
+             [:div.card-action
+              [:a.btn.btn-secondary {:href (str (:direcciones row))
+                                     :target "_blank"} [:strong.text-secondary "Cómo Llegar"]]])]))
 
 (defn reporte-view [_ rows]
-  (list
-   (for [row rows]
-     [:section.p-5
-      [:div.container
-       [:div.card.bg-active.text-secondary
-        [:div.card-body.text-center
-         [:h3.card-title.mb-3.text-warning (upper-case (:nombre row))]
-         [:p.card-text.text-uppercase.text-justify (:historia row)]
-         [:p.card-text.text-uppercase
-          [:div.row
-           [:div.col-auto.text-left.text-primary
-            [:strong "SITIO"]]
-           [:div.col.text-left
-            [:a {:href (str (:sitio row))
-                 :target "_blank"} [:strong.text-primary "Click aqui para ir al sitio"]]]]]
-         [:p.card-text.text-uppercase
-          [:div.row
-           [:div.col-auto.text-left.text-primary
-            [:strong "DIRECCIÓN"]]
-           [:div.col.text-left
-            (str (:direccion row))]]]
-         [:p.card-text.text-uppercase
-          [:div.row
-           [:div.col-auto.text-left.text-primary
-            [:strong "HORARIOS"]]
-           [:div.col.text-left
-            (str (:horarios row))]]]
-         [:p.card-text.text-uppercase
-          [:div.row
-           [:div.col-auto.text-left.text-primary
-            [:strong "TELEFONO"]]
-           [:div.col.text-left
-            (str (:telefono row))]]]
-         [:p.card-text.text-uppercase
-          [:div.row
-           [:div.col-auto.text-left.text-primary
-            [:strong "MAPA"]]
-           [:div.col.text-left
-            [:a {:href (str (:direcciones row))
-                 :target "_blank"} [:strong.text-primary "Cómo Llegar"]]]]]]]]])))
+  [:div.row
+   [:div.col
+    [:div.card
+     (map body-rr rows)]]])
 
 (defn reporte-scripts [])

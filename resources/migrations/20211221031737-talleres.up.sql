@@ -4,7 +4,7 @@ CREATE TABLE talleres (
   `direccion` VARCHAR(200) DEFAULT NULL,
   `telefono` VARCHAR(100) DEFAULT NULL,
   `horarios` TEXT DEFAULT NULL,
-  `sitio` VARCHAR(200) DEFAULT NULL,
+  `sitio` TEXT DEFAULT NULL,
   `direcciones` TEXT DEFAULT NULL,
   `historia` TEXT DEFAULT NULL,
   `last_updated` TIMESTAMP DEFAULT CURRENT_TIMESTAMP

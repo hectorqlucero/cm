@@ -21,7 +21,7 @@
   [:div.container
    [:table.table.table-hover.table-bordered
     [:caption {:style "caption-side:top;"} title]
-    [:thead.table-info
+    [:thead.table-dark
      [:tr
       [:th {:data-options "field:'enlace'" :style "text-align:center;"} "PROCESAR"]
       [:th {:data-options "field:'dia'"} "DIA"]
@@ -32,7 +32,7 @@
        (for [row (get-rows)]
          (let [button-id (str "button_" (swap! cnt inc))]
            [:tr
-            [:td [:a.btn.btn-info {:id button-id :href (:enlace row) :target "_blank" :onclick (str "setColor('" button-id "','#000000');")} [:span.float-right "Ver Videos"]]]
+            [:td [:a.btn.btn-secondary {:id button-id :href (:enlace row) :target "_blank" :onclick (str "setColor('" button-id "','#FF851B');")} [:span.float-right "Ver Videos"]]]
             [:td (:dia row)]
             [:td (:f_fecha row)]
             [:td (:titulo row)]])))]]])
