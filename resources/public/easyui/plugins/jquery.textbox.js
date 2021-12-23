@@ -1,7 +1,7 @@
 /**
- * EasyUI for jQuery 1.9.0
+ * EasyUI for jQuery 1.10.1
  * 
- * Copyright (c) 2009-2019 www.jeasyui.com. All rights reserved.
+ * Copyright (c) 2009-2021 www.jeasyui.com. All rights reserved.
  *
  * Licensed under the freeware license: http://www.jeasyui.com/license_freeware.php
  * To use it on other terms please contact us: info@jeasyui.com
@@ -545,6 +545,16 @@ _68.moveStart("character",_67);
 _68.select();
 }
 }
+});
+},show:function(jq){
+return jq.each(function(){
+$(this).next().show();
+$($(this).textbox("label")).show();
+});
+},hide:function(jq){
+return jq.each(function(){
+$(this).next().hide();
+$($(this).textbox("label")).hide();
 });
 }};
 $.fn.textbox.parseOptions=function(_69){
