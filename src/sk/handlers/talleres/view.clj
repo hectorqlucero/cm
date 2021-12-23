@@ -23,7 +23,7 @@
     (line-rr "Mapa:"
              [:div.card-action
               [:a.btn.btn-secondary {:href (str (:direcciones row))
-                                     :target "_blank"} [:strong.text-secondary "Cómo Llegar"]]])]))
+                                     :target "_blank"} [:strong.text-secondary "Cómo Llegar"]]]) [:br]]))
 
 (defn reporte-view [_ rows]
   [:div.row

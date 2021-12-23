@@ -15,7 +15,7 @@
     (line-rr "Telefono:" (:leader_telefono row))
     (line-rr "Celular:" (:leader_cell row))
     (line-rr "Email:" (:leader_email row))
-    (line-rr "Status:" (:status row))]))
+    (line-rr "Status:" (:status row)) [:br]]))
 
 (defn reporte-view [_ rows]
   [:div.row

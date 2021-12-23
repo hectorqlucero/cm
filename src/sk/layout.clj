@@ -129,7 +129,7 @@
            content]
           (app-js)
           js]
-         [:footer.bg-secondary.text-center
+         [:footer.bg-secondary.text-center.fixed-bottom
           [:span  "Copyright &copy" (t/year (t/now)) " Lucero Systems - All Rights Reserved"]]))
 
 (defn error-404 [error return-url]
