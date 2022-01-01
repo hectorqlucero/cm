@@ -1,0 +1,10 @@
+{
+    "files.exclude": {
+        "**/.calva": true,
+        "**/.clj-kondo": true,
+        "**/.lein-repl-history": true,
+        "**/.lsp": true,
+        "**/.nrepl-port": true,
+        "**/.vscode": true
+    }
+}

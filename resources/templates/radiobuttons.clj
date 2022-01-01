@@ -8,5 +8,6 @@
      :data-options "label:'No',checked:true"}
     {:id "xxx_si"
      :name "xxx"
+     :class "easyui-radiobutton"
      :value "S"
      :data-options "label:'Si'"}))

@@ -1,7 +1,7 @@
 /**
- * EasyUI for jQuery 1.10.1
+ * EasyUI for jQuery 1.9.0
  * 
- * Copyright (c) 2009-2021 www.jeasyui.com. All rights reserved.
+ * Copyright (c) 2009-2019 www.jeasyui.com. All rights reserved.
  *
  * Licensed under the freeware license: http://www.jeasyui.com/license_freeware.php
  * To use it on other terms please contact us: info@jeasyui.com
@@ -272,7 +272,7 @@
 						'.datagrid-group-title,.datagrid-group-expander{display:inline-block;vertical-align:bottom;height:100%;line-height:'+opts.groupHeight+'px;padding:0 4px;}' +
 						'.datagrid-group-title{position:relative;}' +
 						'.datagrid-group-expander{width:'+opts.expanderWidth+'px;text-align:center;padding:0}' +
-						'.datagrid-group-expander .datagrid-row-expander{margin:'+Math.floor((opts.groupHeight-16)/2)+'px 0;display:inline-block;width:16px;height:16px;cursor:pointer}' +
+						'.datagrid-row-expander{margin:'+Math.floor((opts.groupHeight-16)/2)+'px 0;display:inline-block;width:16px;height:16px;cursor:pointer}' +
 						'</style>'
 					);
 				}

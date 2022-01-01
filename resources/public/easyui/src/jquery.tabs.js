@@ -1,7 +1,7 @@
 /**
- * EasyUI for jQuery 1.10.1
+ * EasyUI for jQuery 1.9.0
  * 
- * Copyright (c) 2009-2021 www.jeasyui.com. All rights reserved.
+ * Copyright (c) 2009-2019 www.jeasyui.com. All rights reserved.
  *
  * Licensed under the freeware license: http://www.jeasyui.com/license_freeware.php
  * To use it on other terms please contact us: info@jeasyui.com
@@ -203,7 +203,7 @@
 
 		function setTabSize(p, width){
 			var p_opts = p.panel('options');
-			var p_t = p_opts.tab.find('.tabs-inner');
+			var p_t = p_opts.tab.find('a.tabs-inner');
 			var width = width ? width : (parseInt(p_opts.tabWidth||opts.tabWidth||undefined));
 			if (width){
 				p_t._outerWidth(width);
@@ -289,7 +289,7 @@
 			} else {
 				var li = $(e.target).closest('li');
 				if (li.hasClass('tabs-disabled')){return false;}
-				var a = $(e.target).closest('.tabs-close');
+				var a = $(e.target).closest('a.tabs-close');
 				if (a.length){
 					closeTab(container, getLiIndex(li));
 				} else if (li.length){
@@ -376,11 +376,10 @@
 		var panels = $(container).children('div.tabs-panels');
 		var tab = $(
 				'<li>' +
-				// '<a href="javascript:;" class="tabs-inner">' +
-				'<span class="tabs-inner">' +
+				'<a href="javascript:;" class="tabs-inner">' +
 				'<span class="tabs-title"></span>' +
 				'<span class="tabs-icon"></span>' +
-				'</span>' +
+				'</a>' +
 				'</li>');
 		if (!pp){pp = $('<div></div>');}
 		if (options.index >= tabs.length){
@@ -518,11 +517,10 @@
 				s_title.html(opts.title);
 				s_icon.attr('class', 'tabs-icon');
 				
-				tab.find('.tabs-close').remove();
+				tab.find('a.tabs-close').remove();
 				if (opts.closable){
 					s_title.addClass('tabs-closable');
-					// $('<a href="javascript:;" class="tabs-close"></a>').appendTo(tab);
-					$('<span class="tabs-close"></span>').appendTo(tab);
+					$('<a href="javascript:;" class="tabs-close"></a>').appendTo(tab);
 				} else{
 					s_title.removeClass('tabs-closable');
 				}
@@ -535,7 +533,7 @@
 				if (opts.tools){
 					var p_tool = tab.find('span.tabs-p-tool');
 					if (!p_tool.length){
-						var p_tool = $('<span class="tabs-p-tool"></span>').insertAfter(tab.find('.tabs-inner'));
+						var p_tool = $('<span class="tabs-p-tool"></span>').insertAfter(tab.find('a.tabs-inner'));
 					}
 					if ($.isArray(opts.tools)){
 						p_tool.empty();

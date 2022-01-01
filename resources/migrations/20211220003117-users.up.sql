@@ -1,5 +1,5 @@
 CREATE TABLE users (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `lastname` varchar(50) DEFAULT NULL,
   `firstname` varchar(50) DEFAULT NULL,
   `username` varchar(200) DEFAULT NULL,

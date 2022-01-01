@@ -1,8 +1,7 @@
 (ns sk.core
-  (:gen-class)
   (:require [compojure.core :refer [defroutes routes]]
-            [compojure.handler :as handler]
             [compojure.route :as route]
+            [noir.response :refer [redirect]]
             [noir.session :as session]
             [ring.adapter.jetty :as jetty]
             [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
@@ -12,12 +11,13 @@
             [ring.middleware.session.cookie :refer [cookie-store]]
             [sk.models.crud :refer [KEY config]]
             [sk.proutes :refer [proutes]]
-            [sk.routes :refer [open-routes]]))
+            [sk.routes :refer [open-routes]])
+  (:gen-class))
 
 (defn wrap-login [hdlr]
   (fn [req]
     (try
-      (if (nil? (session/get :user_id)) {:status 400 :body "Unable to process your request!"} (hdlr req))
+      (if (nil? (session/get :user_id)) (redirect "/home/login") (hdlr req))
       (catch Exception _
         {:status 400 :body "Unable to process your request!"}))))
 
@@ -30,7 +30,7 @@
 
 (defroutes app-routes
   (route/resources "/")
-  (route/files "/uploads/" {:root (:uploads config)})
+  (route/files (:path config) {:root (:uploads config)})
   open-routes
   (wrap-login proutes)
   (route/not-found "Not Found"))
@@ -39,7 +39,6 @@
   (jetty/run-jetty
    (-> (routes
         (wrap-exception-handling app-routes))
-       (handler/site)
        (wrap-session)
        (session/wrap-noir-session*)
        (wrap-multipart-params)

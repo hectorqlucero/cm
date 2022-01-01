@@ -1,45 +1,22 @@
 (ns sk.models.crud
-  (:require [clojure.java.io :as io]
-            [clojure.string :as st]
+  (:require [cheshire.core :refer [generate-string]]
+            [clojure.java.io :as io]
             [clojure.java.jdbc :as j]
             [crypto.random :as random]
-            [cheshire.core :refer [generate-string]])
+            [clojure.string :as st])
   (:import java.text.SimpleDateFormat))
 
 (defn get-config
   []
   (try
     (binding [*read-eval* false]
-      (read-string (str (slurp (io/resource "private/config.clj")))))
+      (read-string (str (slurp "profiles.clj"))))
     (catch Exception e (.getMessage e))))
 
-(def config (get-config))
-
-(def db {:classname                       (:db-class config)
-         :subprotocol                     (:db-protocol config)
-         :subname                         (:db-name config)
-         :user                            (:db-user config)
-         :password                        (:db-pwd config)
-         :useSSL                          false
-         :useTimezone                     true
-         :useLegacyDatetimeCode           false
-         :serverTimezone                  "UTC"
-         :noTimezoneConversionForTimeType true
-         :dumpQueriesOnException          true
-         :autoDeserialize                 true
-         :useDirectRowUnpack              false
-         :cachePrepStmts                  true
-         :cacheCallableStmts              true
-         :cacheServerConfiguration        true
-         :useLocalSessionState            true
-         :elideSetAutoCommits             true
-         :alwaysSendSetIsolation          false
-         :enableQueryTimeouts             false
-         :zeroDateTimeBehavior            "CONVERT_TO_NULL"}) ; Database connection
-
-(def SALT "897sdn9j98u98kj")                                ; encryption salt for DB
-
-(def KEY (random/bytes 16))
+(defonce db (get-in (get-config) [:provided :env :database-url]))
+(defonce config (get-in (get-config) [:provided :config]))
+(defonce SALT "897sdn9j98u98kj")                                ; encryption salt for DB
+(defonce KEY (random/bytes 16))
 
 (defn aes-in
   "Encrypt a value MySQL"
@@ -327,7 +304,7 @@
       (if (seq result)
         (generate-string {:success "Procesado con éxito!"})
         (generate-string {:error "No se puede procesar!"})))
-    (catch Exception e (.getMessge e))))
+    (catch Exception e (.getMessage e))))
 
 ;; Start upload form
 (defn crud-upload-image

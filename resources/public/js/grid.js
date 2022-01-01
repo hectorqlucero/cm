@@ -14,6 +14,8 @@ function returnItem(url) {
 }
 
 function newItem() {
+  dg.datagrid('unselectAll');
+  $('#image1').attr('src','/images/placeholder_profile.png');
   dlg.dialog("open").dialog("center").dialog('setTitle', 'Nuevo Record');
   windowHeight = $(window).height() - ($(window).height() * 0.2);
   dlg.dialog('resize', {height: windowHeight}).dialog('center');
@@ -42,6 +44,9 @@ function saveItem() {
       '__anti-forgery-token': token
     },
     onSubmit: function() {
+      if($(this).form('validate')) {
+        $('a#submit').linkbutton('disable');
+      }
       return $(this).form("validate");
     },
     success: function(result) {
@@ -51,6 +56,7 @@ function saveItem() {
           title: 'Error',
           msg: json.error
         });
+        $('a#submit').linkbutton('enable');
       } else {
         $.messager.show({
           title: 'Exito',
@@ -67,7 +73,7 @@ function deleteItem() {
   var row = dg.datagrid("getSelected");
   if(row) {
     var url = window.location.href + '/delete';
-    $.messager.confirm('Confirmar','Esta seguro que quiere eliminar este record?',function(r) {
+    $.messager.confirm('Confirmar','Esta seguro que quiere remover este record?',function(r) {
       $.post(url, {id:row.id,'__anti-forgery-token':token},function(result) {
         if(result.success) {
           dg.datagrid("reload");

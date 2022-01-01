@@ -6,13 +6,20 @@
             [ring.util.anti-forgery :refer [anti-forgery-field]]
             [sk.handlers.home.view :refer [login-script login-view]]
             [sk.layout :refer [application]]
-            [sk.models.crud :refer [Query db]]
+            [sk.models.crud :refer [Query config db]]
             [sk.models.util :refer [get-session-id]]))
 
+;; Start Main
+(def main-sql
+  "SELECT
+   username
+   FROM users
+   WHERE id = ?")
+
 (defn get-main-title []
-  [:div.bg-secondary {:style "margin-left:20px;
-                               margin-right:20px;
-                               margin-bottom:20px;"}
+  [:div {:style "margin-left:20px;
+                margin-right:20px;
+                margin-bottom:20px;"}
    [:h3 "Bienvenido al sitio Ciclismo Mexicali"]
    [:ul
     [:li [:strong "Eventos: "] "Listado de todos los eventos y carreras.  Ej. Paseo Rosarito Ensenada"]
@@ -34,38 +41,47 @@
     [:p [:a.btn.btn-secondary {:href "mailto:lucero_systems@fastmail.com"
                                :target "_blank"} [:stron.text-secondary "Mandame un Correo"]]]]])
 
-(defn main [_]
-  (let [title   (get-main-title)
-        ok      (get-session-id)
-        content [:div [:span {:style "margin-left:20px;"} title]]]
-    (application "CM" ok nil content)))
+(defn main
+  [_]
+  (try
+    (let [title (:site config)
+          ok (get-session-id)
+          content [:div [:span {:style "margin-left:20px;"} (get-main-title)]]]
+      (application title ok nil content))
+    (catch Exception e (.getMessage e))))
 ;; End Main
 
 ;; Start Login
-(defn login [_]
-  (let [title   "Accesar al Sitio"
-        ok      (get-session-id)
-        content (login-view (anti-forgery-field))
-        scripts (login-script)]
-    (if-not (= (get-session-id) 0)
-      (redirect "/")
-      (application title ok scripts content))))
+(defn login
+  [_]
+  (try
+    (let [title "Conectar"
+          ok (get-session-id)
+          content (login-view (anti-forgery-field))
+          scripts (login-script)]
+      (if-not (= (get-session-id) 0)
+        (redirect "/")
+        (application title ok scripts content)))
+    (catch Exception e (.getMessage e))))
 
-(defn login! [username password]
-  (let [row    (first (Query db ["SELECT * FROM users WHERE username = ?" username]))
-        active (:active row)]
-    (if (= active "T")
-      (if (crypt/compare password (:password row))
-        (do
-          (session/put! :user_id (:id row))
-          (generate-string {:url "/"}))
-        (generate-string {:error "Hay problemas para accesar el sitio!"}))
-      (generate-string {:error "El usuario esta inactivo!"}))))
+(defn login!
+  [username password]
+  (try
+    (let [row (first (Query db ["SELECT * FROM users WHERE username = ?" username]))
+          active (:active row)]
+      (if (= active "T")
+        (if (crypt/compare password (:password row))
+          (do
+            (session/put! :user_id (:id row))
+            (generate-string {:url "/"}))
+          (generate-string {:error "Incapaz de accesar al sitio!"}))
+        (generate-string {:error "El usuario esta inactivo!"})))
+    (catch Exception e (.getMessage e))))
 ;; End login
 
-(defn logoff []
-  (session/clear!)
-  (let [title (get-main-title)
-        ok (get-session-id)
-        content [:div [:span {:style "margin-left:20px;"} title]]]
-    (application "CM" ok nil content)))
+(defn logoff
+  []
+  (try
+    (session/clear!)
+    (redirect "/")
+    (catch Exception e (.getMessage e))))
