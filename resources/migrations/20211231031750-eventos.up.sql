@@ -8,4 +8,4 @@ CREATE TABLE `eventos` (
   `organiza` varchar(100) DEFAULT NULL,
   `imagen` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 76 DEFAULT CHARSET = utf8mb3
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3

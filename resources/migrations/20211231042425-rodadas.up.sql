@@ -12,4 +12,4 @@ CREATE TABLE `rodadas` (
   `leader_email` varchar(100) DEFAULT NULL,
   `repetir` char(1) DEFAULT NULL COMMENT 'T=Si,F=No',
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 56 DEFAULT CHARSET = utf8mb3
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3
