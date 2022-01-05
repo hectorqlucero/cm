@@ -1,8 +1,8 @@
 (ns sk.models.grid
   (:require [cheshire.core :refer [generate-string]]
-            [sk.models.crud :refer [Query build-grid-columns db]]
-            [sk.models.util :refer [parse-int]]
-            [clojure.string :as string]))
+            [clojure.string :as string]
+            [sk.models.crud :refer [build-grid-columns db Query]]
+            [sk.models.util :refer [parse-int]]))
 
 (defn convert-search-columns [fields]
   (let [fields (map #(str "COALESCE(" % ",'')") fields)]
@@ -17,7 +17,7 @@
   (if (nil? order) (str " ORDER BY " extra) order))
 
 (defn grid-search-extra [search extra]
-  (if-not (string/blank? extra)
+  (when-not (string/blank? extra)
     (if (nil? search)
       (str " WHERE " extra)
       (str search " AND " extra))))
@@ -63,7 +63,7 @@
   [search args]
   (try
     (let [search-extra (:search-extra (first args))]
-      (if-not (nil? search-extra)
+      (when-not (nil? search-extra)
         (grid-search-extra search search-extra)))
     (catch Exception e (.getMessage e))))
 
@@ -71,7 +71,7 @@
   [order args]
   (try
     (let [sort-extra (:sort-extra (first args))]
-      (if-not (nil? sort-extra)
+      (when-not (nil? sort-extra)
         (grid-sort-extra order sort-extra)))
     (catch Exception e (.getMessage e))))
 
