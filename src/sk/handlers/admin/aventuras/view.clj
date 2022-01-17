@@ -26,7 +26,7 @@
      :prompt "Enlace aqui"
      :data-options "label:'Enlace Fotos:',
         labelPosition:'top',
-        required:true,
+        required:false,
         width:'100%'"})
    (build-field
     {:id "enlacev"
@@ -35,7 +35,7 @@
      :prompt "Enlace aqui"
      :data-options "label:'Enlace Videos:',
         labelPosition:'top',
-        required:true,
+        required:false,
         width:'100%'"})
    (build-field
     {:id "fecha"
