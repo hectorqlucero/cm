@@ -15,6 +15,11 @@
                         {:href (:enlace row)
                          :data-options "plain:true"
                          :target "_blank"} [:strong.text-secondary "Clic aqui para ver fotos!"]]))
+   (when (:enlacev row)
+     (line-rr "Videos:" [:a.btn.btn-secondary
+                         {:href (:enlacev row)
+                          :data-options "plain:true"
+                          :target "_blank"} [:strong.text-secondary "Clic aqui para ver videos!"]]))
    (line-rr "Aventura:" (:aventura row)) [:br]])
 
 (defn aventuras-view [rows]

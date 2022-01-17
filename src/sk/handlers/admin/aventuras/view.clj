@@ -24,7 +24,16 @@
      :name "enlace"
      :class "easyui-textbox"
      :prompt "Enlace aqui"
-     :data-options "label:'Enlace:',
+     :data-options "label:'Enlace Fotos:',
+        labelPosition:'top',
+        required:true,
+        width:'100%'"})
+   (build-field
+    {:id "enlacev"
+     :name "enlacev"
+     :class "easyui-textbox"
+     :prompt "Enlace aqui"
+     :data-options "label:'Enlace Videos:',
         labelPosition:'top',
         required:true,
         width:'100%'"})
@@ -57,7 +66,8 @@
     "/admin/aventuras"
     (list
      [:th {:data-options "field:'leader_email',sortable:true,width:100"} "Email"]
-     [:th {:data-options "field:'enlace',sortable:true,width:100"} "Enlace"]
+     [:th {:data-options "field:'enlace',sortable:true,width:100"} "Fotos"]
+     [:th {:data-options "field:'enlacev',sortable:true,width:100"} "Videos"]
      [:th {:data-options "field:'fecha_formatted',sortable:true,width:100"} "Fecha"]
      [:th {:data-options "field:'aventura',sortable:true,width:100"} "Aventura"]))
    (build-toolbar)
