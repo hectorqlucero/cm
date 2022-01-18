@@ -12,11 +12,10 @@
         content (videos-view title)]
     (if
      (or
-      (= (user-level) "U")
       (= (user-level) "A")
       (= (user-level) "S"))
       (application title ok js content)
-      (application title ok nil "solo <strong>los usuarios </strong> pueden accessar esta opción!!!"))))
+      (application title ok nil "solo <strong>los administradores </strong> pueden accessar esta opción!!!"))))
 
 (defn videos-grid
   "builds grid. parameters: params table & args args: {:join 'other-table' :search-extra name='pedro' :sort-extra 'name,lastname'}"

@@ -10,7 +10,12 @@
         ok (get-session-id)
         js (fotos-scripts)
         content (fotos-view title)]
-    (application title ok js content)))
+    (if
+     (or
+      (= (user-level) "A")
+      (= (user-level) "S"))
+      (application title ok js content)
+      (application title ok nil "solo <strong>los administradores </strong> pueden accessar esta opción!!!"))))
 
 (defn fotos-grid
   "builds grid. parameters: params table & args args: {:join 'other-table' :search-extra name='pedro' :sort-extra 'name,lastname'}"

@@ -10,7 +10,13 @@
         ok (get-session-id)
         js (aventuras-scripts)
         content (aventuras-view title (user-email))]
-    (application title ok js content)))
+    (if
+     (or
+      (= (user-level) "U")
+      (= (user-level) "A")
+      (= (user-level) "S"))
+      (application title ok js content)
+      (application title ok nil "solo <strong>los usuarios </strong> pueden accessar esta opción!!!"))))
 
 (defn aventuras-filter []
   (if (= (user-level) "U")
