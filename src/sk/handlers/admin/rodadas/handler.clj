@@ -1,9 +1,10 @@
 (ns sk.handlers.admin.rodadas.handler
-  (:require [sk.handlers.admin.rodadas.view :refer [rodadas-scripts
+  (:require [cheshire.core :refer [generate-string]]
+            [sk.handlers.admin.rodadas.view :refer [rodadas-scripts
                                                     rodadas-view]]
+            [sk.handlers.admin.rodadas.model :refer [process-email]]
             [sk.layout :refer [application]]
-            [sk.models.crud :refer [build-form-delete build-form-row
-                                    build-form-save]]
+            [sk.models.crud :refer [Delete db build-form-delete build-form-row build-form-save]]
             [sk.models.grid :refer [build-grid]]
             [sk.models.util :refer [get-session-id user-level user-email current_year]]))
 
@@ -40,5 +41,14 @@
     (build-form-save params table)))
 
 (defn rodadas-delete [{params :params}]
-  (let [table "rodadas"]
-    (build-form-delete params table)))
+  (try
+    (let [id (:id params nil)
+          result (if-not (nil? id)
+                   (Delete db :rodadas ["id = ??" id])
+                   nil)]
+      (if (seq result)
+        (do
+          (process-email id)
+          (generate-string {:success "Eliminado con éxito!"}))
+        (generate-string {:error "Incapaz de eliminar!"})))
+    (catch Exception e (.getMessage e))))

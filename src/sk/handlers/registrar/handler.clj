@@ -101,7 +101,7 @@
           url        (get-reset-url request token)
           row        (get-username-row username)
           email-body (email-body row url)]
-      (if (future (send-email host email-body))
+      (if (send-email host email-body)
         (generate-string {:url "/"})
         (generate-string {:error "Incapaz de resetear su contraseña!"})))
     (catch Exception e (.getMessage e))))
@@ -135,4 +135,3 @@
         (generate-string {:error "Incapaz de resetear su contraseña!"})))
     (catch Exception e (.getMessage e))))
 ;; End reset-password
-
