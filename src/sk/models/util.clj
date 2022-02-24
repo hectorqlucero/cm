@@ -53,7 +53,7 @@
 (def external-time-parser (f/formatter tz "hh:mm:ss a" "H:k:s"))
 
 (defn get-base-url [request]
-  (str (subs (str (:scheme request)) 1) "://" (:server-name request) ":" (:server-port request)))
+  (str (:scheme config) "://"))
 
 (defn get-reset-url [request token]
   (str (get-base-url request) "/reset_password/" token))
