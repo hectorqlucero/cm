@@ -43,12 +43,13 @@
 (defn rodadas-delete [{params :params}]
   (try
     (let [id (:id params nil)
-          result (if-not (nil? id)
-                   (Delete db :rodadas ["id = ??" id])
-                   nil)]
+          result (process-email id)]
       (if (seq result)
         (do
-          (process-email id)
+          (Delete db :rodadas ["id = ?" id])
           (generate-string {:success "Eliminado con éxito!"}))
         (generate-string {:error "Incapaz de eliminar!"})))
     (catch Exception e (.getMessage e))))
+
+(comment
+  (process-email 61))

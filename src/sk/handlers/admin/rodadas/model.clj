@@ -40,4 +40,5 @@
     (map send-mail rows)))
 
 (comment
+  (process-email "60")
   (get-rows "rodadas"))
