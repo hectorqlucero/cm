@@ -1,7 +1,7 @@
 (ns sk.handlers.admin.users.view
   (:require [hiccup.page :refer [include-js]]
             [ring.util.anti-forgery :refer [anti-forgery-field]]
-            [sk.models.crud :refer [config]]
+            [sk.user :refer [config]]
             [sk.models.util :refer
              [build-dialog build-dialog-buttons build-field build-image-field build-image-field-script build-radio-buttons build-table]]))
 
