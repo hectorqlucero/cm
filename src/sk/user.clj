@@ -23,5 +23,7 @@
   (repl/rollback (load-config)))
 
 (comment
+  (migrate)
+  (rollback)
   (:database-url config)
   (load-config))
