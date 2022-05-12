@@ -1,7 +1,7 @@
 (ns sk.layout
   (:require [hiccup.page :refer [html5 include-css include-js]]
             [clj-time.core :as t]
-            [sk.models.crud :refer [config]]
+            [sk.user :refer [config]]
             [sk.models.util :refer [user-level user-name]]))
 
 (defn build-admin []
@@ -153,7 +153,7 @@
           [:meta {:name "viewport"
                   :content "width=device-width, initial-scale=1"}]
           (app-css)
-          [:link {:rel "shortcut icon"
+          [:link {:rel "shortcut iconcompojure"
                   :type "image/x-icon"
                   :href "data:image/x-icon;,"}]]
          [:body {:style "width:100vw;height:98vh;border:1px solid #000;"}
