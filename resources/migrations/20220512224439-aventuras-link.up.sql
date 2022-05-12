@@ -1,6 +1,7 @@
 CREATE TABLE aventuras_link (
     id int unsigned NOT NULL AUTO_INCREMENT,
     aventuras_id INT unsigned NOT NULL,
+    nombre varchar(100) DEFAULT NULL,
     comments text,
     PRIMARY KEY (id),
     KEY fk_aventuras_link_aventuras (aventuras_id),
