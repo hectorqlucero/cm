@@ -20,6 +20,7 @@
     (line-rr "Dirección:" (:direccion row))
     (line-rr "Horarios:" (:horarios row))
     (line-rr "Telefono:" (:telefono row))
+    (line-rr "Historia:" (:historia row))
     (line-rr "Mapa:"
              [:div.card-action
               [:a.btn.btn-secondary {:href (str (:direcciones row))
