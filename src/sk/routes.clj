@@ -1,17 +1,17 @@
 (ns sk.routes
   (:require [cheshire.core :refer [generate-string]]
-            [compojure.core :refer [GET POST defroutes]]
+            [compojure.core :refer [defroutes GET POST]]
             [sk.handlers.home.handler :as home]
             [sk.handlers.registrar.handler :as registrar]
             [sk.handlers.tref.handler :as table_ref]
-            [sk.handlers.eventos.handler :as eventos]
-            [sk.handlers.rodadas.handler :as rodadas]
-            [sk.handlers.aventuras.handler :as aventuras]
             [sk.handlers.fotos.handler :as fotos]
             [sk.handlers.videos.handler :as videos]
             [sk.handlers.frases.handler :as frases]
             [sk.handlers.talleres.handler :as talleres]
-            [sk.handlers.grupos.handler :as grupos]))
+            [sk.handlers.grupos.handler :as grupos]
+            [sk.handlers.aventuras.handler :as aventuras]
+            [sk.handlers.eventos.handler :as eventos]
+            [sk.handlers.rodadas.handler :as rodadas]))
 
 (defroutes open-routes
   ;; Start table_ref
@@ -22,17 +22,11 @@
   (GET "/table_ref/get-item/:table/:field/:fname/:fval" [table field fname fval] (table_ref/get-item table field fname fval))
   (GET "/table_ref/get-time" [] (generate-string (table_ref/build-time)))
   (GET "/table_ref/levels" [] (generate-string (table_ref/level-options)))
-  (GET "/table_ref/get_users" [] (generate-string (table_ref/get-users)))
-  (GET "/table_ref/levels" [] (generate-string (table_ref/level-options)))
-  (GET "/table_ref/validate_email/:email" [email] (generate-string (table_ref/get-users-email email)))
-  (GET "/table_ref/months" [] (generate-string (table_ref/months)))
-  (GET "/table_ref/years/:pyears/:nyears" [pyears nyears] (generate-string (table_ref/years pyears nyears)))
-  (GET "/table_ref/calendar" [] (generate-string (table_ref/calendar-events)))
-  (GET "/table_ref/nivel_options" [] (generate-string (table_ref/nivel-options)))
-  (GET "/table_ref/get_imagen/:id" [id] (table_ref/imagen "eventos" "imagen" "id" id))
-  (GET "/table_ref/get-item/:table/:field/:fname/:fval" [table field fname fval] (table_ref/get-item table field fname fval))
-  (GET "/table_ref/get-time" [] (generate-string (table_ref/build-time)))
-  (GET "/table_ref/get-nivel/:nivel" [nivel] (table_ref/get-nivel nivel))
+  (GET "/table_ref/get-titulo/:id" [id] (table_ref/get-titulo id))
+  (GET "/table_ref/get-titulos" [] (generate-string (table_ref/get-titulos)))
+  (GET "/table_ref/get-paises" [] (generate-string (table_ref/get-pais)))
+  (GET "/table_ref/get-pais/:id" [id] (table_ref/get-pais-id id))
+  (GET "/table_ref/get-cmt" [] (generate-string (table_ref/get-cmt)))
   ;; End table_ref
 
   ;; Start home
@@ -51,8 +45,12 @@
   (POST "/reset_password" request [] (registrar/reset-jwt! request))
   ;; End registrar
 
+  ;; Start aventuras
+  (GET "/aventuras/:id" [id] (aventuras/aventuras id))
+  ;; End aventuras
+
   ;; Start eventos
-  (GET "/eventos/list" request [] (eventos/eventos request))
+  (GET "/eventos/list" req [] (eventos/eventos req))
   (GET "/eventos/list/:year/:month" [year month] (eventos/display-eventos year month))
   ;; End eventos
 
@@ -61,10 +59,6 @@
   (GET "/rodadas/asistir/:id" [id] (rodadas/asistir id))
   (POST "/rodadas/asistir" req [] (rodadas/asistir! req))
   ;; End rodadas
-
-  ;; Start aventuras
-  (GET "/aventuras/list" req [] (aventuras/aventuras req))
-  ;; End aventuras
 
   ;; Start fotos
   (GET "/fotos/list" req [] (fotos/fotos req))

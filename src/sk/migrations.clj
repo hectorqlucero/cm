@@ -1,4 +1,4 @@
-(ns sk.user
+(ns sk.migrations
   (:require [clojure.java.io :as io]
             [ragtime.jdbc :as jdbc]
             [ragtime.repl :as repl]))
@@ -23,7 +23,5 @@
   (repl/rollback (load-config)))
 
 (comment
-  (migrate)
-  (rollback)
   (:database-url config)
   (load-config))

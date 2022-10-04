@@ -1,4 +1,4 @@
-(ns sk.handlers.admin.frases.view
+(ns sk.handlers.admin.cmt.view
   (:require
    [hiccup.page :refer [include-js]]
    [ring.util.anti-forgery :refer [anti-forgery-field]]
@@ -12,38 +12,38 @@
      :name "id"
      :type "hidden"})
    (build-field
-    {:id "frase"
-     :name "frase"
+    {:id "nombre"
+     :name "nombre"
      :class "easyui-textbox"
-     :prompt "Frase del ciclista..."
-     :data-options "label:'Frase:',
+     :prompt "Nombre de la aventura ej. Cicloturismo por la BCS..."
+     :data-options "label:'Nombre:',
+        labelPosition:'top',
+        required:true,
+        width:'100%'"})
+   (build-field
+    {:id "comments"
+     :name "comments"
+     :class "easyui-textbox"
+     :prompt "Detalles de esta aventura..."
+     :data-options "label:'Detalles:',
         labelPosition:'top',
         required:true,
         multiline:true,
         height:120,
-        width:'100%'"})
-   (build-field
-    {:id "autor"
-     :name "autor"
-     :class "easyui-textbox"
-     :prompt "Autor de la frase..."
-     :data-options "label:'Autor:',
-        labelPosition:'top',
-        required:true,
         width:'100%'"})))
 
-(defn frases-view [title]
+(defn cmt-view [title]
   (list
    (anti-forgery-field)
    (build-table
     title
-    "/admin/frases"
+    "/admin/cmt"
     (list
-     [:th {:data-options "field:'frase',sortable:true,width:100"} "FRASE"]
-     [:th {:data-options "field:'autor',sortable:true,width:100"} "AUTOR"]))
+     [:th {:data-options "field:'nombre',sortable:true,width:100"} "NOMBRE"]
+     [:th {:data-options "field:'comments',sortable:true,width:100"} "COMMENTS"]))
    (build-toolbar)
    (build-dialog title (dialog-fields))
    (build-dialog-buttons)))
 
-(defn frases-scripts []
+(defn cmt-scripts []
   (include-js "/js/grid.js"))

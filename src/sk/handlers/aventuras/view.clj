@@ -22,11 +22,19 @@
                           :target "_blank"} [:strong.text-secondary "Clic aqui para ver videos!"]]))
    (line-rr "Aventura:" (:aventura row)) [:br]])
 
-(defn aventuras-view [rows]
-  [:div.row
-   [:div.col
-    [:div.card
-     (map body-rr rows)]]])
+(defn aventuras-view [rows crow]
+  (list
+   [:div.row
+    [:div.col [:h4.strong {:style "font-style:italic;
+                                  margin:10px;
+                                  padding:2px;
+                                  color:black;
+                                  text-align: justify;
+                                  text-justify: inter-word;"} (:comments crow)]]]
+   [:div.row
+    [:div.col
+     [:div.card
+      (map body-rr rows)]]]))
 
 (defn aventuras-scripts []
   [:script])

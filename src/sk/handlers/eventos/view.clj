@@ -1,5 +1,5 @@
 (ns sk.handlers.eventos.view
-  (:require [sk.models.crud :refer [config]]))
+  (:require [sk.migrations :refer [config]]))
 
 (defn build-options [month-name year month]
   {:width   152

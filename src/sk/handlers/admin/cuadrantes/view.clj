@@ -15,7 +15,7 @@
     {:id "name"
      :name "name"
      :class "easyui-textbox"
-     :prompt "Nombre del grupo"
+     :prompt "Nombre del grupo..."
      :data-options "label:'Nombre:',
         labelPosition:'top',
         required:true,
@@ -24,7 +24,7 @@
     {:id "leader"
      :name "leader"
      :class "easyui-textbox"
-     :prompt "Nombre del lider"
+     :prompt "Nombre del lider del grupo..."
      :data-options "label:'Lider:',
         labelPosition:'top',
         required:true,
@@ -33,7 +33,7 @@
     {:id "leader_phone"
      :name "leader_phone"
      :class "easyui-textbox"
-     :prompt "Telefono del lider"
+     :prompt "Telefono del lider del grupo..."
      :data-options "label:'Telefono:',
         labelPosition:'top',
         required:false,
@@ -42,7 +42,7 @@
     {:id "leader_cell"
      :name "leader_cell"
      :class "easyui-textbox"
-     :prompt "Celular del lider"
+     :prompt "Celular del lider del grupo..."
      :data-options "label:'Celular:',
         labelPosition:'top',
         required:false,
@@ -51,7 +51,7 @@
     {:id "leader_email"
      :name "leader_email"
      :class "easyui-textbox"
-     :prompt "Email del lider"
+     :prompt "Email del lider del grupo..."
      :data-options "label:'Email:',
         labelPosition:'top',
         required:false,
@@ -60,7 +60,7 @@
     {:id "notes"
      :name "notes"
      :class "easyui-textbox"
-     :prompt "Observaciones del grupo"
+     :prompt "Observaciones del grupo..."
      :data-options "label:'Observaciones:',
         labelPosition:'top',
         required:false,
@@ -95,11 +95,11 @@
     title
     "/admin/cuadrantes"
     (list
-     [:th {:data-options "field:'name',sortable:true,width:100"} "Grupo Ciclista"]
-     [:th {:data-options "field:'leader',sortable:true,width:100"} "Lider"]
-     [:th {:data-options "field:'leader_phone',sortable:true,width:100"} "Telefono"]
-     [:th {:data-options "field:'leader_cell',sortable:true,width:100"} "cell"]
-     [:th {:data-options "field:'leader_email',sortable:true,width:100"} "Email"]))
+     [:th {:data-options "field:'name',sortable:true,width:100"} "GRUPO"]
+     [:th {:data-options "field:'leader',sortable:true,width:100"} "LEADER"]
+     [:th {:data-options "field:'leader_phone',sortable:true,width:100"} "TELEFONO"]
+     [:th {:data-options "field:'leader_cell',sortable:true,width:100"} "CELL"]
+     [:th {:data-options "field:'leader_email',sortable:true,width:100"} "EMAIL"]))
    (build-toolbar (toolbar-extra))
    (build-dialog title (dialog-fields))
    (build-dialog-buttons)))

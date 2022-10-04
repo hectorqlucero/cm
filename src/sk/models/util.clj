@@ -7,7 +7,8 @@
             [clojure.string :refer [join]]
             [date-clj :as d]
             [noir.session :as session]
-            [sk.models.crud :refer [Insert Query Save Update config db]])
+            [sk.models.crud :refer [db Insert Query Save Update]]
+            [sk.migrations :refer [config]])
   (:import java.text.SimpleDateFormat
            [java.util UUID]))
 
@@ -53,7 +54,7 @@
 (def external-time-parser (f/formatter tz "hh:mm:ss a" "H:k:s"))
 
 (defn get-base-url [request]
-  (str "https://" (:server-name request)))
+  (str (subs (str (:scheme request)) 1) "://" (:server-name request) ":" (:server-port request)))
 
 (defn get-reset-url [request token]
   (str (get-base-url request) "/reset_password/" token))
@@ -827,7 +828,7 @@
      toolbar: '#toolbar',
      queryParams: {'__anti-forgery-token':token},
      rownumbers: true,
-     fit:true,
+     fit: true,
      fitColumns: true,
      singleSelect: true")}
    [:thead

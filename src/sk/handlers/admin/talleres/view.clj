@@ -15,7 +15,7 @@
     {:id "nombre"
      :name "nombre"
      :class "easyui-textbox"
-     :prompt "Nombre del taller"
+     :prompt "Nombre del taller..."
      :data-options "label:'Nombre:',
         labelPosition:'top',
         required:true,
@@ -24,17 +24,16 @@
     {:id "direccion"
      :name "direccion"
      :class "easyui-textbox"
-     :prompt "Domicilio del taller"
+     :prompt "Domicilio del taller..."
      :data-options "label:'Domicilio:',
         labelPosition:'top',
-        required:false,
+        required:true,
         width:'100%'"})
    (build-field
     {:id "telefono"
      :name "telefono"
-     :class "easyui-maskedbox"
-     :mask "(999) 999-9999"
-     :prompt "Telefono aqui"
+     :class "easyui-textbox"
+     :prompt "Telefono del taller..."
      :data-options "label:'Telefono:',
         labelPosition:'top',
         required:false,
@@ -43,7 +42,7 @@
     {:id "horarios"
      :name "horarios"
      :class "easyui-textbox"
-     :prompt "Horarios del taller"
+     :prompt "Horarios del taller..."
      :data-options "label:'Horarios:',
         labelPosition:'top',
         required:false,
@@ -52,7 +51,7 @@
     {:id "sitio"
      :name "sitio"
      :class "easyui-textbox"
-     :prompt "Sitio ej. enlace a facebook o pagina web"
+     :prompt "Sitio ej. enlace a facebook o pagina web..."
      :data-options "label:'Enlace Sitio:',
         labelPosition:'top',
         required:false,
@@ -61,7 +60,7 @@
     {:id "direcciones"
      :name "direcciones"
      :class "easyui-textbox"
-     :prompt "Enlace a google maps"
+     :prompt "Enlace a google maps..."
      :data-options "label:'Direcciones:',
         labelPosition:'top',
         required:false,
@@ -80,13 +79,6 @@
         height:120,
         width:'100%'"})))
 
-(defn toolbar-extra []
-  (list
-   [:a {:href         "javascript:void(0)"
-        :class        "easyui-linkbutton"
-        :data-options "iconCls:'icon-back',plain:true"
-        :onclick      "returnItem('/talleres/list')"} "Regresar a Talleres"]))
-
 (defn talleres-view [title]
   (list
    (anti-forgery-field)
@@ -94,10 +86,10 @@
     title
     "/admin/talleres"
     (list
-     [:th {:data-options "field:'nombre',sortable:true,width:100"} "Nombre"]
-     [:th {:data-options "field:'direccion',sortable:true,width:100"} "Direccion"]
-     [:th {:data-options "field:'telefono',sortable:true,width:100"} "Telefono"]))
-   (build-toolbar (toolbar-extra))
+     [:th {:data-options "field:'nombre',sortable:true,width:100"} "NOMBRE"]
+     [:th {:data-options "field:'direccion',sortable:true,width:100"} "DIRECCION"]
+     [:th {:data-options "field:'telefono',sortable:true,width:100"} "TELEFONO"]))
+   (build-toolbar)
    (build-dialog title (dialog-fields))
    (build-dialog-buttons)))
 

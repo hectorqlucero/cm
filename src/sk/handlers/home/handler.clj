@@ -1,13 +1,15 @@
 (ns sk.handlers.home.handler
   (:require [cheshire.core :refer [generate-string]]
+            [clojure.string :as st]
             [noir.response :refer [redirect]]
             [noir.session :as session]
             [noir.util.crypt :as crypt]
             [ring.util.anti-forgery :refer [anti-forgery-field]]
             [sk.handlers.home.view :refer [login-script login-view]]
             [sk.layout :refer [application error-404]]
-            [sk.models.crud :refer [Query config db]]
-            [sk.models.util :refer [get-session-id]]))
+            [sk.models.crud :refer [db Query]]
+            [sk.models.util :refer [get-session-id]]
+            [sk.migrations :refer [config]]))
 
 ;; Start Main
 (defn get-rides0 []
@@ -35,6 +37,7 @@
           content (get-rides)]
       (application title ok nil content))
     (catch Exception e (.getMessage e))))
+;; End main
 
 ;; Start Login
 (defn login
@@ -52,7 +55,7 @@
 (defn login!
   [username password]
   (try
-    (let [row (first (Query db ["SELECT * FROM users WHERE username = ?" username]))
+    (let [row (first (Query db ["SELECT * FROM users WHERE LOWER(username) = ?" (st/lower-case username)]))
           active (:active row)]
       (if (= active "T")
         (if (crypt/compare password (:password row))

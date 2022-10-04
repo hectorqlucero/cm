@@ -1,10 +1,11 @@
 (ns sk.handlers.eventos.handler
-  (:require [sk.handlers.eventos.sql :refer [eventos-sql]]
+  (:require [sk.handlers.eventos.model :refer [eventos-sql]]
             [sk.handlers.eventos.view
              :refer
              [display-eventos-scripts display-eventos-view eventos-scripts eventos-view]]
             [sk.layout :refer [application]]
-            [sk.models.crud :refer [Query config db]]
+            [sk.models.crud :refer [Query db]]
+            [sk.migrations :refer [config]]
             [sk.models.util
              :refer
              [current_year get-month-name get-session-id parse-int zpl]]))

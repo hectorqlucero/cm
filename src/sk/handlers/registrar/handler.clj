@@ -3,11 +3,15 @@
             [clojure.string :as str]
             [noir.util.crypt :as crypt]
             [ring.util.anti-forgery :refer [anti-forgery-field]]
-            [sk.handlers.registrar.view :refer [registrar-scripts registrar-view reset-jwt-scripts reset-jwt-view reset-password-scripts reset-password-view]]
+            [sk.handlers.registrar.view :refer [registrar-scripts
+                                                registrar-view reset-jwt-scripts
+                                                reset-jwt-view reset-password-scripts reset-password-view]]
             [sk.layout :refer [application error-404]]
-            [sk.models.crud :refer [Query Save Update build-postvars config db]]
+            [sk.models.crud :refer [build-postvars db Query Save Update]]
             [sk.models.email :refer [host send-email]]
-            [sk.models.util :refer [check-token create-token get-reset-url get-session-id]]))
+            [sk.models.util :refer [check-token create-token get-reset-url
+                                    get-session-id]]
+            [sk.migrations :refer [config]]))
 
 ;; Start registrar
 (defn registrar
@@ -101,7 +105,7 @@
           url        (get-reset-url request token)
           row        (get-username-row username)
           email-body (email-body row url)]
-      (if (send-email host email-body)
+      (if (future (send-email host email-body))
         (generate-string {:url "/"})
         (generate-string {:error "Incapaz de resetear su contraseña!"})))
     (catch Exception e (.getMessage e))))
@@ -135,3 +139,4 @@
         (generate-string {:error "Incapaz de resetear su contraseña!"})))
     (catch Exception e (.getMessage e))))
 ;; End reset-password
+

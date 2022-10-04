@@ -1,8 +1,35 @@
 (ns sk.handlers.tref.handler
-  (:require [clojure.string :as st]
-            [hiccup.page :refer [html5]]
-            [sk.models.crud :refer [Query db]]
+  (:require [sk.models.crud :refer [db Query]]
             [sk.models.util :refer [current_year get-image parse-int zpl]]))
+
+;; Start get-pais
+(def get-pais-sql
+  "
+  SELECT
+   id AS value,
+   descripcion AS text
+   FROM pais
+   ORDER BY
+   descripcion
+   ")
+
+(defn get-pais []
+  (Query db [get-pais-sql]))
+;; End get-pais
+
+;; Start get-pais-id
+(def get-pais-id-sql
+  "
+  SELECT
+   descripcion
+   FROM pais
+   WHERE
+   id = ?
+   ")
+
+(defn get-pais-id [id]
+  (:descripcion (first (Query db [get-pais-id-sql id]))))
+;; End get-pais-id
 
 ;; Start get-users
 (def get-users-sql
@@ -14,10 +41,58 @@
   firstname,lastname")
 
 (defn get-users
-  "Regresa todos los usuarios o vacio :ex: (get-users)"
+  "Gets all users from database :ex: (get-users)"
   []
   (Query db [get-users-sql]))
 ;; End get-users
+
+;; Start get-cmt
+(def get-cmt-sql
+  "
+  SELECT
+  id AS VALUE,
+  nombre AS text
+  FROM cmt
+  ORDER BY
+  nombre
+  ")
+
+(defn get-cmt
+  "Gets all cmt items"
+  []
+  (Query db [get-cmt-sql]))
+;; End get-cmt
+
+;; Start get-titulos
+(def get-titulos-sql
+  "SELECT
+   id AS value,
+   descripcion AS text
+   FROM titulos
+   ORDER BY
+   descripcion")
+
+(defn get-titulos
+  "Gets all titulos from database ex: (get-titulos)"
+  []
+  (Query db [get-titulos-sql]))
+;; End get-titulos
+
+;; Start get-titulo
+(def get-titulo-sql
+  "
+  SELECT
+   descripcion
+   FROM titulos
+   WHERE
+   id = ?
+   ")
+
+(defn get-titulo
+  "Gets a titulo from database ex: (get-titulo 1)"
+  [id]
+  (:descripcion (first (Query db [get-titulo-sql id]))))
+;; End get-titulo
 
 ;; Start get-users-email
 (def get-users-email-sql
@@ -26,20 +101,14 @@
   FROM users
   WHERE email = ?")
 
-(defn level-options []
-  (list
-   {:value "U" :text "Usuarios"}
-   {:value "A" :text "Administrador"}
-   {:value "S" :text "Systema"}))
-
 (defn get-users-email
-  "Regresa el correo del usuario o nulo"
+  "Returns user email or nil"
   [email]
-  (first (Query db [get-users-email-sql (st/lower-case email)])))
+  (first (Query db [get-users-email-sql email])))
 ;; End get-users-email
 
 (defn months
-  "Regresa un arreglo de meses en español ex: (months)"
+  "Returns months name ex: (months)"
   []
   (list
    {:value 1 :text "Enero"}
@@ -55,6 +124,12 @@
    {:value 11 :text "Noviembre"}
    {:value 12 :text "Diciembre"}))
 
+(defn level-options []
+  (list
+   {:value "U" :text "Usuarios"}
+   {:value "A" :text "Administrador"}
+   {:value "S" :text "Systema"}))
+
 (defn years
   "Genera listado para dropdown dependiendo de p=anterioriores de este año, n=despues de este año,
   ex: (years 5 4)"
@@ -65,66 +140,21 @@
         years  (concat pyears nyears)]
     years))
 
-;; Start calendar events
-(def rodadas-sql
-  "SELECT
-  id,
-  titulo as title,
-  detalles,
-  DATE_FORMAT(salida,'%h:%i %p') as hora,
-  DATE_FORMAT(fecha,'%d/%m/%Y') as fecha,
-  CONCAT(fecha,'T',salida) as start,
-  punto_reunion as donde,
-  CASE WHEN nivel = 'P' THEN 'Principiantes' WHEN nivel = 'M' THEN 'Medio' WHEN nivel = 'A' THEN 'Avanzado' WHEN nivel = 'T' THEN 'TODOS' END as nivel,
-  distancia as distancia,
-  velocidad as velocidad,
-  leader as leader,
-  leader_email as email,
-  repetir,
-  CONCAT('/rodadas/asistir/',id) as url
-  FROM rodadas
-  ORDER BY fecha,salida")
-
-(defn build-cal-popup [row]
-  (html5
-   [:div {:style "margin-bottom:10px;"}
-    [:label [:strong "Titulo: "] (:title row)]]
-   [:div {:style "margin-bottom:5px;"}
-    [:label [:strong "Describir Rodada: "] (:detalles row)]]
-   [:div {:style "margin-bottom:5px;"}
-    [:label [:strong "Punto de reunion: "] (:donde row)]]
-   [:div {:style "margin-bottom:5px;"}
-    [:label [:strong "Nivel: "] (:nivel row)]]
-   [:div {:style "margin-bottom:5px;"}
-    [:label [:strong "Distancia: "] (:distancia row)]]
-   [:div {:style "margin-bottom:5px;"}
-    [:label [:strong "Velocidad: "] (:velocidad row)]]
-   [:div {:style "margin-bottom:5px;"}
-    [:label [:strong "Fecha/Rodada: "] (:fecha row)]]
-   [:div {:style "margin-bottom:5px;"}
-    [:label [:strong "Salida: "] (:hora row)]]
-   [:div {:style "margin-bottom:5px;"}
-    [:label [:strong "Lider: "] (:leader row)]]
-   [:div {:style "margin-bottom:5px;"}
-    [:label [:strong "Lider Email: "] (:email row)]]))
-
-(defn calendar-events []
-  (let [rows   (Query db rodadas-sql)
-        events (map #(assoc % :description (build-cal-popup %)) rows)]
-    events))
-;; End calendar events
-
-(defn nivel-options []
-  (list
-   {:value "P" :text "Principiantes"}
-   {:value "M" :text "Medio"}
-   {:value "A" :text "Avanzado"}
-   {:value "T" :text "TODOS"}))
-
-(defn get-nivel [nivel]
-  (let [rows (nivel-options)
-        result (first (remove nil? (map (fn [row] (when (= (:value row) nivel) (:text row))) rows)))]
-    result))
+(defn build-time
+  "Builds tipical time dropdown"
+  []
+  (let [items (flatten
+               (for [x (range 5 21)]
+                 (list
+                  {:value (str (zpl x 2) ":00")
+                   :text (if (< x 12)
+                           (str (zpl x 2) ":00 AM")
+                           (str (if (> x 12) (zpl (- x 12) 2) (zpl x 2)) ":00 PM"))}
+                  {:value (str (zpl x 2) ":30")
+                   :text (if (< x 12)
+                           (str (zpl x 2) ":30 AM")
+                           (str (if (> x 12) (zpl (- x 12) 2) (zpl x 2)) ":30 PM"))})))]
+    items))
 
 (defn imagen [table field idname value & extra-folder]
   (get-image table field idname value (first extra-folder)))
@@ -136,18 +166,7 @@
         row (first (Query db sql))]
     ((keyword field) row)))
 
-(defn build-time
-  "Builds tipical time dropdown"
-  []
-  (let [items (flatten
-               (for [x (range 5 21)]
-                 (list
-                  {:value (str (zpl x 2) ":00")
-                   :text  (if (< x 12)
-                            (str (zpl x 2) ":00 AM")
-                            (str (if (> x 12) (zpl (- x 12) 2) (zpl x 2)) ":00 PM"))}
-                  {:value (str (zpl x 2) ":30")
-                   :text  (if (< x 12)
-                            (str (zpl x 2) ":30 AM")
-                            (str (if (> x 12) (zpl (- x 12) 2) (zpl x 2)) ":30 PM"))})))]
-    items))
+(comment
+  (get-cmt)
+  (get-pais-id 1)
+  (get-pais))

@@ -1,8 +1,16 @@
 (ns sk.layout
-  (:require [hiccup.page :refer [html5 include-css include-js]]
-            [clj-time.core :as t]
-            [sk.user :refer [config]]
-            [sk.models.util :refer [user-level user-name]]))
+  (:require [clj-time.core :as t]
+            [hiccup.page :refer [html5 include-css include-js]]
+            [sk.models.util :refer [user-level user-name]]
+            [sk.models.crud :refer [Query db]]
+            [sk.migrations :refer [config]]))
+
+(defn build-aventuras []
+  (let [rows (Query db "select * from cmt order by nombre")]
+    (list
+     (map (fn [row]
+            (list
+             [:a.dropdown-item {:href (str "/aventuras/" (:id row))} (:nombre row)])) rows))))
 
 (defn build-admin []
   (list
@@ -12,10 +20,12 @@
           (= (user-level) "A")
           (= (user-level) "S"))
      (list
+      [:a.dropdown-item {:href "/admin/cmt"} "CMT Cicloturismo"]
       [:a.dropdown-item {:href "/admin/eventos"} "Eventos"]
+      [:a.dropdown-item {:href "/admin/rodadas"} "Rodadas"]
       [:a.dropdown-item {:href "/admin/fotos"} "Fotos"]
       [:a.dropdown-item {:href "/admin/videos"} "Videos"]
-      [:a.dropdown-item {:href "/admin/frases"} "Frases"]
+      [:a.dropdown-item {:href "/admin/frases"} "Frases de Ciclistas"]
       [:a.dropdown-item {:href "/admin/talleres"} "Talleres"]
       [:a.dropdown-item {:href "/admin/cuadrantes"} "Grupos"]))
    (when (= (user-level) "S")
@@ -34,9 +44,13 @@
      [:span.navbar-toggler-icon]]
     [:div#collapsibleNavbar.collapse.navbar-collapse
      [:ul.navbar-nav
+      [:li.nav-item.dropdown
+       [:a.nav-link.dropdown-toggle {:href "#"
+                                     :id "navdrop"
+                                     :data-toggle "dropdown"} "Cicloturismo"]
+       [:div.dropdown-menu (build-aventuras)]]
       [:li.nav-item [:a.nav-link {:href "/eventos/list"} "Eventos"]]
       [:li.nav-item [:a.nav-link {:href "/rodadas/list"} "Rodadas"]]
-      [:li.nav-item [:a.nav-link {:href "/aventuras/list"} "Aventuras"]]
       [:li.nav-item [:a.nav-link {:href "/fotos/list"} "Fotos"]]
       [:li.nav-item [:a.nav-link {:href "/videos/list"} "Videos"]]
       [:li.nav-item [:a.nav-link {:href "/frases/list"} "Frases de Ciclistas"]]
@@ -51,8 +65,7 @@
          [:a.nav-link.dropdown-toggle {:href "#"
                                        :id "navdrop"
                                        :data-toggle "dropdown"} "Administrar"]
-         [:div.dropdown-menu
-          (build-admin)]])
+         [:div.dropdown-menu (build-admin)]])
       [:li.nav-item [:a.nav-link {:href "/home/logoff"} (str "Salir [" (user-name) "]")]]]]]))
 
 (defn menus-public []
@@ -68,9 +81,13 @@
      [:span.navbar-toggler-icon]]
     [:div#collapsibleNavbar.collapse.navbar-collapse
      [:ul.navbar-nav
+      [:li.nav-item.dropdown
+       [:a.nav-link.dropdown-toggle {:href "#"
+                                     :id "navdrop"
+                                     :data-toggle "dropdown"} "Cicloturismo"]
+       [:div.dropdown-menu (build-aventuras)]]
       [:li.nav-item [:a.nav-link {:href "/eventos/list"} "Eventos"]]
       [:li.nav-item [:a.nav-link {:href "/rodadas/list"} "Rodadas"]]
-      [:li.nav-item [:a.nav-link {:href "/aventuras/list"} "Aventuras"]]
       [:li.nav-item [:a.nav-link {:href "/fotos/list"} "Fotos"]]
       [:li.nav-item [:a.nav-link {:href "/videos/list"} "Videos"]]
       [:li.nav-item [:a.nav-link {:href "/frases/list"} "Frases de Ciclistas"]]

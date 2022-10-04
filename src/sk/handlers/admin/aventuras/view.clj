@@ -20,6 +20,16 @@
                             width:'100%'"}
     [:option {:value email} email]]
    (build-field
+    {:id "cmt_id"
+     :name "cmt_id"
+     :class "easyui-combobox"
+     :data-options "label:'CMT:',
+                 labelPosition:'top',
+                 url:'/table_ref/get-cmt',
+                 method:'GET',
+                 required:true,
+                 width:'100%'"})
+   (build-field
     {:id "enlace"
      :name "enlace"
      :class "easyui-textbox"
@@ -65,11 +75,11 @@
     title
     "/admin/aventuras"
     (list
-     [:th {:data-options "field:'leader_email',sortable:true,width:100"} "Email"]
-     [:th {:data-options "field:'enlace',sortable:true,width:100"} "Fotos"]
-     [:th {:data-options "field:'enlacev',sortable:true,width:100"} "Videos"]
-     [:th {:data-options "field:'fecha_formatted',sortable:true,width:100"} "Fecha"]
-     [:th {:data-options "field:'aventura',sortable:true,width:100"} "Aventura"]))
+     [:th {:data-options "field:'leader_email',sortable:true,width:100"} "EMAIL"]
+     [:th {:data-options "field:'enlace',sortable:true,width:100"} "FOTOS"]
+     [:th {:data-options "field:'enlacev',sortable:true,width:100"} "VIDEOS"]
+     [:th {:data-options "field:'fecha_formatted',sortable:true,width:100"} "FECHA"]
+     [:th {:data-options "field:'aventura',sortable:true,width:100"} "AVENTURA"]))
    (build-toolbar)
    (build-dialog title (dialog-fields email))
    (build-dialog-buttons)))

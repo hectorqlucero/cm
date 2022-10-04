@@ -1,6 +1,6 @@
 (ns sk.models.email
   (:require [postal.core :refer [send-message]]
-            [sk.models.crud :refer [config]]))
+            [sk.migrations :refer [config]]))
 
 ;;(send-message {:host "email-host"
 ;;               :user "email-user"

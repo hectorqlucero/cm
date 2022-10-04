@@ -1,4 +1,4 @@
-(ns sk.handlers.eventos.sql)
+(ns sk.handlers.eventos.model)
 
 (def eventos-sql
   "

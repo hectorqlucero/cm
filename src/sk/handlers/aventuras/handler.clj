@@ -1,29 +1,17 @@
 (ns sk.handlers.aventuras.handler
   (:require [sk.handlers.aventuras.view :refer [aventuras-scripts aventuras-view]]
             [sk.layout :refer [application]]
-            [sk.models.crud :refer [Query db]]
-            [sk.models.util :refer [get-session-id]]))
+            [sk.handlers.aventuras.model :refer [get-cmt-rows get-rows]]
+            [sk.models.util :refer [get-session-id parse-int]]))
 
-;; Start aventuras
-(def aventuras-sql
-  "
-  SELECT
-  CONCAT(users.firstname,' ', users.lastname) as nombre,
-  aventuras.aventura,
-  DATE_FORMAT(aventuras.fecha, '%W ') as dia,
-  DATE_FORMAT(aventuras.fecha, '%e de %M %Y') as f_fecha,
-  enlace,
-  enlacev
-  FROM aventuras 
-  JOIN users ON users.username = aventuras.leader_email
-  ORDER BY aventuras.fecha desc
-  ")
-
-(defn aventuras [_]
-  (let [title   "Aventuras"
-        ok      (get-session-id)
-        js      (aventuras-scripts)
-        rows    (Query db aventuras-sql)
-        content (aventuras-view rows)]
+(defn aventuras [id]
+  (let [title "Cicloturismo"
+        ok (get-session-id)
+        js (aventuras-scripts)
+        rows (get-rows (parse-int id))
+        crow (first (get-cmt-rows (parse-int id)))
+        content (aventuras-view rows crow)]
     (application title ok js content)))
-;; End aventuras
+
+(comment
+  (get-rows "1"))
