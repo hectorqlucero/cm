@@ -39,8 +39,9 @@
 (defn users-save
   [{params :params}]
   (try
-    (let [table "users"]
-      (build-form-save params table))
+    (let [table "users"
+          args {:height 155 :width 155}]
+      (build-form-save params table args))
     (catch Exception e (.getMessage e))))
 
 (defn users-delete

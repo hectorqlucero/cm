@@ -7,6 +7,9 @@
         sql (str
              "
                  SELECT
+                 aventuras.id,
+                 users.id as user_id,
+                 users.imagen as imagen,
                  CONCAT(users.firstname,' ',users.lastname) as nombre,
                  aventuras.aventura,
                  aventuras.fecha,

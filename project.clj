@@ -21,6 +21,7 @@
                  [org.clojure/data.codec "0.1.1"]
                  [mysql/mysql-connector-java "8.0.28"]
                  [ragtime "0.8.1"]
+                 [clj-img-resize "0.1.0"]
                  [ring/ring-core "1.9.5" :exclusions [ring/ring-codec commons-logging commons-codec]]]
   :main ^:skip-aot sk.core
   :aot [sk.core]
