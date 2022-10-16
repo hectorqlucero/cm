@@ -30,7 +30,17 @@
         required:true,
         multiline:true,
         height:120,
-        width:'100%'"})))
+        width:'100%'"})
+   (build-field
+    {:id "maximo"
+     :name "maximo"
+     :class "easyui-numberbox"
+     :data-option "label:'Maximo:',
+                   labelPosition:'top',
+                   required:true,
+                   min:0,
+                   precision:0,
+                   width'100%'"})))
 
 (defn cmt-view [title]
   (list
@@ -40,7 +50,8 @@
     "/admin/cmt"
     (list
      [:th {:data-options "field:'nombre',sortable:true,width:100"} "NOMBRE"]
-     [:th {:data-options "field:'comments',sortable:true,width:100"} "COMMENTS"]))
+     [:th {:data-options "field:'comments',sortable:true,width:100"} "COMMENTS"]
+     [:th {:data-options "field:'maximo',sortable:true,width:100"} "MAXIMO"]))
    (build-toolbar)
    (build-dialog title (dialog-fields))
    (build-dialog-buttons)))

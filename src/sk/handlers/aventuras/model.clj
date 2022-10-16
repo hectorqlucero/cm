@@ -2,8 +2,12 @@
   (:require [sk.models.crud :refer [Query db]]))
 
 ;; Start get-rows
+(defn get-maximo [id]
+  (:maximo (first (Query db ["SELECT maximo FROM cmt WHERE id=?" id]))))
+
 (defn get-rows [id]
   (let [sort-type (if (= id 1) "desc" nil)
+        maximo (Integer. (get-maximo id))
         sql (str
              "
                  SELECT
@@ -22,7 +26,8 @@
                  WHERE aventuras.cmt_id = " id "
                  ORDER BY
                  aventuras.fecha " sort-type "
-                 ")]
+                 ")
+        sql (if (> maximo 0) (str sql "limit " maximo) sql)]
     (Query db sql)))
 ;; End get-rows
 
@@ -33,4 +38,5 @@
 
 (comment
   (get-cmt-rows 2)
+  (get-maximo 1)
   (get-rows 1))
