@@ -6,8 +6,8 @@
   (:maximo (first (Query db ["SELECT maximo FROM cmt WHERE id=?" id]))))
 
 (defn get-rows [id]
-  (let [sort-type (if (= id 1) "desc" nil)
-        maximo (Integer. (get-maximo id))
+  (let [maximo (Integer. (get-maximo id))
+        sort-type (if (> maximo 0) "desc" "asc")
         sql (str
              "
                  SELECT
