@@ -1,6 +1,6 @@
-# PD
+# CM
 
-An application that caters to pets
+An application that caters to ciclist.
 
 
 ## Pre-requisites
