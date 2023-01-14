@@ -76,8 +76,8 @@
   [:script
    "
    function process_comment(the_id,autor,comment) {
-    the_autor = '#autor_'+the_id;
-    the_comment = '#comment_'+the_id;
+    var the_autor = '#autor_'+the_id;
+    var the_comment = '#comment_'+the_id;
     var token = $('#__anti-forgery-token').val();
     var reload_on_return = true;
     $('#submit_comment').prop('disabled',true);
