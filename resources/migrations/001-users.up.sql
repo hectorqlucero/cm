@@ -11,6 +11,6 @@ CREATE TABLE users (
   `email` varchar(200) DEFAULT NULL,
   `level` char(1) DEFAULT NULL COMMENT 'A=Administrador,U=Usuario,S=Sistema',
   `active` char(1) DEFAULT NULL COMMENT 'T=Activo,F=Inactivo',
-  `imagen` text DEFAULT NULL
+  `imagen` text DEFAULT NULL,
   UNIQUE KEY username (username)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8

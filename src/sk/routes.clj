@@ -47,6 +47,7 @@
 
   ;; Start aventuras
   (GET "/aventuras/:id" [id] (aventuras/aventuras id))
+  (POST "/aventuras/comentarios" req [] (aventuras/comentarios req))
   ;; End aventuras
 
   ;; Start eventos
