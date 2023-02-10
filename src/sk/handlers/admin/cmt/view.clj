@@ -34,6 +34,7 @@
    (build-field
     {:id "maximo"
      :name "maximo"
+     :prompt "Maximo limite de records o 0 para cicloturismo"
      :class "easyui-numberbox"
      :data-option "label:'Maximo:',
                    labelPosition:'top',

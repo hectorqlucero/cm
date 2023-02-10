@@ -37,7 +37,7 @@
   (list
    [:ul#tt.easyui-tree
     [:li
-     [:span "Cicloturismo"]
+     [:span "Aventuras"]
      [:ul
       (build-aventuras)]]
     (build-menu-item "Eventos" "/eventos/list")
@@ -122,7 +122,7 @@
     [:div.easyui-layout {:data-options "fit:true"}
      [:div {:data-options "region:'north'"}
       [:img {:href "/images/logo.png"}]
-      [:a.easyui-linkbutton {:href "/" :data-options "plain:true"} "Ciclismo Mexicali. Aventuras en bicicleta e información para el ciclista."]]
+      [:a.easyui-linkbutton {:href "/" :data-options "plain:true"} "Ciclismo Mexicali. Aventuras sobre ruedas e información para el ciclista."]]
      [:div {:data-options "region:'west'"
             :style "width:20%;padding:5px;"}
       (cond
