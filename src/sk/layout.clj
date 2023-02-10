@@ -5,108 +5,79 @@
             [sk.models.crud :refer [Query db]]
             [sk.migrations :refer [config]]))
 
+(defn build-menu-item [title url]
+  [:li {:data-options "plain:true"} [:span [:a.easyui-linkbutton {:href url
+                                                                  :data-options "plain:true"} title]]])
+
 (defn build-aventuras []
   (let [rows (Query db "select * from cmt order by nombre")]
     (list
      (map (fn [row]
-            (list
-             [:a.dropdown-item {:href (str "/aventuras/" (:id row))} (:nombre row)])) rows))))
+            (build-menu-item (row :nombre) (str "/aventuras/" (row :id)))) rows))))
 
 (defn build-admin []
   (list
-   [:a.dropdown-item {:href "/admin/rodadas"} "Rodadas"]
-   [:a.dropdown-item {:href "/admin/aventuras"} "Aventuras"]
+   (build-menu-item "Rodadas" "/admin/rodadas")
+   (build-menu-item "Aventuras" "/admin/aventuras")
    (when (or
           (= (user-level) "A")
           (= (user-level) "S"))
-     (list
-      [:a.dropdown-item {:href "/admin/cmt"} "CMT Cicloturismo"]
-      [:a.dropdown-item {:href "/admin/eventos"} "Eventos"]
-      [:a.dropdown-item {:href "/admin/rodadas"} "Rodadas"]
-      [:a.dropdown-item {:href "/admin/fotos"} "Fotos"]
-      [:a.dropdown-item {:href "/admin/videos"} "Videos"]
-      [:a.dropdown-item {:href "/admin/frases"} "Frases de Ciclistas"]
-      [:a.dropdown-item {:href "/admin/talleres"} "Talleres"]
-      [:a.dropdown-item {:href "/admin/cuadrantes"} "Grupos"]))
+     (build-menu-item "CMT Cicloturismo" "/admin/cmt")
+     (build-menu-item "Eventos" "/admin/eventos")
+     (build-menu-item "Rodadas" "/admin/rodadas")
+     (build-menu-item "Fotos" "/admin/fotos")
+     (build-menu-item "Videos" "/admin/videos")
+     (build-menu-item "Frases de Ciclistas" "/admin/frases")
+     (build-menu-item "Talleres" "/admin/talleres")
+     (build-menu-item "Grupos" "/admin/cuadrantes"))
    (when (= (user-level) "S")
-     [:a.dropdown-item {:href "/admin/users"} "Usuarios"])))
+     (build-menu-item "Usuarios" "/admin/users"))))
 
 (defn menus-private []
   (list
-   [:nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top
-    [:a.navbar-brand {:href "/"}
-     [:img.rounded-circle {:src "/images/logo.png"
-                           :alt (:site-name config)
-                           :style "width:40px;"}]]
-    [:button.navbar-toggler {:type "button"
-                             :data-toggle "collapse"
-                             :data-target "#collapsibleNavbar"}
-     [:span.navbar-toggler-icon]]
-    [:div#collapsibleNavbar.collapse.navbar-collapse
-     [:ul.navbar-nav
-      [:li.nav-item.dropdown
-       [:a.nav-link.dropdown-toggle {:href "#"
-                                     :id "navdrop"
-                                     :data-toggle "dropdown"} "Cicloturismo"]
-       [:div.dropdown-menu (build-aventuras)]]
-      [:li.nav-item [:a.nav-link {:href "/eventos/list"} "Eventos"]]
-      [:li.nav-item [:a.nav-link {:href "/rodadas/list"} "Rodadas"]]
-      [:li.nav-item [:a.nav-link {:href "/fotos/list"} "Fotos"]]
-      [:li.nav-item [:a.nav-link {:href "/videos/list"} "Videos"]]
-      [:li.nav-item [:a.nav-link {:href "/frases/list"} "Frases de Ciclistas"]]
-      [:li.nav-item [:a.nav-link {:href "/talleres/list"} "Talleres"]]
-      [:li.nav-item [:a.nav-link {:href "/grupos/list"} "Grupos"]]
-      (when
-       (or
-        (= (user-level) "U")
-        (= (user-level) "A")
-        (= (user-level) "S"))
-        [:li.nav-item.dropdown
-         [:a.nav-link.dropdown-toggle {:href "#"
-                                       :id "navdrop"
-                                       :data-toggle "dropdown"} "Administrar"]
-         [:div.dropdown-menu (build-admin)]])
-      [:li.nav-item [:a.nav-link {:href "/home/logoff"} (str "Salir [" (user-name) "]")]]]]]))
+   [:ul#tt.easyui-tree
+    [:li
+     [:span "Cicloturismo"]
+     [:ul
+      (build-aventuras)]]
+    (build-menu-item "Eventos" "/eventos/list")
+    (build-menu-item "Rodadas" "/rodadas/list")
+    (build-menu-item "Fotos" "/fotos/list")
+    (build-menu-item "Videos" "/videos/list")
+    (build-menu-item "Frases de Ciclistas" "/frases/list")
+    (build-menu-item "Talleres" "/talleres/list")
+    (build-menu-item "Grupos" "/grupos/list")
+    (when
+     (or
+      (= (user-level) "U")
+      (= (user-level) "A")
+      (= (user-level) "S"))
+      (do
+        (list
+         [:li
+          [:span "Administrar"]
+          [:ul
+           (build-admin)]])))
+    (build-menu-item (str "Salir [" (user-name) "]") "/home/logoff")]))
 
 (defn menus-public []
   (list
-   [:nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top
-    [:a.navbar-brand {:href "/"}
-     [:img.rounded-circle {:src "/images/logo.png"
-                           :alt (:site-name config)
-                           :style "width:40px;"}]]
-    [:button.navbar-toggler {:type "button"
-                             :data-toggle "collapse"
-                             :data-target "#collapsibleNavbar"}
-     [:span.navbar-toggler-icon]]
-    [:div#collapsibleNavbar.collapse.navbar-collapse
-     [:ul.navbar-nav
-      [:li.nav-item.dropdown
-       [:a.nav-link.dropdown-toggle {:href "#"
-                                     :id "navdrop"
-                                     :data-toggle "dropdown"} "Cicloturismo"]
-       [:div.dropdown-menu (build-aventuras)]]
-      [:li.nav-item [:a.nav-link {:href "/eventos/list"} "Eventos"]]
-      [:li.nav-item [:a.nav-link {:href "/rodadas/list"} "Rodadas"]]
-      [:li.nav-item [:a.nav-link {:href "/fotos/list"} "Fotos"]]
-      [:li.nav-item [:a.nav-link {:href "/videos/list"} "Videos"]]
-      [:li.nav-item [:a.nav-link {:href "/frases/list"} "Frases de Ciclistas"]]
-      [:li.nav-item [:a.nav-link {:href "/talleres/list"} "Talleres"]]
-      [:li.nav-item [:a.nav-link {:href "/grupos/list"} "Grupos"]]
-      [:li.nav-item [:a.nav-link {:href "/home/login"} "Conectar"]]]]]))
+   [:ul#tt.easyui-tree
+    [:li
+     [:span "Cicloturismo"]
+     [:ul
+      (build-aventuras)]]
+    (build-menu-item "Eventos" "/eventos/list")
+    (build-menu-item "Rodadas" "/rodadas/list")
+    (build-menu-item "Fotos" "/fotos/list")
+    (build-menu-item "Videos" "/videos/list")
+    (build-menu-item "Frases de Ciclistas" "/frases/list")
+    (build-menu-item "Talleres" "/talleres/list")
+    (build-menu-item "Grupos" "/grupos/list")
+    (build-menu-item "Entrar al sitio" "/home/login")]))
 
 (defn menus-none []
-  (list
-   [:nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top
-    [:a.navbar-brand {:href "/"}
-     [:img.rounded-circle {:src "/images/logo.png"
-                           :alt (:site-name config)
-                           :style "width:40px;"}]]
-    [:button.navbar-toggler {:type "button"
-                             :data-toggle "collapse"
-                             :data-target "#collapsibleNavbar"}
-     [:span.navbar-toggler-icon]]
-    [:div#collapsibleNavbar.collapse.navbar-collapse]]))
+  nil)
 
 (defn app-css []
   (list
@@ -114,9 +85,7 @@
    (include-css "/bootstrap/css/lumen.min.css")
    (include-css "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
    (include-css "/bxslider/dist/jquery.bxslider.min.css")
-   (include-css "/easyui/themes/gray/easyui.css")
-   (include-css "/easyui/themes/icon.css")
-   (include-css "/easyui/themes/color.css")
+   (include-css "/easyui/themes/material-blue/easyui.css")
    (include-css "/css/main.css")
    (include-css "/RichText/src/richtext.min.css")))
 
@@ -138,29 +107,33 @@
    (include-js "/js/main.js")))
 
 (defn application [title ok js & content]
-  (html5 {:ng-app (:site-name config) :lang "es"}
-         [:head
-          [:title (if title
-                    title
-                    (:site-name config))]
-          [:meta {:charset "UTF-8"}]
-          [:meta {:name "viewport"
-                  :content "width=device-width, initial-scale=1"}]
-          (app-css)
-          [:link {:rel "shortcut icon"
-                  :type "image/x-icon"
-                  :href "data:image/x-icon;,"}]]
-         [:body {:style "width:100vw;height:98vh;border:1px solid #000;"}
-          [:div.container {:style "height:88vh;margin-top:75px;"}
-           (cond
-             (= ok -1) (menus-none)
-             (= ok 0) (menus-public)
-             (> ok 0) (menus-private))
-           [:div.easyui-panel {:data-options "fit:true,border:false" :style "padding-left:14px;"} content]]
-          (app-js)
-          js]
-         [:footer.bg-secondary.text-center.fixed-bottom
-          [:span  "Copyright &copy" (t/year (t/now)) " Lucero Systems - All Rights Reserved"]]))
+  (html5
+   {:ng-app (config :site-name) :lang "es"}
+   [:head
+    [:title (if title title (config :site-name))]
+    [:meta {:charset "UTF-8"}]
+    [:meta {:name "viewport"
+            :content "width=device-width, initial-scale=1"}]
+    (app-css)
+    [:link {:rel "shortcut icon"
+            :type "image/x-icon"
+            :href "data:image/x-icon;,"}]]
+   [:body.box {:style "padding:20px;"}
+    [:div.easyui-layout {:data-options "fit:true"}
+     [:div {:data-options "region:'north'"}
+      [:img {:href "/images/logo.png"}]
+      [:a.easyui-linkbutton {:href "/" :data-options "plain:true"} "Ciclismo Mexicali. Aventuras en bicicleta e información para el ciclista."]]
+     [:div {:data-options "region:'west'"
+            :style "width:20%;padding:5px;"}
+      (cond
+        (= ok -1) (menus-none)
+        (= ok 0) (menus-public)
+        (> ok 0) (menus-private))]
+     [:div {:data-options "region:'center'"} content]]
+    [:div {:data-options "region:'south'"
+           :style "text-align:center;"} (str "Copyright @" (t/year (t/now)) " Lucero Systems - All Rights Reserved")]
+    (app-js)
+    js]))
 
 (defn error-404 [content return-url]
   (html5 {:ng-app (:site-name config) :lang "es"}
