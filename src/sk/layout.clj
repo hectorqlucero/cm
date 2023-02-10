@@ -22,14 +22,14 @@
    (when (or
           (= (user-level) "A")
           (= (user-level) "S"))
-     (build-menu-item "CMT Cicloturismo" "/admin/cmt")
-     (build-menu-item "Eventos" "/admin/eventos")
-     (build-menu-item "Rodadas" "/admin/rodadas")
-     (build-menu-item "Fotos" "/admin/fotos")
-     (build-menu-item "Videos" "/admin/videos")
-     (build-menu-item "Frases de Ciclistas" "/admin/frases")
-     (build-menu-item "Talleres" "/admin/talleres")
-     (build-menu-item "Grupos" "/admin/cuadrantes"))
+     (list
+      (build-menu-item "CMT Cicloturismo" "/admin/cmt")
+      (build-menu-item "Eventos" "/admin/eventos")
+      (build-menu-item "Fotos" "/admin/fotos")
+      (build-menu-item "Videos" "/admin/videos")
+      (build-menu-item "Frases de Ciclistas" "/admin/frases")
+      (build-menu-item "Talleres" "/admin/talleres")
+      (build-menu-item "Grupos" "/admin/cuadrantes")))
    (when (= (user-level) "S")
      (build-menu-item "Usuarios" "/admin/users"))))
 
