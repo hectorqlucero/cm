@@ -36,14 +36,26 @@
   (Query db ["select nombre,comments FROM cmt WHERE id=?" id]))
 ;; End get-cmt-rows
 
+;; Start get-cmt-row
+(defn get-cmt-row [id]
+  (first (Query db ["select * from cmt where id=?" id])))
+;; End get-cmt-row
+
 ;; Start get-aventuras-comments
 (defn get-aventuras-comments [aventuras_id]
   (let [rows (Query db ["SELECT * FROM aventuras_link WHERE aventuras_id = ? ORDER BY id" aventuras_id])]
     rows))
 ;; End get-aventuras-comments
 
+;; Start get-row
+(defn get-row [id]
+  (first (Query db ["SELECT * FROM aventuras WHERE id = ?" id])))
+;; End get-row
+
 (comment
-  (get-aventuras-comments 387)
+  (get-row 386)
+  (get-cmt-row 4)
+  (get-aventuras-comments 386)
   (get-cmt-rows 2)
   (get-maximo 1)
-  (get-rows 1))
+  (get-rows 3))
