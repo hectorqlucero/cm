@@ -64,7 +64,7 @@
   (list
    [:ul#tt.easyui-tree
     [:li
-     [:span "Cicloturismo"]
+     [:span "Aventuras"]
      [:ul
       (build-aventuras)]]
     (build-menu-item "Eventos" "/eventos/list")
