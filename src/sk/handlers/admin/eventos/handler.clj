@@ -32,7 +32,7 @@
 (defn eventos-save [{params :params}]
   (let [table "eventos"
         args {:width 640 :height 640}]
-    (build-form-save params table)))
+    (build-form-save params table args)))
 
 (defn eventos-delete [{params :params}]
   (let [table "eventos"]
