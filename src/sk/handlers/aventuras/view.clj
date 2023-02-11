@@ -45,18 +45,24 @@
      (line-cc the-id) [:br]
      [:div
       (anti-forgery-field)
-      [:form
-       [:input {:id (str "autor_" the-id)
-                :name "autor"
-                :placeholder "autor"
-                :size "20"}]
-       [:input {:id (str "comment_" the-id)
-                :name "comment"
-                :placeholder "comentario"
-                :size "100"}]
-       [:button {:type "button"
-                 :id "submit_comment"
-                 :onclick (str "process_comment(" the-id ",this.form.autor.value,this.form.comment.value)")} "Enviar Comentario"]]] [:br]]))
+      [:div.card
+       [:div.row
+        [:div.col
+         [:form {:style "width:55"}
+
+          [:input.form-control {:id (str "autor_" the-id)
+                                :name "autor"
+                                :placeholder "autor"
+                                :size "26"}]
+          [:textarea.form-control {:id (str "comment_" the-id)
+                                   :name "comment"
+                                   :placeholder "comentario"
+                                   :rows "4"
+                                   :cols "26"
+                                   :size "26"}]
+          [:button.btn.btn-secondary.btn-block {:type "button"
+                                                :id "submit_comment"
+                                                :onclick (str "process_comment(" the-id ",this.form.autor.value,this.form.comment.value)")} "Enviar Comentario"]]]]]]]))
 
 (defn aventuras-view [rows crow]
   (list
