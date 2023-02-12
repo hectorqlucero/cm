@@ -86,36 +86,44 @@
     var the_comment = '#comment_'+the_id;
     var token = $('#__anti-forgery-token').val();
     var reload_on_return = true;
-    $('#submit_comment').prop('disabled',true);
-    $.ajax({
-      type: 'POST',
-      url: '/aventuras/comentarios',
-      data: {'__anti-forgery-token': token, 'aventuras_id': the_id,'nombre': autor,'comments': comment}
-    })
-    .done(function(msg) {
-      var json = JSON.parse(msg);
-      if(json.error) {
-        $.messager.show({
-          title:'Error',
-          msg: json.error
-        });
-      } else {
-        $.messager.show({
-          title:'Exito',
-          msg: json.success
-        });
-      }
-      $(the_autor).val('');
-      $(the_comment).val('');
-      if (reload_on_return) {
-         setTimeout(
-           function() 
-           {
-             location.reload();
-           }, 1000);    
-      }
+    if (autor && comment) {
+      alert(the_autor.value);
+      $('#submit_comment').prop('disabled',true);
+      $.ajax({
+        type: 'POST',
+        url: '/aventuras/comentarios',
+        data: {'__anti-forgery-token': token, 'aventuras_id': the_id,'nombre': autor,'comments': comment}
+      })
+      .done(function(msg) {
+        var json = JSON.parse(msg);
+        if(json.error) {
+          $.messager.show({
+            title:'Error',
+            msg: json.error
+          });
+        } else {
+          $.messager.show({
+            title:'Exito',
+            msg: json.success
+          });
+        }
+        $(the_autor).val('');
+        $(the_comment).val('');
+        if (reload_on_return) {
+          setTimeout(
+            function() 
+            {
+              location.reload();
+            }, 1000);    
+        }
+      });
+      $('#submit_comment').prop('enabled',true);
+   } else {
+    $.messager.show({
+      title:'Error',
+      msg: 'El autor o commentario no pueden estar vacios!'
     });
-    $('#submit_comment').prop('enabled',true);
+   }
    }
    "])
 
