@@ -87,7 +87,6 @@
     var token = $('#__anti-forgery-token').val();
     var reload_on_return = true;
     if (autor && comment) {
-      alert(the_autor.value);
       $('#submit_comment').prop('disabled',true);
       $.ajax({
         type: 'POST',
