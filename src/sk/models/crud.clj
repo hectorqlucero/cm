@@ -1,6 +1,5 @@
 (ns sk.models.crud
   (:require [cheshire.core :refer [generate-string]]
-            [clj-img-resize.core :as i]
             [clojure.java.io :as io]
             [clojure.java.jdbc :as j]
             [clojure.string :as st]
@@ -321,32 +320,17 @@
     (catch Exception e (.getMessage e))))
 
 ;; Start upload form
-(defn resize-image [path image-name width height]
-  (let [imagen (slurp (str path image-name))
-        width (Integer. width)
-        height (Integer. height)
-        thumbnail (->
-                   (io/file (str path image-name))
-                   (i/scale-image-to-dimension-limit width height "jpg")
-                   (io/copy (io/file (str path image-name))))]))
-
 (defn crud-upload-image
   "Uploads image and renames it to the id passed"
-  [table file id path & args]
-  (let [args (or (first args) nil)
-        width (:width args)
-        height (:height args)
-        rz (if-not (nil? (and width height)) 1 0)
-        tempfile   (:tempfile file)
+  [table file id path]
+  (let [tempfile   (:tempfile file)
         size       (:size file)
         type       (:content-type file)
         extension  (peek (clojure.string/split type #"\/"))
         extension  (if (= extension "jpeg") "jpg" "jpg")
         image-name (str table "_" id "." extension)]
     (when-not (zero? size)
-      (do
-        (io/copy tempfile (io/file (str path image-name)))
-        (resize-image path image-name width height)))
+      (io/copy tempfile (io/file (str path image-name))))
     image-name))
 
 (defn get-id [id postvars table]
@@ -356,14 +340,14 @@
     id))
 
 (defn process-upload-form
-  [params table & args]
+  [params table folder]
   (try
     (let [id (crud-fix-id (:id params))
           file (:file params)
           postvars (dissoc (build-postvars table params) :file)
           the-id (str (get-id id postvars table))
-          path (str (:uploads config) "/")
-          image-name (crud-upload-image table file the-id path (first args))
+          path (str (:uploads config) folder "/")
+          image-name (crud-upload-image table file the-id path)
           postvars (assoc postvars :imagen image-name :id the-id)
           result (Save db (keyword table) postvars ["id = ?" the-id])]
       (if (seq result)
@@ -376,7 +360,7 @@
   [params table & args]
   (try
     (if-not (nil? (:file params))
-      (process-upload-form params table (first args))
+      (process-upload-form params table (first (:path args)))
       (process-regular-form params table))
     (catch Exception e (.getMessage e))))
 

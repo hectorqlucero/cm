@@ -2,8 +2,11 @@
   (:require [clojure.java.io :as io]
             [clojure.string :as st]
             [hiccup.core :refer [html]]
+            [sk.models.b-proutes :refer [main-private]]
+            [sk.models.b-routes :refer [main-open]]
+            [sk.models.cdb :refer [populate-tables]]
             [sk.models.crud :refer
-             [build-grid-columns get-table-describe]]))
+             [build-grid-columns db get-table-describe Save]]))
 
 (defn create-path [path]
   (.mkdir (io/file path)))
@@ -182,16 +185,49 @@
      "(defn " folder "-scripts []\n"
      "(include-js \"/js/grid.js\"))")))
 
+(defn build-grid-includes [options]
+  (let [folder (:folder options)
+        root (:root options)
+        ns-root (subs (str (st/replace root #"/" ".") folder) 4)]
+    (str "[" ns-root ".handler :as " folder "]")))
+
+(defn build-grid-routes [options]
+  [{:dt (str "(GET \"" (:link options) "\" req [] (" (:folder options) "/" (:folder options) " req))")}
+   {:dt (str "(POST \"" (:link options) "\" req [] (" (:folder options) "/" (:folder options) "-grid req))")}
+   {:dt (str "(GET \"" (:link options) "/edit/:id\" [id] (" (:folder options) "/" (:folder options) "-form id))")}
+   {:dt (str "(POST \"" (:link options) "/save\" req [] (" (:folder options) "/" (:folder options) "-save req))")}
+   {:dt (str "(POST \"" (:link options) "/delete\" req [] (" (:folder options) "/" (:folder options) "-delete req))")}])
+
 (defn build-grid-skeleton
   "secure: 1=s/a, 2=s, 3=all"
   [options]
   (let [folder (:folder options)
         root (:root options)
-        path (str root folder)]
+        path (str root folder)
+        route-rows (build-grid-routes options)
+        include-row {:dt (build-grid-includes options)}
+        menu-id nil
+        menu-type (:menu-type options)
+        menu-admin (:menu-admin options)
+        menu-secure (:secure options)
+        menu-root root
+        menu-link (:link options)
+        menu-desc (:title options)
+        mrow {:id menu-id
+              :type menu-type
+              :admin menu-admin
+              :secure menu-secure
+              :root menu-root
+              :link menu-link
+              :description menu-desc}]
     (create-path path)
     (spit (str path "/handler.clj") (build-grid-handler options))
     (spit (str path "/model.clj") (build-grid-model options))
-    (spit (str path "/view.clj") (build-grid-view options))))
+    (spit (str path "/view.clj") (build-grid-view options))
+    (populate-tables "proutes" route-rows)
+    (Save db "pincludes" include-row ["id = ?" nil])
+    (Save db "menus" mrow ["id = ?" menu-id])
+    (main-private)))
 ;; end grid skeleton
 
 (defn build-pdf-template [row]
@@ -359,6 +395,7 @@
     (str
      "(ns " ns-root ".view\n"
      "(:require "
+     "[hiccup.page :refer [include-js]]"
      "[" ns-root ".model :refer [get-rows]]\n"
      "))\n\n"
      "(defn my-body [row]\n"
@@ -367,45 +404,113 @@
      "])\n\n"
      "(defn " folder "-view [title]\n"
      "(let [rows (get-rows \"" tabla "\")]\n"
-     "[:table.dg {:data-options \"remoteSort:false,fit:true,rownumbers:true,fitColumns:true\" :title title}\n"
+     "(list\n"
+     "[:table.dg {:data-options \"remoteSort:false,fit:true,rownumbers:true,fitColumns:true,toolbar:'#toolbar'\" :title title}\n"
      "[:thead\n"
      "[:tr\n"
      (html  cols)
      "]]\n"
-     "[:tbody (map my-body rows)]]))\n\n"
+     "[:tbody (map my-body rows)]]\n"
+     "[:div#toolbar\n"
+     "[:a {:href\"/" folder "/reporte\"\n"
+     ":class \"easyui-linkbutton\"\n"
+     ":data-options \"iconCls:'icon-print',plain: true\"} \"Reporte\"]\n"
+     "[:a {:href\"/" folder "/pdf\"\n"
+     ":class \"easyui-linkbutton\"\n"
+     ":data-options \"iconCls:'icon-save',plain: true\"} \"PDF\"]\n"
+     "[:a {:href\"/" folder "/csv\"\n"
+     ":class \"easyui-linkbutton\"\n"
+     ":data-options \"iconCls:'icon-large-smartart',plain: true\"} \"CSV\"]]\n"
+     ")))\n\n"
      "(defn " folder "-scripts []\n"
-     "[:script 
-     \"
-     var dg = $('.dg');
-     $(document).ready(function() {
-      dg.datagrid();
-      dg.datagrid('enableFilter');
-     });
-     \"
-     ])\n")))
+     "(include-js \"js/grid.js\""
+     "))\n")))
+
+(defn build-skeleton-includes [options]
+  (let [folder (:folder options)
+        root (:root options)
+        ns-root (subs (str (st/replace root #"/" ".") folder) 4)]
+    (str "[" ns-root ".handler :as " folder "-output]")))
+
+(defn build-skeleton-routes [options]
+  [{:dt (str "(GET \"" (:link options) "\" req [] (" (:folder options) "-output/" (:folder options) " req))")}
+   {:dt (str "(GET \"" (:link options) "/reporte\" req [] (" (:folder options) "-output/" (:folder options) "-reporte req))")}
+   {:dt (str "(GET \"" (:link options) "/pdf\" req [] (" (:folder options) "-output/" (:folder options) "-pdf req))")}
+   {:dt (str "(GET \"" (:link options) "/csv\" req [] (" (:folder options) "-output/" (:folder options) "-csv req))")}])
 
 (defn build-skeleton
   "secure: 1=s/a, 2=s, 3=all"
   [options]
   (let [folder (:folder options)
         root (:root options)
-        path (str root folder)]
+        path (str root folder)
+        route-rows (build-skeleton-routes options)
+        include-row {:dt (build-skeleton-includes options)}
+        menu-id nil
+        menu-type (:menu-type options)
+        include-table (if (= menu-type "P") "pincludes" "rincludes")
+        route-table (if (= menu-type "P") "proutes" "routes")
+        menu-admin (:menu-admin options)
+        menu-secure (:secure options)
+        menu-root root
+        menu-link (:link options)
+        menu-desc (:title options)
+        mrow {:id menu-id
+              :type menu-type
+              :admin menu-admin
+              :secure menu-secure
+              :root menu-root
+              :link menu-link
+              :description menu-desc}]
     (create-path path)
     (spit (str path "/handler.clj") (build-skeleton-handler options))
     (spit (str path "/model.clj") (build-skeleton-model options))
-    (spit (str path "/view.clj") (build-skeleton-view options))))
+    (spit (str path "/view.clj") (build-skeleton-view options))
+    (populate-tables route-table route-rows)
+    (Save db include-table include-row ["id = ?" nil])
+    (Save db "menus" mrow ["id = ?" menu-id])
+    (if (= menu-type "P") (main-private) (main-open))))
+
+(defn build-grid [table]
+  (build-grid-skeleton
+   {:folder table
+    :title (st/capitalize table)
+    :table table
+    :args "{:sort-extra \"id\"}"
+    :secure 1
+    :link (str "/admin/" table)
+    :root "src/sk/handlers/admin/"
+    :menu-type "P"
+    :menu-admin "T"})
+  (println (str "Codigo generado en: src/sk/handlers/admin/" table)))
+
+(defn build-dashboard [table]
+  (build-skeleton
+    {:folder table
+     :title (st/capitalize table)
+     :table table
+     :secure 3
+     :link (str "/" table)
+     :root "src/sk/handlers/"
+     :menu-type "P"
+     :menu-admin "F"})
+  (println (str "Codigo generado en: src/sk/handlers/" table)))
 
 (comment
-  (build-grid-skeleton {:folder "eventos"
-                        :title "Eventos"
-                        :table "eventos"
-                        :args "{:sort-extra \"fecha\"}"
-                        :secure 3
-                        :link "/admin/eventos"
-                        :root "src/sk/handlers/admin/"})
+  (build-grid-skeleton {:folder "contactos"
+                        :title "Contactos"
+                        :table "contactos"
+                        :args "{:sort-extra \"nombre,paterno,materno\"}"
+                        :secure 1
+                        :link "/admin/contactos"
+                        :root "src/sk/handlers/admin/"
+                        :menu-type "P"
+                        :menu-admin "T"})
   (build-skeleton {:folder "contactos"
                    :title "Contactos"
                    :table "contactos"
                    :secure 3
                    :link "/contactos"
-                   :root "src/sk/handlers/"}))
+                   :root "src/sk/handlers/"
+                   :menu-type "P"
+                   :menu-admin "F"}))

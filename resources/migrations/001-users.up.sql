@@ -12,5 +12,6 @@ CREATE TABLE users (
   `level` char(1) DEFAULT NULL COMMENT 'A=Administrador,U=Usuario,S=Sistema',
   `active` char(1) DEFAULT NULL COMMENT 'T=Activo,F=Inactivo',
   `imagen` text DEFAULT NULL,
+  `last_login` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   UNIQUE KEY username (username)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8

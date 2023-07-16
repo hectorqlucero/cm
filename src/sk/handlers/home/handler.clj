@@ -5,36 +5,35 @@
             [noir.session :as session]
             [noir.util.crypt :as crypt]
             [ring.util.anti-forgery :refer [anti-forgery-field]]
-            [sk.handlers.home.view :refer [login-script login-view]]
+            [sk.handlers.home.view :refer [login-script login-view contact-view]]
             [sk.layout :refer [application error-404]]
+            [sk.migrations :refer [config]]
             [sk.models.crud :refer [db Query]]
-            [sk.models.util :refer [get-session-id]]
-            [sk.migrations :refer [config]]))
+            [sk.models.util :refer [get-session-id]]))
 
 ;; Start Main
-(defn get-rides0 []
-  (str
-   "
-<iframe allowtransparency frameborder='0' height='160' scrolling='no' src='https://www.strava.com/clubs/1017948/latest-rides/a81e6af10bcf08603aa9226fa75b0b41f600251e?show_rides=false' width='300'></iframe>
-    "))
-(defn get-rides1 []
-  (str
-   "
-<iframe allowtransparency frameborder='0' height='454' scrolling='no' src='https://www.strava.com/clubs/1017948/latest-rides/a81e6af10bcf08603aa9226fa75b0b41f600251e?show_rides=true' width='300'></iframe>
-    "))
+(def main-sql
+  "SELECT
+   username
+   FROM users
+   WHERE id = ?")
 
-(defn get-rides []
-  [:div.row
-   [:div.col
-    [:p (get-rides0)]]
-   [:div.col (get-rides1)]])
+(defn get-main-title
+  []
+  (try
+    (let [id (get-session-id)
+          title (if (> id 0)
+                  (str "<strong>Usuario:</strong> " (:username (first (Query db [main-sql id]))))
+                  "Clic en <strong>Conectar</strong> para accesar el sitio.")]
+      title)
+    (catch Exception e (.getMessage e))))
 
 (defn main
   [_]
   (try
     (let [title (:site config)
           ok (get-session-id)
-          content (get-rides)]
+          content (contact-view)]
       (application title ok nil content))
     (catch Exception e (.getMessage e))))
 ;; End main

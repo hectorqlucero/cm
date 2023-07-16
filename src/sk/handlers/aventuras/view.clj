@@ -66,17 +66,16 @@
 
 (defn aventuras-view [rows crow]
   (list
-   [:div.row
-    [:div.col [:h4.strong {:style "font-style:italic;
-                                  margin:10px;
-                                  padding:2px;
-                                  color:black;
+   [:div.container
+    [:div.row
+     [:div.col.text-primary [:h4.strong {:style "font-style:italic;
+                                  margin-top: 10px;
                                   text-align: justify;
                                   text-justify: inter-word;"} (:comments crow)]]]
-   [:div.row
-    [:div.col
-     [:div.card
-      (map body-rr rows)]]]))
+    [:div.row
+     [:div.col
+      [:div.card
+       (map body-rr rows)]]]]))
 
 (defn aventuras-scripts []
   [:script
