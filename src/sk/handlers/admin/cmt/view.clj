@@ -41,7 +41,7 @@
                    required:true,
                    min:0,
                    precision:0,
-                   width'100%'"})))
+                   width:'100%'"})))
 
 (defn cmt-view [title]
   (list
