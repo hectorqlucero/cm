@@ -37,7 +37,7 @@
       [:li.nav-item.dropdown
        [:a.nav-link.dropdown-toggle {:href "#"
                                      :id "navdrop"
-                                     :data-toggle "dropdown"} "Aventuras"]
+                                     :data-toggle "dropdown"} "Cicloturismo"]
        [:div.dropdown-menu (build-aventuras-menus)]]
       (or (build-private-menus) nil)
       (when
